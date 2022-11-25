@@ -1,11 +1,16 @@
 package com.groupware.tetris.entity.user;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "employee")
-
+@Getter @Setter
+@ToString
 public class Employee {
     @Id
     @Column(name = "e_id")

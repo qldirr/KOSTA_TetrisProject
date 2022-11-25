@@ -100,7 +100,7 @@ a {
 		
 		function insertMember(){
 			
-			var managerId = '<sec:authentication property="principal.username"/>';
+			var managerId = 'manager';
 
 			memberListId.push(managerId);
 			
@@ -108,7 +108,7 @@ a {
 			$.ajax({
 				url: '/project/member',
 				type: 'post',
-				data: JSON.stringify({"pl_num": tmp, "pmembers" : memberListId}),
+				data: JSON.stringify({"pl_num": tmp, "employees" : memberListId}),
 		        contentType: "application/json",
 				success: function(){
 					$("#pj_members", opener.document).val(memberList);

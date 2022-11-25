@@ -40,7 +40,7 @@
 </head>
 <body>
    <div class="wrap">
-      <jsp:include page="../includes/header.jsp"></jsp:include>
+      <%--<jsp:include page="../includes/header.jsp"></jsp:include>--%>
       <!-- 보조메뉴바 시작 -->
       <div class="s-menu">
          <div class="s-menu-title">
@@ -74,40 +74,40 @@
 
                      <div class="form-group">
                         <label for="pj_name">프로젝트명</label> <input type="text"
-                           name="pj_name" class="form-control" id="pj_name">
+                           name="name" class="form-control" id="pj_name">
                      </div>
                      <div class="form-group">
                         <label for="pj_type">프로젝트유형</label> <select class="form-control"
-                           name="pj_type" id="pj_type">
+                           name="type" id="pj_type">
                            <option value="단일">단일팀프로젝트</option>
                            <option value="협업">협업프로젝트</option>
                            <option value="전사">전사프로젝트</option>
                         </select>
                      </div>
                      <div class="form-group">
-                        <label for="pj_startdate">프로젝트시작일</label><input
+                        <label for="datePickerstart">프로젝트시작일</label><input
                            id="datePickerstart" type="text" class="form-control"
-                           name="pj_startdate">
+                           name="startDate">
                      </div>
                      <div class="form-group">
-                        <label for="pj_enddate">프로젝트마감일 </label>
-                        <input id="datePickerend" type="text" class="form-control" name="pj_enddate">
+                        <label for="datePickerend">프로젝트마감일 </label>
+                        <input id="datePickerend" type="text" class="form-control" name="endDate">
                      </div>
                      <div class="form-group">
-                        <label for="pj_startdate">프로젝트매니저</label><input type="text"
-                           name="pj_manager" id="pj_manager" class="form-control"
-                           value="${loginedName }" readonly="readonly">
+                        <label for="pj_manager">프로젝트매니저</label><input type="text"
+                           name="manager" id="pj_manager" class="form-control"
+                           value="테스트매니저" readonly="readonly">
                      </div>
-                     <div class="form-group">
+                     <%--<div class="form-group">
                         <label for="pj_members">프로젝트참여자</label><input type="text"
                            name="e_id" id="pj_members" class="form-control">
                      </div><input
-                           type="button" id="projectMemberRegBtn" value="멤버 추가" style="background-color: #F5F5F5; color: #161E67; border-radius: 5px; border-style: none; padding: 5px;">
+                           type="button" id="projectMemberRegBtn" value="멤버 추가" style="background-color: #F5F5F5; color: #161E67; border-radius: 5px; border-style: none; padding: 5px;">--%>
                      
                      <div class="form-group">
                      <br>
-                        <label for="pj_startdate">프로젝트내용</label><input type="text"
-                           name="pj_contents" id="pj_contents" class="form-control">
+                        <label for="pj_contents">프로젝트내용</label><input type="text"
+                           name="contents" id="pj_contents" class="form-control">
                      </div>
                      <input type="submit" value="새 프로젝트 생성" style="background-color: #161E67; color: #FFF2CA; border-radius: 5px; border-style: none; padding: 5px; float: right; margin-right: 10px;">
                   </form>
