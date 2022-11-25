@@ -1,0 +1,16 @@
+@charset "UTF-8";
+.listBody{
+	position: relative;
+    left: 640px;
+    top: 100px;
+    width: 887px;
+    height: 163px;
+}
+th {
+	text-align: center;
+}
+.htwo{
+	position: relative;
+    left: 635px;
+    top: 100px;
+}

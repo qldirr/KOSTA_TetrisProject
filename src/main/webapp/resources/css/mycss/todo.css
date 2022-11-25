@@ -1,0 +1,256 @@
+@charset "EUC-KR";
+
+body {
+	margin: 0 auto;
+	background-image: url("../img/background.png");
+	background-size: 80%;
+	background-attachment: fixed;
+	-ms-overflow-style: none;
+}
+
+::-webkit-scrollbar { 
+	display: none;
+}
+
+/* 시간 & 시계 */
+.time_wrap {
+	text-align: center;
+	height: 90px;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.time_wrap div.time_wrap_box {
+	display: inline-flex;
+}
+
+.time_wrap div.time_wrap_box div {
+	display: inline;
+	width: 30px;
+	height: 30px;
+	color: white;
+	background-color: #202020;
+	text-align: center;
+	font-size: 1.3rem;
+	padding: 2px;
+	margin: 0 0.2rem;
+	border-radius: 5px;
+}
+
+.time_wrap div.time_wrap_box span {
+	display: inline-block;
+	text-align: center;
+	width: 9px;
+	height: 30px;
+	margin: 0 0.3rem;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-image: url("../img/colon.png");
+	background-position: 0 7px;
+}
+
+.time_wrap input[type="date"] {
+	background: #be4a4a;
+	border: 0;
+	color: white;
+	text-align: center;
+	margin: 0.5rem 0 0.5rem 0;
+	font-weight: 700;
+}
+
+/* 전체박스 */
+.list_box {
+	margin: 5rem auto;
+	width: 400px;
+	height: 500px;
+	padding: 2rem;
+	background-color: #be4a4a;
+	box-shadow: 0 0 20px 5px rgb(166, 140, 117);
+}
+.btn_box {
+	margin-bottom: 1rem;
+}
+
+/* list */
+.list {
+	height: 320px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	clear: both;
+}
+
+.list li {
+	list-style: none;
+	padding: 20px 15px;
+	margin-bottom: 0.5rem;
+}
+
+.list li:nth-child(odd) {
+	background-color: #dfc1ae;
+}
+
+.list li:nth-child(even) {
+	background-color: #f5e2d3;
+}
+
+.list li.checked {
+	background-color: #342323;
+	color: #715555;
+}
+
+.list span.empty_notice {
+	color: white;
+	width: 400px;
+	text-align: center;
+	position: absolute;
+	padding-top: 120px;
+}
+
+.list label {
+	vertical-align: 5px;
+	margin-left: 0.3rem;
+}
+
+.list input[type="checkbox"] {
+	width: 20px;
+	height: 20px;
+}
+
+.list input[type="checkbox"]:checked {
+	color: black;
+	width: 20px;
+	height: 20px;
+	background-color: black;
+}
+
+.list button.delBtn {
+	float: right;
+}
+
+.list .btn_wrap {
+	float: right;
+}
+
+.list .btn_wrap button:last-child {
+	margin-left: 0.2rem;
+}
+
+.list input[type="text"].newTodoContents {
+	width: 260px;
+}
+
+/* 서브탭 */
+.subTab {
+	width: 80%;
+	display: inline;
+	cursor: pointer;
+}
+
+.subTab li {
+	list-style: none;
+	display: inline-block;
+	padding: 10px;
+	background-color: #9f3b3b;
+	color: #4f1212;
+	font-size: 0.8rem;
+	border: 1px solid #9f3b3b;
+	font-weight: 700;
+}
+
+.subTab li.active {
+	background-color: #f05858;
+	color: white;
+	border: 1px solid white;
+}
+
+.subTab div.btnAdd {
+	padding: 10px;
+	font-weight: 700;
+	text-align: center;
+	font-size: 0.8rem;
+	border-radius: 10px;
+	background-color: #37322f;
+	width: 50px;
+	float: right;
+	color: white;
+}
+
+.subTab div.btnAdd:hover {
+	background-color: black;
+}
+
+
+/* 로그인화면 */
+div.loginWrap input[type="text"], input[type="password"] {
+    width: 350px;
+    height: 50px;
+    margin-top: 10px;
+    border: 1px solid rgb(0, 129, 7);
+    border-radius: 5px;
+    padding-left: 20px;
+}
+
+div.loginWrap {
+    text-align: center;
+    width: 400px;
+    margin: 0 auto;
+    padding-top: 3rem;
+}
+
+div.loginWrap .login {
+    margin: 1rem 0 2rem 0;
+}
+
+div.loginWrap button {
+    width: 370px;
+    height: 70px;
+    color: white;
+    text-align: center;
+    background-color: #37322f;
+    box-shadow: none;
+    font-size: 1.5rem;
+    border-radius: 8px;
+    border: 0;
+    outline: 0;
+}
+
+div.loginWrap button:hover {
+	background-color: black;
+}
+
+/* 모달창 */
+div.modal {
+    position: absolute;
+    top: 38%;
+    background-color: white;
+    text-align: center;
+    width: 300px;
+    height: 200px;
+    left: 25%;
+    border-radius: 1rem;
+}
+
+.color_green {
+    display: inline;
+    color: #dfc1ae;
+    font-weight: bold;
+}
+
+.color_grey {
+    display: inline;
+    color: #FFFFFF;
+}
+
+div.loginWrap .intro {
+    padding: 30px 0 30px 0;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+div.loginWrap .login .rmbId {
+	margin-top: 1rem;
+}
+
+div.loginWrap .login label {
+	color: white;
+	font-size: 0.8rem;
+}

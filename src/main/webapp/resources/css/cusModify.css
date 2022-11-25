@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+#regForm{
+	margin-left: 235px;
+	
+}
+.container{
+	
+	display:flex;
+	justify-content: center;
+	align-items:  center;
+
+}
+#deleteUser_btn{
+	width: 324px;
+    position: relative;
+    left: 557px;
+    bottom: 38.5px;
+	
+}
+
+#updateUser_btn{
+	width: 320px;
+
+}
+.form-control {
+	width: 648px;
+}
+.all-group{
+	margin-top: 100px;
+	width:400px;
+}
+.form-group{
+	width: 500px;
+}
+
+.htwo{
+	position: relative;
+	right:450px;
+}
+#idChk{
+	position: relative;
+    left: 200px;
+    top: 10px;
+    background-color: #ffffff;
+    color: black;
+    border: solid 1px;
+    width: 100px;
+    border-color: #c5c5c5;
+} 
+
+.form-group{
+	margin-top:10px;
+}
+/* .form-group1{
+	width:300px;
+	height: 70px;
+} 
+.form-group2{
+	width: 0;
+	height: 0;
+} */

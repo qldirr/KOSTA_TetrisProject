@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+.container{
+	
+	display:flex;
+	justify-content: center;
+	align-items:  center;
+	margin-top: 200px;
+	
+}
+#imgc{
+	margin-bottom: 20px;
+	margin-left:120px;
+	
+	}
+.jumbotron{
+	width:500px;
+	height:500px;
+		border : solid 1px	
+		;
+		border-color:#e3e3e3;
+		background-color: white;
+		margin : auto;
+}
+#login{
+	margin-top: 50px;
+}
+
+.btn-primary{
+	background-color: #ffe980;
+	color: black;
+	border-color: #fecf81;
+}
+.btn-primary:hover{
+    background-color: #ffe980;
+}
+.check{
+	padding-bottom: 5px;
+}

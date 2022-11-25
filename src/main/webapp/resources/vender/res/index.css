@@ -1,0 +1,46 @@
+/* navbar */
+
+.container{width:1200px; max-width:none!important;}
+
+
+
+.sidebar{
+	height: 100vh;
+	background:#FFF5cd;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	box-shadow: 5px 7px 25px #999;
+		
+}
+
+
+.bottom-border{
+	border-bottom: 5px groove #FFFDEF; 
+}
+
+.sidebar-link{
+	transition: all .4s;
+		
+}
+.sidebar-link:hover {	
+	background-color: #FFFDEF;
+	width:100%;
+	border-radius: 5px;
+}
+
+.icon-parent{
+	position: relative;
+			
+}
+
+.icon-bullet::after {
+	content: "";
+	position: absolute;
+	top: 7px;
+	left: 15px;
+	height: 12px;
+	width: 12px;
+	background-color: red;
+	border-radius: 50%;
+}

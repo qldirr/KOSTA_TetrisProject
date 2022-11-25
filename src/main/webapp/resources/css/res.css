@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+
+.position{
+	position: relative;
+	top: 75px;
+	width: 1460px;
+	height: 100%;
+}
+
+.contents{
+	position:absolute;
+	top:75px;
+	width: 80%;
+	height: 80%;
+	background-color:white;
+}
+
+.resApp_Btn{
+	display: inline-block;
+	width: 50px;
+	height: 30px;
+	background-color: #151d66;
+	border: 2.5px solid #151d66;
+	margin-left: 40px;
+	border-radius: 4px;
+	font-size: 15px;
+	cursor: pointer;
+	color: white;
+		
+	
+}
+
+
+.list_Btn{ /*회의실관리 메인리스트로 돌아가기*/
+	display: inline-block;
+	width: 150px;
+	height: 40px;
+	background-color: #fef5cc;
+	border: 2.5px solid #fef5cc;
+	margin-left: 40px;
+	border-radius: 4px;
+	font-size: 15px;
+	color: rgba(150, 149, 147, 1);
+	cursor: pointer;
+}
+
+.write_Btn{/*등록하는 버튼*/
+	display: inline-block;
+	width: 150px;
+	height: 40px;
+	background-color: #151d66;
+	border: 2.5px solid #151d66;
+	margin-left: 40px;
+	border-radius: 4px;
+	font-size: 15px;
+	color: white;
+	cursor: pointer;
+	
+}
+

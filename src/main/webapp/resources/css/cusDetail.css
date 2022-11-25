@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+#regForm {
+	margin-left: 183px;
+}
+
+.modifybtn{
+	
+}
+.deletebtn{
+	
+
+
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.form-control {
+	width: 648px;
+}
+
+
+#content {
+
+}
+
+.htwo {
+	/* position: relative; */
+	right: 215px;
+}
+
+#idChk {
+	position: relative;
+	left: 546px;
+	top: 10px;
+	background-color: #ffffff;
+	color: black;
+	border: solid 1px;
+	width: 100px;
+	height: 30px;
+	border-color: #c5c5c5
+}
+
+.form-group {
+	margin-top: 10px;
+}
+/* .form-group1{
+	width:300px;
+	height: 70px;
+} 
+.form-group2{
+	width: 0;
+	height: 0;
+} */
