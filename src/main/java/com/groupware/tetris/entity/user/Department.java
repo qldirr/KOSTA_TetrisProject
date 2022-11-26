@@ -20,8 +20,8 @@ public class Department{
     private String name;
     private String head;
 
-
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL,
             orphanRemoval = true,fetch = FetchType.LAZY)
     List<Employee> employees = new ArrayList<>();
+
 }

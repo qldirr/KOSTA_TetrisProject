@@ -2,6 +2,7 @@ package com.groupware.tetris.controller;
 
 
 import com.groupware.tetris.dto.project.ProjectFormDto;
+import com.groupware.tetris.service.EmployeeService;
 import com.groupware.tetris.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ import javax.validation.Valid;
 public class ProjectController {
 
     private final ProjectService projectService;
+
+    private final EmployeeService employeeService;
 
     @GetMapping(value = "/project/main")
     public String listProject(){
@@ -37,7 +40,7 @@ public class ProjectController {
         }
 
         try {
-            projectService.saveProject(projectFormDto);
+           projectService.saveProject(projectFormDto);
         } catch (Exception e) {
             e.printStackTrace();
             return  "/project/register";
@@ -46,4 +49,12 @@ public class ProjectController {
         return "/project/main";
 
     }
+
+    @GetMapping(value = "/project/member")
+    public void getListEmployees(Model model) {
+
+        model.addAttribute("dept", employeeService.getListDepartment());
+        model.addAttribute("employees", employeeService.getListEmployees());
+    }
+
 }

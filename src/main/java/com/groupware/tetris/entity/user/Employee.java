@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 public class Employee {
     @Id
     @Column(name = "e_id")
-    @GeneratedValue(strategy =GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String email;

@@ -57,7 +57,7 @@ a {
 
 	var memberListId = [];
 	var memberList = [];
-	var tmp = "";
+	var managerId = "";
 	
 	/* 프로젝트 멤버 등록 페이지 버튼 이벤트 함수 */
 	var button = (function(){
@@ -99,24 +99,13 @@ a {
 		}
 		
 		function insertMember(){
-			
-			var managerId = 'manager';
 
 			memberListId.push(managerId);
-			
-			/* 추가된 사원의 아이디와 임시 프로젝트 참여 리스트 값을 전달 */
-			$.ajax({
-				url: '/project/member',
-				type: 'post',
-				data: JSON.stringify({"pl_num": tmp, "employees" : memberListId}),
-		        contentType: "application/json",
-				success: function(){
-					$("#pj_members", opener.document).val(memberList);
-					window.close();
-				}, error: function(er){
-					alert("참여자 등록 실패");
-				}
-			}); /* end ajax */
+
+			$("#pj_members", opener.document).val(memberList);
+			$("#pj_members_id", opener.document).val(memberListId);
+
+			window.close();
 			
 		}
 		
@@ -132,10 +121,9 @@ a {
 
 
 	$(function() {
-	
-		/* 프로젝트 매니저 아이디를 임시 프로젝트 참여 리스트 번호로 받음 */
-		tmp = $( "#pj_manager", opener.document ).val();
-		
+
+		managerId = $( "#pj_manager_id", opener.document ).val();
+
 		$("#tree").treeview({
 			collapsed : false,
 			animated : "medium",
@@ -174,13 +162,13 @@ a {
 					<ul id="tree">
 					<c:forEach items="${dept}" var="dept">
 							<li>
-							<input type="checkbox" name="dname" value="${dept.d_name}">
-							<strong>${dept.d_name}</strong>
+							<input type="checkbox" name="dname" value="${dept.name}">
+							<strong>${dept.name}</strong>
 							<ul>
 								<c:forEach items="${employees}" var="employees">
-									<c:if test="${employees.d_num eq dept.d_num}">
+									<c:if test="${employees.department.id eq dept.id}">
 										<li><input type="checkbox" name="ename"
-												value="${employees.e_id}"><label>[${employees.e_position}]${employees.e_name}</label></li>
+												value="${employees.id}"><label>[${employees.position}]${employees.name}</label></li>
 									</c:if>
 								</c:forEach>
 							</ul>

@@ -27,13 +27,17 @@
                autoclose : true
             });
 
-            $("#projectMemberRegBtn").on(
-                  "click",
-                  function() {
-                     var child;
-                     child = window.open("/project/member", "_blank",
-                           "width=400, height=580");
-                  });
+            var child;
+
+            $("#projectMemberRegBtn").on("click", function() {
+               child = window.open("/project/member", "_blank", "width=400, height=580");
+            });
+
+           /* $("#projectForm").submit(function(){
+               alert($('#pj_members').val());
+               alert($('input[name=manager]').val());
+               alert($('#pj_members_id').val());
+            })*/
 
          });
 </script>
@@ -69,45 +73,45 @@
             <div class="contents_wrap">
                <div class="contents">
 
-                  <form action="/project/register" method="post"
+                  <form action="/project/register" method="post" id="projectForm"
                      accept-charset="UTF-8">
 
                      <div class="form-group">
-                        <label for="pj_name">프로젝트명</label> <input type="text"
-                           name="name" class="form-control" id="pj_name">
+                        <label for="pj_name">프로젝트명</label>
+                        <input type="text" name="name" class="form-control" id="pj_name">
                      </div>
                      <div class="form-group">
-                        <label for="pj_type">프로젝트유형</label> <select class="form-control"
-                           name="type" id="pj_type">
+                        <label for="pj_type">프로젝트유형</label>
+                        <select class="form-control" name="type" id="pj_type">
                            <option value="단일">단일팀프로젝트</option>
                            <option value="협업">협업프로젝트</option>
                            <option value="전사">전사프로젝트</option>
                         </select>
                      </div>
                      <div class="form-group">
-                        <label for="datePickerstart">프로젝트시작일</label><input
-                           id="datePickerstart" type="text" class="form-control"
-                           name="startDate">
+                        <label for="datePickerstart">프로젝트시작일</label>
+                        <input id="datePickerstart" type="text" class="form-control" name="startDate">
                      </div>
                      <div class="form-group">
                         <label for="datePickerend">프로젝트마감일 </label>
                         <input id="datePickerend" type="text" class="form-control" name="endDate">
                      </div>
                      <div class="form-group">
-                        <label for="pj_manager">프로젝트매니저</label><input type="text"
-                           name="manager" id="pj_manager" class="form-control"
-                           value="테스트매니저" readonly="readonly">
+                        <label for="pj_manager">프로젝트매니저</label>
+                        <input type="text" id="pj_manager" class="form-control" value="테스트매니저" readonly="readonly">
+                        <input type="hidden" name="manager" value="5">
                      </div>
-                     <%--<div class="form-group">
-                        <label for="pj_members">프로젝트참여자</label><input type="text"
-                           name="e_id" id="pj_members" class="form-control">
+                     <div class="form-group">
+                        <label for="pj_members">프로젝트참여자</label>
+                        <input type="text" id="pj_members" class="form-control">
+                        <input type="hidden" id="pj_members_id" name="employees">
                      </div><input
-                           type="button" id="projectMemberRegBtn" value="멤버 추가" style="background-color: #F5F5F5; color: #161E67; border-radius: 5px; border-style: none; padding: 5px;">--%>
+                           type="button" id="projectMemberRegBtn" value="멤버 추가" style="background-color: #F5F5F5; color: #161E67; border-radius: 5px; border-style: none; padding: 5px;">
                      
                      <div class="form-group">
                      <br>
-                        <label for="pj_contents">프로젝트내용</label><input type="text"
-                           name="contents" id="pj_contents" class="form-control">
+                        <label for="pj_contents">프로젝트내용</label>
+                        <input type="text" name="contents" id="pj_contents" class="form-control">
                      </div>
                      <input type="submit" value="새 프로젝트 생성" style="background-color: #161E67; color: #FFF2CA; border-radius: 5px; border-style: none; padding: 5px; float: right; margin-right: 10px;">
                   </form>

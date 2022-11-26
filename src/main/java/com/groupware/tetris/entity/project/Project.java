@@ -1,8 +1,8 @@
 package com.groupware.tetris.entity.project;
 
 import com.groupware.tetris.dto.project.ProjectFormDto;
-import com.groupware.tetris.dto.project.ProjectMemberFormDto;
 import com.groupware.tetris.entity.user.Employee;
+import com.groupware.tetris.repository.EmployeeRepository;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -29,7 +29,7 @@ public class Project {
     private LocalDate endTime;
     private String contents;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "e_id")
     private Employee manager;
 
@@ -46,16 +46,17 @@ public class Project {
 
 
     //프로젝트 생성 메서드
-    public static Project createProject(ProjectFormDto projectFormDto) {
-        Project project = new Project();
+    public static Project createProject(ProjectFormDto projectFormDto, Employee manager, List<Employee> members) {
 
+        Project project = new Project();
 
         project.setName(projectFormDto.getName());
         project.setType(projectFormDto.getType());
         project.setContents(projectFormDto.getContents());
         project.setStartTime(projectFormDto.getStartDate());
         project.setEndTime(projectFormDto.getEndDate());
-        /*project.setEmployees(memberFormDto.getEmployees());*/
+        project.setManager(manager);
+        project.setEmployees(members);
 
         return project;
 
