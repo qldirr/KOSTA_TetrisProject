@@ -2,6 +2,7 @@ package com.groupware.tetris.service;
 
 import com.groupware.tetris.dto.project.ProjectFormDto;
 import com.groupware.tetris.entity.project.Project;
+import com.groupware.tetris.entity.user.Employee;
 import com.groupware.tetris.repository.ProjectRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ class ProjectServiceTest {
         ProjectFormDto projectFormDto = new ProjectFormDto();
 
         projectFormDto.setName("테스트 프로젝트");
-        projectFormDto.setManager("테스트 매니저");
+        /*projectFormDto.setManager();*/
         projectFormDto.setType("단일");
         projectFormDto.setStartDate(LocalDate.of(2022, 11, 16));
         projectFormDto.setEndDate(LocalDate.of(2022, 12, 16));

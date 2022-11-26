@@ -278,7 +278,7 @@
 </head>
 <body>
 <div class="wrap">
-		<jsp:include page="../includes/header.jsp"></jsp:include>
+		<%--<jsp:include page="../includes/header.jsp"></jsp:include>--%>
 			<!-- 보조메뉴바 시작 -->
 				<div class="s-menu">
 				<div class="s-menu-title">
@@ -308,12 +308,12 @@
 	<div class="wrap-box">		
 		<div class="s-container">
 
-			<input type="hidden" id="pj_num" name="pj_num" value="${pj_num}">
+			<input type="hidden" id="pj_num" name="pj_num" value="${project.id}">
 			<br><br>
-			<h5>${project.pj_name }</h5>
+			<h5>${project.name }</h5>
 			<h2 id="c-title">글 목록</h2>
 			<div class="contents_wrap">
-			<form action="/projectdetail/home/ + ${ pj_num}" method="get">
+			<form action="/projectdetail/ + ${project.id}" method="get">
 			<input type="text" name="searchkey" placeholder="검색 내용 입력" style="border: 1px solid #c0c0c0;">
 			<input type="submit" id="search" value="검색" style="background-color: #f5f5f5; color: #161E67; border-radius: 5px; border-style: none; padding: 5px;"><br><br>
 			</form>
@@ -322,13 +322,13 @@
 	<div id="contentsBox">
 			<div class="board">
 				<div class="boardContents">
-					<c:forEach items="${board}" var="b">
+					<c:forEach items="${boards}" var="b">
 						<div class="media">
 							<i id="usericon" class="fa-regular fa-circle-user fa-2x"></i>
 							<div class="media-body">
-								<h5 class="mt-0" id="boardWriter${b.pb_num}">&nbsp;&nbsp;${b.pb_writer}</h5>
-								<p id="boardContents${b.pb_num}">&nbsp;&nbsp;${b.pb_contents }</p><br>
-								<div id='uploadResult${b.pb_num}' class='uploadResult'>
+								<h5 class="mt-0" id="boardWriter${b.id}">&nbsp;&nbsp;${b.writer.name}</h5>
+								<p id="boardContents${b.id}">&nbsp;&nbsp;${b.contents }</p><br>
+								<div id='uploadResult${b.id}' class='uploadResult'>
 									<ul>
 									</ul>
 								</div>
@@ -337,11 +337,11 @@
 							</div>
 						</div>
 		
-						<div id="${b.pb_num}" class="replyContents">
-							<div id="reply${b.pb_num}" class="boardReplies">
+						<%--<div id="${b.pb_num}" class="replyContents">
+							<div id="reply${b.id}" class="boardReplies">
 								<ul class="replies">
 									<c:forEach items="${replies}" var="r">
-										<c:if test="${b.pb_num eq r.pb_num }">
+										<c:if test="${b.id eq r.pb_num }">
 											<li><i id="usericon" class="fa-regular fa-circle-user fa-2x"></i> ${r.pr_writer}:
 												${r.pr_contents} 
 												<c:if test="${r.pr_writer eq loginedId }">
@@ -358,13 +358,13 @@
 									</c:forEach>
 								</ul>
 									<div class="form-group">
-    									<textarea class="form-control" id="pr_contents${b.pb_num}" name="pr_contents" rows="3" placeholder="댓글을 입력하세요."></textarea>
+    									<textarea class="form-control" id="pr_contents${b.id}" name="pr_contents" rows="3" placeholder="댓글을 입력하세요."></textarea>
   									</div>
-									<input type="button" id="replyReg${b.pb_num}" name="replyRegBtn" value="등록" style="background-color: #161E67; color: #FFF2CA; border-radius: 5px; border-style: none; padding: 5px; float: right; margin-right: 10px;"><br>
+									<input type="button" id="replyReg${b.id}" name="replyRegBtn" value="등록" style="background-color: #161E67; color: #FFF2CA; border-radius: 5px; border-style: none; padding: 5px; float: right; margin-right: 10px;"><br>
 									<br>
 								
 							</div>
-						</div>
+						</div>--%>
 						<hr>
 					</c:forEach>
 				</div>

@@ -124,7 +124,7 @@ $(function() {
 <body>
 
 <div class="wrap">
-		<jsp:include page="../includes/header.jsp"></jsp:include>
+		<%--<jsp:include page="../includes/header.jsp"></jsp:include>--%>
 			<!-- 보조메뉴바 시작 -->
 				<div class="s-menu">
 				<div class="s-menu-title">
@@ -159,10 +159,10 @@ $(function() {
             <div class="contents_wrap">
             
 		<form role="form" action="/projectdetail/register" method="post">
-		<input type="hidden" id="pj_num" name="pj_num" value="${pj_num}">
-		<input type="hidden" id="pb_writer" name="pb_writer" value="${loginedId }">
+		<input type="hidden" id="pj_num" name="projectId" value="1">
+		<input type="hidden" id="pb_writer" name="writerId" value="3">
 		<div class="form-group">
-    		<textarea class="form-control" name="pb_contents" rows="10"></textarea>
+    		<textarea class="form-control" name="contents" rows="10"></textarea>
   		</div>
 		<input type="hidden" id="notice" name="pb_status" value="Y">
 		<div class='upload'>

@@ -25,11 +25,12 @@ public class ProjectFormDto {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-    private Long manager;
+
+    private Employee manager;
+
     private String contents;
 
-    private List<Long> employees = new ArrayList<>();
-
+    private List<Employee> employees;
 
 
     /*//엔티티 객체와 DTO 객체 간 데이터를 복사하여 복사한 객체를 반환

@@ -1,10 +1,12 @@
 package com.groupware.tetris.controller;
 
 
+import com.groupware.tetris.dto.project.MemberFormDto;
 import com.groupware.tetris.dto.project.ProjectFormDto;
 import com.groupware.tetris.service.EmployeeService;
 import com.groupware.tetris.service.ProjectService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +25,10 @@ public class ProjectController {
     private final EmployeeService employeeService;
 
     @GetMapping(value = "/project/main")
-    public String listProject(){
+    public String getListProject(Model model){
+
+        model.addAttribute("list", projectService.getListMyProjects(2L));
+
         return "/project/main";
     }
 
@@ -33,14 +38,14 @@ public class ProjectController {
     }
 
     @PostMapping(value = "/project/register")
-    public String registerProject(@Valid ProjectFormDto projectFormDto, BindingResult bindingResult, Model model) throws Exception {
+    public String registerProject(@Valid ProjectFormDto projectFormDto, MemberFormDto memberFormDto, BindingResult bindingResult, Model model) throws Exception {
 
         if (bindingResult.hasErrors()) {
             return "/project/register";
         }
 
         try {
-           projectService.saveProject(projectFormDto);
+           projectService.saveProject(projectFormDto, memberFormDto);
         } catch (Exception e) {
             e.printStackTrace();
             return  "/project/register";

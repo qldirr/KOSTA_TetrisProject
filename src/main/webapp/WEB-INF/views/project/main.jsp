@@ -74,33 +74,26 @@ border-left: 5px solid #04004D;
 			<br>
 			<h2 id="c-title">내 프로젝트</h2>
 		<c:forEach items="${list }" var="myProject">
-			<c:if test="${myProject.pj_type eq '협업'}">
+			<c:if test="${myProject.type eq '협업'}">
 			
 					
 					<div class="bs-callout bs-callout-info">
-					<span class="badge badge-secondary">${myProject.pj_type }</span>
+					<span class="badge badge-secondary">${myProject.type }</span>
 			</c:if>	
 			
-			<c:if test="${myProject.pj_type eq '단일'}">
+			<c:if test="${myProject.type eq '단일'}">
 					
 					<div class="bs-callout bs-callout-warning">
-					<span class="badge badge-warning">${myProject.pj_type }</span>
+					<span class="badge badge-warning">${myProject.type }</span>
 			</c:if>		
-			<c:if test="${myProject.pj_type eq '전사'}">
+			<c:if test="${myProject.type eq '전사'}">
 					
 					<div class="bs-callout bs-callout-danger">
-					<span class="badge badge-info">${myProject.pj_type }</span>
+					<span class="badge badge-info">${myProject.type }</span>
 			</c:if>		
-						<strong> ${myProject.pj_name } </strong>  ${myProject.pj_contents }  <a href="/projectdetail/home/${myProject.pj_num}"> <i class="fa-solid fa-arrow-right-to-bracket" style="color: #161E67"></i></a> <br>
+						<strong> ${myProject.name } </strong>  ${myProject.contents }  <a href="/projectdetail/${myProject.id}"> <i class="fa-solid fa-arrow-right-to-bracket" style="color: #161E67"></i></a> <br>
 						프로젝트 참여자: 
-						<c:forEach items="${myProject.pj_members }" var="member"><span class="badge badge-pill badge-light">${member.d_name }</span>${member.e_name } (${member.e_id }) </c:forEach><br>
-							
-							
-						<div class="progress">
-  							<div class="progress-bar" role="progressbar" style="width: ${myProject.pj_finishedTask}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">${myProject.pj_finishedTask} %</div>
-						</div>
-						
-						
+						<c:forEach items="${myProject.employees}" var="member"><span class="badge badge-pill badge-light">${member.department.name }</span>${member.name } (${member.id }) </c:forEach><br>
 						
 					</div>
 

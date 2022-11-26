@@ -1,5 +1,6 @@
 package com.groupware.tetris.entity.project;
 
+import com.groupware.tetris.dto.project.MemberFormDto;
 import com.groupware.tetris.dto.project.ProjectFormDto;
 import com.groupware.tetris.entity.user.Employee;
 import com.groupware.tetris.repository.EmployeeRepository;
@@ -46,7 +47,7 @@ public class Project {
 
 
     //프로젝트 생성 메서드
-    public static Project createProject(ProjectFormDto projectFormDto, Employee manager, List<Employee> members) {
+    public static Project createProject(ProjectFormDto projectFormDto) {
 
         Project project = new Project();
 
@@ -55,8 +56,8 @@ public class Project {
         project.setContents(projectFormDto.getContents());
         project.setStartTime(projectFormDto.getStartDate());
         project.setEndTime(projectFormDto.getEndDate());
-        project.setManager(manager);
-        project.setEmployees(members);
+        project.setManager(projectFormDto.getManager());
+        project.setEmployees(projectFormDto.getEmployees());
 
         return project;
 

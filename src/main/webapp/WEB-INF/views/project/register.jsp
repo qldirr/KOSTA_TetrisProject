@@ -99,12 +99,12 @@
                      <div class="form-group">
                         <label for="pj_manager">프로젝트매니저</label>
                         <input type="text" id="pj_manager" class="form-control" value="테스트매니저" readonly="readonly">
-                        <input type="hidden" name="manager" value="5">
+                        <input type="hidden" name="managerId" value="5">
                      </div>
                      <div class="form-group">
                         <label for="pj_members">프로젝트참여자</label>
                         <input type="text" id="pj_members" class="form-control">
-                        <input type="hidden" id="pj_members_id" name="employees">
+                        <input type="hidden" id="pj_members_id" name="memberIds">
                      </div><input
                            type="button" id="projectMemberRegBtn" value="멤버 추가" style="background-color: #F5F5F5; color: #161E67; border-radius: 5px; border-style: none; padding: 5px;">
                      
