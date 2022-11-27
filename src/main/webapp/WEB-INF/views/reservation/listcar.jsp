@@ -7,7 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>TetrisGroupware</title>
-<link href="/resources/css/res.css" rel="stylesheet">
+
+	<link href="/resources/vender/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/resources/css/res.css" rel="stylesheet">
+	<link href="/resources/css/main.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+	<script src="/resources/vender/jquery/jquery-3.6.1.min.js"></script>
+	<script src="/resources/vender/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <script type="text/javascript">
 	
@@ -17,7 +23,7 @@
 </head>
 <body>
 	<div class="wrap">
-		<jsp:include page="../includes/header.jsp"></jsp:include>
+
 		<!-- 보조메뉴바 시작 -->
 		<div class="s-menu">
 			<div class="s-menu-title">
@@ -61,15 +67,15 @@
 							<c:forEach var="carlist" items="${list}">
 
 								<tr>
-									<td>${carlist.ca_num }</td>
+									<td>${carlist.Id}</td>
 									<td><a
-										href="/reservation/readcar?ca_num=${carlist.ca_num}">${carlist.ca_model}</a></td>
-									<td>${carlist.ca_type}</td>
-									<td>${carlist.ca_age}</td>
+										href="/reservation/readcar?ca_num=${carlist.Id}">${carlist.ModelNm}</a></td>
+									<td>${carlist.CarType}</td>
+									<td>${carlist.CarAge}</td>
 
-									<td><fmt:formatDate value="${carlist.ca_regdate}"
+									<td><fmt:formatDate value="${carlist.setRegDate}"
 											pattern="yyyy-MM-dd" /></td>
-									<td><fmt:formatDate value="${carlist.ca_modifydate}"
+									<td><fmt:formatDate value="${carlist.setModDate}"
 											pattern="yyyy-MM-dd" /></td>
 								</tr>
 							</c:forEach>
