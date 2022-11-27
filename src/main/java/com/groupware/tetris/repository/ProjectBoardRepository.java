@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ProjectBoardRepository extends JpaRepository<ProjectBoard, Long> {
 
+    ProjectBoard findProjectBoardById(Long boardId);
     List<ProjectBoard> findProjectBoardsByProject_IdOrderByIdDesc(Long projectId);
 
 }

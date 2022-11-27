@@ -16,6 +16,7 @@ import java.util.List;
 @Getter @Setter
 public class ProjectFormDto {
 
+    private Long id;
     private String name;
     private String type;
 
@@ -31,6 +32,12 @@ public class ProjectFormDto {
     private String contents;
 
     private List<Employee> employees;
+
+    private static ModelMapper modelMapper = new ModelMapper();
+
+    public static ProjectFormDto toDto(Project project) {
+        return modelMapper.map(project, ProjectFormDto.class);
+    }
 
 
     /*//엔티티 객체와 DTO 객체 간 데이터를 복사하여 복사한 객체를 반환

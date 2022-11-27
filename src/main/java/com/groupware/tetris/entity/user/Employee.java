@@ -1,5 +1,6 @@
 package com.groupware.tetris.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,6 +29,7 @@ public class Employee {
     private String position;
     private boolean Enabled;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "d_id")
     private Department department;

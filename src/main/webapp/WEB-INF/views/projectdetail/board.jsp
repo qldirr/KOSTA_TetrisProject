@@ -50,7 +50,7 @@
 		/* 댓글 추가 */
 		function add(reply, callback, error) {
 			$.ajax({
-				url : '/projectdetail/registerReply',
+				url : '/projectdetail/registerReply/' + reply.boardId,
 				type : 'post',
 				data : JSON.stringify(reply),
 				dataType : 'json',
@@ -58,9 +58,6 @@
 				contentType : "application/json"
 			}).done(function(data, textStatus, xhr) {
 
-				if (callback) {
-					callback(data);
-				}
 				/* 댓글 추가 성공시 해당 글의 댓글 부분만 load */
 				$("#pr_contents" + pb_num).val('');
 				
@@ -73,10 +70,10 @@
 
 		/* 댓글 삭제 */
 		function del(reply, callback, error) {
+
 			$.ajax({
-				url : '/projectdetail/removeReply',
-				type : 'post',
-				data : JSON.stringify(reply),
+				url : '/projectdetail/removeReply/' + reply.boardId + "/" + reply.replyId,
+				type : 'delete',
 				dataType : 'json',
 				contentType : "application/json"
 			}).done(function(data, textStatus, xhr) {
@@ -188,11 +185,11 @@
 			function() {
 			
 
-				var pj_num = '<c:out value="${pj_num}"/>';
+				/*var pj_num = '<c:out value="${pj_num}"/>';
 
 				attachService.get(pj_num, function(result) {
 					console.log(result);
-				});
+				});*/
 
 
 				
@@ -200,20 +197,20 @@
 					
 					pb_num = $(this).closest('.replyContents').attr('id');
 					pb_contents = $('#boardContents' + pb_num).text().substr(2, 12);
-					pr_writer = '${loginedId}';
+					pr_writer = '2';
 					
 					
 					var reply = {
-						"pr_writer" : pr_writer,
-						"pr_contents" : $('#pr_contents' + pb_num).val(),
-						"pb_num" : pb_num
+						"writerId" : pr_writer,
+						"contents" : $('#pr_contents' + pb_num).val(),
+						"boardId" : pb_num
 					};
 					replyService.add(reply, function(result) {
 						console.log(result);
 					})
 					
 					
-					var alarm_id = ($('#boardWriter' + pb_num)).text().trim();
+					/*var alarm_id = ($('#boardWriter' + pb_num)).text().trim();
 					
 					var alarm = {
 						
@@ -240,7 +237,7 @@
 						}
 
 						
-					}) /* end ajax */
+					}) /!* end ajax *!/*/
 					
 
 				});
@@ -251,8 +248,8 @@
 
 
 					var reply = {
-						"pr_num" : pr_num,
-						"pb_num" : pb_num
+						replyId : pr_num,
+						boardId : pb_num
 					};
 
 					replyService.del(reply)
@@ -337,34 +334,34 @@
 							</div>
 						</div>
 		
-						<%--<div id="${b.pb_num}" class="replyContents">
+						<div id="${b.id}" class="replyContents">
 							<div id="reply${b.id}" class="boardReplies">
 								<ul class="replies">
 									<c:forEach items="${replies}" var="r">
-										<c:if test="${b.id eq r.pb_num }">
-											<li><i id="usericon" class="fa-regular fa-circle-user fa-2x"></i> ${r.pr_writer}:
-												${r.pr_contents} 
-												<c:if test="${r.pr_writer eq loginedId }">
-													<button type="button" class="close" id="${r.pr_num}" aria-label="Close">
+										<c:if test="${b.id eq r.boardId }">
+											<li><i id="usericon" class="fa-regular fa-circle-user fa-2x"></i> ${r.writer.name}:
+												${r.contents}
+												<c:if test="${r.writer.id eq 2 }">
+													<button type="button" class="close" id="${r.id}" aria-label="Close">
   															<span aria-hidden="true" name="replyDelBtn" >&times;</span>
 													</button>
-												</c:if> 
-												<c:set var="now" value="${r.pr_moddate}" />
+												</c:if>
+												<%--<c:set var="now" value="${r.pr_moddate}" />
 												<c:set var="sysYear">
 												<fmt:formatDate value="${now}" pattern="yy-MM-dd hh:mm" /></c:set>
-												<span style="float:right; margin-right: 3px;"><c:out value="${sysYear}" /></span>
+												<span style="float:right; margin-right: 3px;"><c:out value="${sysYear}" /></span>--%>
 												</li>
 										</c:if>
 									</c:forEach>
 								</ul>
 									<div class="form-group">
-    									<textarea class="form-control" id="pr_contents${b.id}" name="pr_contents" rows="3" placeholder="댓글을 입력하세요."></textarea>
+    									<textarea class="form-control" id="pr_contents${b.id}" name="contents" rows="3" placeholder="댓글을 입력하세요."></textarea>
   									</div>
 									<input type="button" id="replyReg${b.id}" name="replyRegBtn" value="등록" style="background-color: #161E67; color: #FFF2CA; border-radius: 5px; border-style: none; padding: 5px; float: right; margin-right: 10px;"><br>
 									<br>
 								
 							</div>
-						</div>--%>
+						</div>
 						<hr>
 					</c:forEach>
 				</div>

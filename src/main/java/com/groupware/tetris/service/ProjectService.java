@@ -48,12 +48,24 @@ public class ProjectService {
 
     }
 
-    public List<Project> getListMyProjects(Long employeeId) {
-        return projectRepository.getMyProjectPage(employeeId);
+    @Transactional(readOnly = true)
+    public List<ProjectFormDto> getListMyProjects(Long employeeId) {
+
+        List<Project> projects
+                = projectRepository.getMyProjectPage(employeeId);
+
+        List<ProjectFormDto> projectFormDtos
+                = projects.stream().map(project -> ProjectFormDto.toDto(project)).collect(Collectors.toList());
+
+        return projectFormDtos;
     }
 
-    public Project getProject(Long projectId){
-        return projectRepository.findProjectById(projectId);
+    @Transactional(readOnly = true)
+    public ProjectFormDto getProject(Long projectId){
+
+        ProjectFormDto projectFormDto = ProjectFormDto.toDto(projectRepository.findProjectById(projectId));
+
+        return projectFormDto;
     }
 
 }

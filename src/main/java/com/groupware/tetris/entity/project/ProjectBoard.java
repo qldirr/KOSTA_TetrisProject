@@ -1,5 +1,6 @@
 package com.groupware.tetris.entity.project;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.groupware.tetris.dto.project.BoardFormDto;
 import com.groupware.tetris.entity.BaseTimeEntity;
 import com.groupware.tetris.entity.user.Employee;
@@ -9,6 +10,8 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="projectboard")
@@ -27,9 +30,13 @@ public class ProjectBoard extends BaseTimeEntity {
     private Employee writer;
     private String contents;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "projectBoard", cascade = CascadeType.ALL)
+    private List<BoardReply> replies = new ArrayList<>();
 
     public static ProjectBoard createBoard(BoardFormDto boardFormDto){
 
