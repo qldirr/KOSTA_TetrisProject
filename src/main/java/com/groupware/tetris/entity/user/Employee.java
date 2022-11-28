@@ -1,11 +1,23 @@
 package com.groupware.tetris.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.groupware.tetris.constant.Role;
+import com.groupware.tetris.dto.user.DepartmentDto;
+import com.groupware.tetris.dto.user.EmployeeFormDto;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "employee")
-@Getter @Setter
+@Getter
+@Setter
 @ToString
 public class Employee {
     @Id
