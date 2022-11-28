@@ -10,4 +10,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Employee getEmployeeById(Long e_id);
     List<Employee> getEmployeesByIdIn(List<Long> memberIds);
 
+public interface EmployeeRepository extends JpaRepository<Employee,Long> {
+
+    Employee findByEmail(String email);
+
 }

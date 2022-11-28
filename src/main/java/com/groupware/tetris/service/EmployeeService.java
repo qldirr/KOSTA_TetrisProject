@@ -27,4 +27,17 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    public Employee saveEmployee(Employee employee){
+        validateDuplicateEmployee(employee);
+        return employeeRepository.save(employee);
+    }
+    public void validateDuplicateEmployee(Employee employee)
+    {
+        Employee findEmployee = employeeRepository.findByEmail(employee.getEmail());
+        if(findEmployee != null){
+            throw new IllegalStateException("이미 가입된 회원입니다.");
+        }
+
+    }
+
 }
