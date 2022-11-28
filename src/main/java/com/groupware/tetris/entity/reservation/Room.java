@@ -4,33 +4,32 @@ package com.groupware.tetris.entity.reservation;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="Car")
+@Table(name = "Room")
 @Getter
 @Setter
 @ToString
-public class Car {
+public class Room {
 
     @Id
-    @Column(name = "Car_id")
-    @GeneratedValue(strategy = GenerationType.AUTO )
-    private Long id; //차량코드
+    @Column(name = "Room_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private  Long id;
 
     @Column(nullable = false)
-    private String carNum;//차량번호
-
-    @Column(nullable = false, length = 50)
-    private String modelNm; //차량모델명
+    private String rooNum;
 
     @Column(nullable = false)
-    private String carType;//차종
+    private String roomNm;
 
     @Column(nullable = false)
-    private String carAge; //연식
+    private String total;
+
 
     private LocalDateTime regDate;//등록 일자
     private LocalDateTime modDate;//수정 일자

@@ -17,6 +17,8 @@ public class CarDto {
 
     private Long id; //차량코드
 
+    private String carNum;//차량번호
+
     private String modelNm; //차량모델명
 
     private String carType;//차종

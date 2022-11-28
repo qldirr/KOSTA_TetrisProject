@@ -25,6 +25,7 @@
 </head>
 <body>
 	<div class="wrap">
+		<!--<jsp:include page="../includes/header.jsp"></jsp:include>-->
 
 		<!-- 보조메뉴바 시작 -->
 		<div class="s-menu">

@@ -15,6 +15,9 @@ public class CarFormDto {
 
     private  Long id;
 
+    @NotNull(message = "차량번호는 필수 입력 값입니다.")
+    private  String carNum;
+
     @NotNull(message = "차량 모델명은 필수 입력 값입니다.")
     private  String modelNm;
 
@@ -24,10 +27,10 @@ public class CarFormDto {
     @NotNull(message = "연식은 필수 입력 값입니다.")
     private String carAge; //연식
 
-    //상품 저장 후 수정할 때 상품 이미지 정보를 저장하는 리스트입니다.
+    //차량 저장 후 수정할 때 차량 이미지 정보를 저장하는 리스트입니다.
     private List<CarImgDto> carImgDtoList = new ArrayList<>();
 
-    //상품의 이미지 아이디를 저장하는 리스트로 수정시에 이미지 아이디를 담아둘 용도로 사용합니다.
+    //차량의 이미지 아이디를 저장하는 리스트로 수정시에 이미지 아이디를 담아둘 용도로 사용합니다.
     private  List<Long>  carImgIds = new ArrayList<>();
 
     private  static ModelMapper modelMapper = new ModelMapper();
