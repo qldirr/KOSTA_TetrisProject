@@ -8,7 +8,6 @@ import com.groupware.tetris.service.BoardAttachService;
 import com.groupware.tetris.service.EmployeeService;
 import com.groupware.tetris.service.ProjectBoardService;
 import com.groupware.tetris.service.ProjectService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.nio.file.Files;
 import java.util.*;
 
 @Controller
@@ -126,16 +123,4 @@ public class ProjectBoardController {
 
     }
 
-    /*@GetMapping(value = "/getAttachList/{projectId}")
-    public @ResponseBody ResponseEntity<List<HashMap<Long, Object>>> getAttachList(@PathVariable Long projectId) {
-
-        List<BoardAttachDto> boardAttachDtos;
-
-        List<HashMap<Long, Object>> attachList = new ArrayList<HashMap<Long,Object>>();
-        HashMap<Long, Object> attachMap;
-
-
-        return new ResponseEntity<List<HashMap<Long, Object>>>(attachList, HttpStatus.OK);
-
-    }*/
 }
