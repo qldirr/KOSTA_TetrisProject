@@ -1,4 +1,4 @@
-package com.groupware.tetris.repository.calendar;
+package com.groupware.tetris.repository;
 
 import com.groupware.tetris.entity.calendar.Calendar;
 import org.springframework.data.jpa.repository.JpaRepository;
