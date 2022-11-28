@@ -27,24 +27,24 @@ function showUploadFile(uploadResultArr){
 	
 	$(uploadResultArr).each(function(i, obj){
 		
-		if(obj.image){
-			var fileCallPath = encodeURIComponent(obj.pf_path + "/s_" + obj.pf_uuid + "_" + obj.pf_name);
-			str += "<li data-path='"+obj.pf_path+"'";
-			str += " data-uuid='" + obj.pf_uuid+ "' data-filename ='" + obj.pf_name +"'";
+		if(obj.type == "image"){
+			var fileCallPath = encodeURIComponent("/s_" + obj.attachName);
+			str += "<li data-path='"+obj.attachPath+"'";
+			str += " data-filename ='" + obj.attachName +"'";
 			str += "><div>";
-			str += "<span>" + obj.pf_name + "</span>";
+			str += "<span>" + obj.oriAttachName + "</span>";
 			str += "<input type='button' value='삭제'></button><br>";
 			str += "<a><img src = '/display?fileName="+fileCallPath+"'>";
 			str += "</div>";
 			str += "</li>";
 		} else {
-			var fileCallPath = encodeURIComponent(obj.pf_path + "/" + obj.pf_uuid + "_" + obj.pf_name);
+			var fileCallPath = encodeURIComponent(obj.attachPath + "/" + obj.attachName);
 			var fileLink = fileCallPath.replace(new RegExp(/\\/g), "/");
-			
-			str += "<li data-path='" + obj.pf_path +"'";
-			str += " data-uuid= '" + obj.pf_uuid+ "' data-filename ='" + obj.pf_name +"'";
+
+			str += "<li data-path='"+obj.attachPath+"'";
+			str += " data-filename ='" + obj.attachName +"'";
 			str += "><div>";
-			str += "<span>" + obj.pf_name + "</span>";
+			str += "<span>" + obj.oriAttachName + "</span>";
 			str += "<input type='button' value='삭제'></button><br>";
 			str += "<img src = '/resources/img/attachfile.png'></a>";
 			str += "</div>";
@@ -82,6 +82,9 @@ $(function() {
 			type: 'POST',
 			dataType: 'json',
 			success: function(result){
+
+				console.log(result);
+
 				showUploadFile(result);
 				$(".upload").html(cloneObj.html());
 			}
@@ -107,7 +110,6 @@ $(function() {
 			console.log(jobj);
 			
 			str += "<input type='hidden' name='attachList["+i+"].pf_name' value='"+jobj.data("filename")+"'>";
-			str += "<input type='hidden' name='attachList["+i+"].pf_uuid' value='"+jobj.data("uuid")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].pf_path' value='"+jobj.data("path")+"'>"; 
 		});
 		

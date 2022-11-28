@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 public class BoardFormDto {
@@ -17,6 +19,9 @@ public class BoardFormDto {
     private Employee writer;
     private Long writerId;
     private String contents;
+
+    private List<BoardAttachDto> boardAttachDtos = new ArrayList<>();
+    private List<Long> boardAttachIds = new ArrayList<>();
 
     public static BoardFormDto toDto(ProjectBoard projectBoard){
 

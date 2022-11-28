@@ -1,28 +1,39 @@
 package com.groupware.tetris.controller;
 
+import com.groupware.tetris.dto.project.BoardAttachDto;
 import com.groupware.tetris.dto.project.BoardFormDto;
 import com.groupware.tetris.dto.project.BoardReplyDto;
+import com.groupware.tetris.entity.project.BoardAttach;
+import com.groupware.tetris.service.BoardAttachService;
 import com.groupware.tetris.service.EmployeeService;
 import com.groupware.tetris.service.ProjectBoardService;
 import com.groupware.tetris.service.ProjectService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
 public class ProjectBoardController {
 
     private final ProjectService projectService;
+
+    private final BoardAttachService attachService;
 
     private final EmployeeService employeeService;
 
@@ -90,4 +101,31 @@ public class ProjectBoardController {
         return new ResponseEntity<List<BoardReplyDto>>(replies, HttpStatus.OK);
     }
 
+
+    @PostMapping(value = "/projectdetail/uploadfile")
+    public @ResponseBody ResponseEntity uploadBoardAttach(List<MultipartFile> uploadFile) {
+
+        List<BoardAttachDto> attaches = attachService.uploadBoardAttach(uploadFile);
+
+        return new ResponseEntity<List<BoardAttachDto>>(attaches, HttpStatus.OK);
+    }
+
+    @GetMapping("/display")
+    public @ResponseBody ResponseEntity<byte[]> getFile(String fileName){
+
+        ResponseEntity<byte[]> result = null;
+        List<Object> thumbnailInfo = attachService.getThumbnailImg(fileName);
+
+        byte[] file = (byte[]) thumbnailInfo.get(0);
+        HttpHeaders headers = (HttpHeaders) thumbnailInfo.get(1);
+
+        try {
+            result = new ResponseEntity<byte[]>(file, headers, HttpStatus.OK);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }
 }

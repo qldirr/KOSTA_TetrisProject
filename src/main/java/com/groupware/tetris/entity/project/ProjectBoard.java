@@ -38,6 +38,9 @@ public class ProjectBoard extends BaseTimeEntity {
     @OneToMany(mappedBy = "projectBoard", cascade = CascadeType.ALL)
     private List<BoardReply> replies = new ArrayList<>();
 
+    @OneToMany(mappedBy = "projectBoard", cascade = CascadeType.ALL)
+    private List<BoardAttach> attaches = new ArrayList<>();
+
     public static ProjectBoard createBoard(BoardFormDto boardFormDto){
 
         ProjectBoard projectBoard = new ProjectBoard();
