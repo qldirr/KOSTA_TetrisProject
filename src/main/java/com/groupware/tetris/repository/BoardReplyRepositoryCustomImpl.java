@@ -1,6 +1,9 @@
 package com.groupware.tetris.repository;
 
 import com.groupware.tetris.entity.project.*;
+import com.groupware.tetris.entity.project.QBoardReply;
+import com.groupware.tetris.entity.project.QProject;
+import com.groupware.tetris.entity.project.QProjectBoard;
 import com.groupware.tetris.entity.user.QEmployee;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
