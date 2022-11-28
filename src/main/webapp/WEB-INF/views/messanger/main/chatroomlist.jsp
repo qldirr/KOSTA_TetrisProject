@@ -25,19 +25,19 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 
 <script type="text/javascript">
-	
+
 	/* 방이름을 더블클릭 하여 cr_id 전송 => 채팅방 입장 */
 	$(function() {
 		$("#listChatRoom li").on('dblclick', function(){
 			var cr_id = $(this).attr('class');
 			var actionForm = $("#actionForm");
-			
+
 			var str = "";
 			str += '<input type="hidden" name="cr_id" value=';
 			str += cr_id;
 			str += '>';
 			actionForm.html(str);
-			
+
 			actionForm.attr("action", "/messanger/chatting").attr("method", "post")
 					.attr("target", "Tetris Chatting")
 					.attr("onsubmit", "window.open('', 'Tetris Chatting', 'width=450, height=600, left=2000, top=500, location=no, status=no, scrollbars=yes');");
@@ -45,7 +45,7 @@
 			location.reload(true);
 		})
 	});
-	
+
 	/* 채팅방 나가기 */
 	$(function(){
 		$("#listChatRoom li #deleteChatRoom").on("click", function(e){
@@ -64,7 +64,7 @@
 			})
 		})
 	});
-	
+
 	/* 즐겨찾기 */
 	$(function(){
 		$("#listChatRoom li #chatRoomFavor").on("click", function(e){
@@ -89,7 +89,7 @@
         						+ '<div class="chat-status">' + '<a href="#" id="chatRoomFavor" class="' + listCRoom[i].cr_id + '">' + '<i class="icon-star-1"></i></a>'
         						+ '<a href="#" id="deleteChatRoom" class="' + listCRoom[i].cr_id + '">' + '<i class="icon-logout"></i></a>'
             					+ '</div>' + '</li>';
-            					
+
             				$('#favorite').append(str);
 						}else{
 							var str = '<li class="' + listCRoom[i].chatPartVO.cr_id + '">' + '<img src="/resources/pic/default.png" class="profile-img">
@@ -97,7 +97,7 @@
     							+ '<div class="chat-status">' + '<a href="#" id="chatRoomFavor" class="' + listCRoom[i].cr_id + '">' + '<i class="icon-star"></i></a>'
     							+ '<a href="#" id="deleteChatRoom" class="' + listCRoom[i].cr_id + '">' + '<i class="icon-logout"></i></a>'
         						+ '</div>' + '</li>';
-        					
+
         					$('#list').append(str);
 						}
 					} */
@@ -106,7 +106,7 @@
 			})
 		})
 	});
-	
+
 	/* Web Notification */
 	function notify(){if(!("Notification" in window)){
 			alert("데스크톱 알림을 지원하지 않는 브라우저입니다.");
@@ -123,7 +123,7 @@
 
 </head>
 <body>
-	
+
 	<div id="content">
 			<!-- 액션폼 -->
 				<form action="/messanger/main/emplist" name="emplist" method='get'>
@@ -163,13 +163,13 @@
             	<form action="/messanger/chatting" id="actionForm" method="post">
                 	<ul id="listChatRoom">
                 	<div id="favorite">
-                	
+
                 	</div>
                 	<div id="list">
-                	
+
                 	</div>
                 		<c:forEach items="${listChatRoom }" var="list">
-                		
+
                 			<c:choose>
                 				<c:when test="${list.chatPartVO.cp_isbookmark eq true }">
                 					<li class="${list.cr_id }">
