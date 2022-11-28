@@ -31,6 +31,8 @@ function showUploadFile(uploadResultArr){
 			var fileCallPath = encodeURIComponent("/s_" + obj.attachName);
 			str += "<li data-path='"+obj.attachPath+"'";
 			str += " data-filename ='" + obj.attachName +"'";
+			str += " data-oriname ='" + obj.oriAttachName +"'";
+			str += " data-type ='" + obj.type +"'";
 			str += "><div>";
 			str += "<span>" + obj.oriAttachName + "</span>";
 			str += "<input type='button' value='삭제'></button><br>";
@@ -43,6 +45,8 @@ function showUploadFile(uploadResultArr){
 
 			str += "<li data-path='"+obj.attachPath+"'";
 			str += " data-filename ='" + obj.attachName +"'";
+			str += " data-oriname ='" + obj.oriAttachName +"'";
+			str += " data-type ='" + obj.type +"'";
 			str += "><div>";
 			str += "<span>" + obj.oriAttachName + "</span>";
 			str += "<input type='button' value='삭제'></button><br>";
@@ -109,8 +113,10 @@ $(function() {
 			
 			console.log(jobj);
 			
-			str += "<input type='hidden' name='attachList["+i+"].pf_name' value='"+jobj.data("filename")+"'>";
-			str += "<input type='hidden' name='attachList["+i+"].pf_path' value='"+jobj.data("path")+"'>"; 
+			str += "<input type='hidden' name='boardAttachDtos["+i+"].attachName' value='"+jobj.data("filename")+"'>";
+			str += "<input type='hidden' name='boardAttachDtos["+i+"].attachPath' value='"+jobj.data("path")+"'>";
+			str += "<input type='hidden' name='boardAttachDtos["+i+"].oriAttachName' value='"+jobj.data("oriname")+"'>";
+			str += "<input type='hidden' name='boardAttachDtos["+i+"].type' value='"+jobj.data("type")+"'>";
 		});
 		
 	
@@ -160,7 +166,7 @@ $(function() {
 
             <div class="contents_wrap">
             
-		<form role="form" action="/projectdetail/register" method="post">
+		<form role="form" action="/projectdetail/register" method="post" enctype="multipart/form-data">
 		<input type="hidden" id="pj_num" name="projectId" value="1">
 		<input type="hidden" id="pb_writer" name="writerId" value="3">
 		<div class="form-group">

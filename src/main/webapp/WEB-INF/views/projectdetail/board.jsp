@@ -10,30 +10,52 @@
 <link rel="stylesheet"
 	href="/resources/vender/bootstrap/css/bootstrap.min.css">
 <style type="text/css">
-.uploadResult li {
-	list-style: none;
-	background-color: #f5f5f5;
-	cursor: pointer;
-}
 
-.replies li {
+	.uploadResult {
+		width: 100%;
+		background-color: #f5f5f5;
+	}
 
-	list-style: none;
-}
+	.uploadResult ul {
+		background-color: #f5f5f5;
+		display: flex;
+		flex-flow: row;
+		justify-content: center;
+		align-items: center;
+	}
 
-#board {
-	border: 1px solid;
-}
+	.uploadResult ul li {
+		list-style: none;
+		padding: 10px;
+		align-content: center;
+		text-alingn: center;
+		cursor: pointer;
+	}
+
+	.uploadResult ul li img {
+
+		width: 200px;
+
+	}
+
+	.replies li {
+
+		list-style: none;
+	}
+
+	#board {
+		border: 1px solid;
+	}
 
 
-#contentsBox{
-	height: 450px;
-	overflow-y: scroll;
-}
+	#contentsBox{
+		height: 450px;
+		overflow-y: scroll;
+	}
 
-#contentsBox::-webkit-scrollbar {
-    display: none;
-}
+	#contentsBox::-webkit-scrollbar {
+		display: none;
+	}
 
 </style>
 <script src="https://kit.fontawesome.com/7264476d39.js" crossorigin="anonymous"></script>
@@ -91,80 +113,6 @@
 	/* 첨부파일 서비스를 제공하는 함수 */
 	var attachService = (function() {
 
-		/* 첨부파일 정보 */
-		function get(pj_num, callback, error) {
-
-			$
-					.ajax({
-						url : '/projectdetail/getAttachList',
-						type : 'get',
-						data : {
-							pj_num : pj_num
-						},
-						contentType : "application/json"
-					})
-					.done(
-							function(arr, textStatus, xhr) {
-
-								if (callback) {
-									callback(arr);
-								}
-
-								var str = "";
-								var boardNum = [];
-								var attachInfo = [];
-								var attachBoardNum = [];
-
-								$
-										.each(
-												arr,
-												function(i, attach) {
-
-													var attachPb_num = Object
-															.keys(attach);
-													var attachData = Object
-															.values(attach);
-
-													boardNum.push(attachPb_num);
-													var finalBoard = boardNum
-															.pop();
-
-													for ( var i in attachData) {
-
-														if (finalBoard == attachData[i]["pb_num"]) {
-															attachInfo
-																	.push(attachData[i]);
-															attachBoardNum
-																	.push(finalBoard);
-														}
-													}
-												})
-
-								for (var i = 0; i < attachInfo.length; i++) {
-
-									if (attachBoardNum[i] == attachInfo[i].pb_num) {
-
-										str += "<li data-path='"+attachInfo[i]["pf_path"]+"' data-uuid='" +attachInfo[i]["pf_uuid"]+"' data-filename='" +attachInfo[i]["pf_name"]+"'><div>";
-										str += "<img src='/resources/img/attachfile.png'>";
-										str += "<span>"
-												+ attachInfo[i]["pf_name"]
-												+ "</span><br>";
-										str += "</div>";
-										str += "</li>";
-
-										$(
-												"#uploadResult"
-														+ attachInfo[i].pb_num
-														+ " ul").append(str);
-										str = "";
-
-									}
-								}
-
-							}); /* end ajax */
-
-		}/* end function get */
-
 		/* 첨부파일 다운로드 */
 		function download(path) {
 
@@ -173,7 +121,6 @@
 		}/* end function download */
 
 		return {
-			get : get,
 			download : download
 		};
 
@@ -327,6 +274,25 @@
 								<p id="boardContents${b.id}">&nbsp;&nbsp;${b.contents }</p><br>
 								<div id='uploadResult${b.id}' class='uploadResult'>
 									<ul>
+										<c:if test="${b.boardAttachDtos != null }">
+											<c:forEach items="${b.boardAttachDtos}" var="attach">
+												<li data-path="${attach.attachPath}" data-filename="${attach.attachName}" data-type="${attach.type}">
+													<c:choose>
+														<c:when test="${attach.type eq 'image'}">
+															<div>
+																<img src='/display?fileName=/s_${attach.attachName}'>
+															</div>
+														</c:when>
+														<c:otherwise>
+															<div>
+																<img src='/resources/img/attachfile.png' style='width: 30px;'>
+																<span>${attach.oriAttachName}</span>
+															</div>
+														</c:otherwise>
+													</c:choose>
+												</li>
+											</c:forEach>
+										</c:if>
 									</ul>
 								</div>
 		

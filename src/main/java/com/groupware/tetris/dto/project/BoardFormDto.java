@@ -23,7 +23,7 @@ public class BoardFormDto {
     private List<BoardAttachDto> boardAttachDtos = new ArrayList<>();
     private List<Long> boardAttachIds = new ArrayList<>();
 
-    public static BoardFormDto toDto(ProjectBoard projectBoard){
+    public static BoardFormDto toDto(ProjectBoard projectBoard, List<BoardAttachDto> boardAttachDtos){
 
         BoardFormDto boardFormDto = new BoardFormDto();
 
@@ -31,6 +31,7 @@ public class BoardFormDto {
         boardFormDto.setWriter(projectBoard.getWriter());
         boardFormDto.setContents(projectBoard.getContents());
         boardFormDto.setProject(projectBoard.getProject());
+        boardFormDto.setBoardAttachDtos(boardAttachDtos);
 
         return boardFormDto;
 

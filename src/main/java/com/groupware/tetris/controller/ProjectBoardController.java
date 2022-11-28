@@ -22,10 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.File;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -110,7 +107,7 @@ public class ProjectBoardController {
         return new ResponseEntity<List<BoardAttachDto>>(attaches, HttpStatus.OK);
     }
 
-    @GetMapping("/display")
+    @GetMapping(value = "/display")
     public @ResponseBody ResponseEntity<byte[]> getFile(String fileName){
 
         ResponseEntity<byte[]> result = null;
@@ -128,4 +125,17 @@ public class ProjectBoardController {
         return result;
 
     }
+
+    /*@GetMapping(value = "/getAttachList/{projectId}")
+    public @ResponseBody ResponseEntity<List<HashMap<Long, Object>>> getAttachList(@PathVariable Long projectId) {
+
+        List<BoardAttachDto> boardAttachDtos;
+
+        List<HashMap<Long, Object>> attachList = new ArrayList<HashMap<Long,Object>>();
+        HashMap<Long, Object> attachMap;
+
+
+        return new ResponseEntity<List<HashMap<Long, Object>>>(attachList, HttpStatus.OK);
+
+    }*/
 }

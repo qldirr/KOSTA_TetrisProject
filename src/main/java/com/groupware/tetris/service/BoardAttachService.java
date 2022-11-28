@@ -5,6 +5,8 @@ import com.groupware.tetris.entity.project.BoardAttach;
 import com.groupware.tetris.repository.BoardAttachRepository;
 import lombok.RequiredArgsConstructor;
 import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -52,17 +54,18 @@ public class BoardAttachService {
         File uploadPath = new File(attachFileLocation);
 
         for (MultipartFile multipartFile : uploadFile) {
+
             BoardAttachDto boardAttachDto = new BoardAttachDto();
 
             String uploadFileName = multipartFile.getOriginalFilename();
             boardAttachDto.setOriAttachName(uploadFileName);
             String extension = uploadFileName.substring(uploadFileName.lastIndexOf("."));
 
-            System.out.println(extension + "////////////////");
 
             UUID uuid = UUID.randomUUID();
             String uploadFileNameWithUUID = uuid.toString() + extension;
 
+            boardAttachDto.setAttachPath(attachFileLocation);
             boardAttachDto.setAttachName(uploadFileNameWithUUID);
 
             try {
@@ -70,20 +73,16 @@ public class BoardAttachService {
                 File saveFile = new File(uploadPath, uploadFileNameWithUUID);
                 multipartFile.transferTo(saveFile);
 
-
+                //이미지 파일 여부를 확인하고 이미지 파일인 경우 썸네일 파일 생성
                 if(checkImageType(saveFile)) {
 
                     boardAttachDto.setType("image");
-                    System.out.println("이미지입니다.");
-                    System.out.println("uploadPath: " + uploadPath);
-                    System.out.println("uploadFileName: " + uploadFileNameWithUUID);
 
                     File thumbFile = new File(uploadPath, "s_" + uploadFileNameWithUUID);
-                    FileOutputStream thumbnail = new FileOutputStream(thumbFile);
-                    InputStream inputStream = multipartFile.getInputStream();
-                    Thumbnailator.createThumbnail(inputStream, thumbnail, 200, 200);
 
-                    thumbnail.close();
+                    Thumbnails.of(saveFile)
+                            .forceSize(200,200).toFile(thumbFile);
+
                 }
 
             } catch (Exception e) {

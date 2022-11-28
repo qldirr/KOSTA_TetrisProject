@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface BoardAttachRepository extends JpaRepository<BoardAttach, Long>, BoardAttachRepositoryCustom {
-    List<BoardAttach> findBoardAttachesByProjectBoard_Id(Long boardId);
+public interface BoardAttachRepositoryCustom {
+
+    List<BoardAttach> getListTotalBoardAttaches(Long projectId);
+
 }
