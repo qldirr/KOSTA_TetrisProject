@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Setter
 public class ChatContentsDto {
 
-//    private String roomId;
-//    private String senderId;
+    private String roomId;
+    private String senderId;
     private String senderName;
     private String uuid;
     private String message;

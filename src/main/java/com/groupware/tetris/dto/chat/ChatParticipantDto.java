@@ -7,8 +7,9 @@ import lombok.Setter;
 @Setter
 public class ChatParticipantDto {
 
-//    private String roomId;
-//    private String e_id;
+    private Long id;
+    private String roomId;
+    private String e_id;
     private String read;
     private String bookmark;
 

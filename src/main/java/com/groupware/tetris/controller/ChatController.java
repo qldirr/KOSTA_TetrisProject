@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 
@@ -28,14 +29,20 @@ public class ChatController {
 
     @GetMapping("/main/chatroomlist")
     public void chatRoomList(Principal principal, Model model){
-        String employeeId = principal.getName();
-        List<ChatRoom> chatRoomList = chatService.getListChatRoom(employeeId);
-        model.addAttribute("chatRoomList", chatRoomList);
+        String empId = principal.getName();
+        List<ChatRoom> chatRoomList = chatService.getListChatRoom(empId);
+        model.addAttribute("listChatRoom", chatRoomList);
     }
 
     @PostMapping("/createchatroom")
-    public void createChatRoom(){
+    public String createChatRoom(HttpServletRequest request, Principal principal, Model model){
+        System.out.println(request.getParameter("e_id"));
+        Long empId = Long.valueOf(request.getParameter("e_id"));
+        ChatRoom chatRoom = chatService.createChatRoom(empId, principal.getName());
+        model.addAttribute("cr_id", chatRoom.getId());
+        model.addAttribute("cr_title", chatRoom.getTitle());
 
+        return "/messanger/stompchat";
     }
 
     //채팅방 목록 조회

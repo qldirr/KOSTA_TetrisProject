@@ -30,4 +30,12 @@ public class ChatParticipant {
     @Column(name = "cp_isbookmark")
     private String bookmark;
 
+    public void updateFavor(){
+        if(this.bookmark.equals("false")){
+            this.bookmark = "true";
+        }else{
+            this.bookmark = "false";
+        }
+    }
+
 }

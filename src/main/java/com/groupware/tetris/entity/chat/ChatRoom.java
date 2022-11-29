@@ -1,5 +1,6 @@
 package com.groupware.tetris.entity.chat;
 
+import com.groupware.tetris.dto.chat.ChatRoomDto;
 import lombok.Getter;
 import lombok.Setter;
 

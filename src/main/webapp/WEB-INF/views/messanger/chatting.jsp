@@ -110,7 +110,7 @@
 <script type="text/javascript">
 
 	var roomId = $("#roomId").val();
-	var webSocke = new SockJS("http://localhost:8081/chatting/" + roomId);
+	var webSocket = new SockJS("http://localhost:8081/chatting/" + roomId);
     var stomp = Stomp.over(webSocket);
 	/*webSocket.onopen = onOpen;
 	webSocket.onmessage = onMessage;

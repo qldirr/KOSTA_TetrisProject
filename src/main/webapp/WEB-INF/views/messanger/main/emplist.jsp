@@ -36,14 +36,14 @@
 		$("#empname li").on('dblclick', function(){
 			var empId = $(this).attr('class');
 			var actionForm = $("#actionForm")
-			
+
 			var str = "";
 			str += '<input type="hidden" name="e_id" value=';
 			str += empId;
 			str += '>';
 			actionForm.html(str);
 			
-			actionForm.attr("action", "/messanger/register").attr("method", "post")
+			actionForm.attr("action", "/messanger/createchatroom").attr("method", "post")
 					.attr("target", "Tetris Chatting")
 					.attr("onsubmit", "window.open('', 'Tetris Chatting', 'width=450, height=600, left=2000, top=500, location=no, status=no, scrollbars=yes');");
 			actionForm.submit();
@@ -112,7 +112,7 @@
                         <li>
                             <img src="/resources/pic/me.png">
                             <div class="profile">
-                                <p><c:out value="${principal.user.e_name }"/></p>
+                                <%--<p><c:out value="${principal.user.e_name }"/></p>--%>
                                 <!-- <p>상태메시지 영역</p> -->
                             </div>
                         </li>
@@ -135,19 +135,19 @@
                 </div> -->
                 <!-- 친구 프로필 모음 -->
                 <div>
-                	<form action="/messanger/register" id="actionForm" method="post">
-                		<c:forEach items="${listDept }" var="dept">
+                	<form action="/messanger/createchatroom" id="actionForm" method="post">
+                		<c:forEach items="${deptList }" var="dept">
                 			<div class="profile-title">
-                        		<h2>${dept.d_name }</h2>
+                        		<h2>${dept.name }</h2>
                         		<p>3</p>
                     		</div>
                     		<ul id="empname">
-                    			<c:forEach items="${listEmp}" var="emp">
-                    				<c:if test="${dept.d_num eq emp.d_num }">
-                        				<li class="${emp.e_id }">
+                    			<c:forEach items="${empList}" var="emp">
+                    				<c:if test="${dept.id eq emp.department.id }">
+                        				<li class="${emp.id }">
                             				<img src="/resources/pic/default.png">
                             				<div class="profile">
-												<p>${emp.e_name }</p>
+												<p>${emp.name }</p>
                                 				<!-- <p>Tetris 화이팅</p> -->
                             				</div>
                         				</li>	
