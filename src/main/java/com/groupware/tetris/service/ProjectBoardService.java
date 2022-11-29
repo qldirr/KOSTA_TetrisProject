@@ -138,9 +138,28 @@ public class ProjectBoardService {
         replyRepository.delete(boardReply);
     }
 
-    public void updateTaskStatus(Long taskId, TaskStatus status) {
-        ProjectTask task = taskRepository.getReferenceById(taskId);
-        task.updateTask(status);
+    public int updateTaskStatus(Long taskId, TaskStatus status) {
+        ProjectTask task = taskRepository.findById(taskId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        if (task.getId() != null) {
+            task.updateTask(status);
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public int deleteProjectTask(Long taskId) {
+        ProjectTask task = taskRepository.findById(taskId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        if (task.getId() != null) {
+            taskRepository.delete(task);
+            return 1;
+        }
+
+        return 0;
     }
 
 }

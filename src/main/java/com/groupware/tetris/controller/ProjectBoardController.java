@@ -145,13 +145,27 @@ public class ProjectBoardController {
     @PostMapping(value = "/projectdetail/registerTask")
     public String registProjectTask(TaskFormDto taskFormDto) {
         boardService.saveProjectTask(curProject, taskFormDto);
-        return "/projectdetail/taskboard";
+        return "redirect:" + "taskboard";
     }
 
-    @PatchMapping(value = "/projectdetail/modifyTask/{taskId}")
-    public String modifyTaskStatus(@PathVariable Long taskId, @RequestParam("status") TaskStatus status) {
-        System.out.println(taskId + "!!!!" + status);
-        boardService.updateTaskStatus(taskId, status);
-        return "/projectdetail/taskboard";
+    @PostMapping(value = "/projectdetail/modifyTask")
+    public @ResponseBody int modifyTaskStatus(@RequestBody TaskFormDto taskFormDto) {
+
+        Long taskId = taskFormDto.getId();
+        TaskStatus status = taskFormDto.getStatus();
+        int result = boardService.updateTaskStatus(taskId, status);
+
+        return result;
+    }
+
+    @DeleteMapping(value = "/projectdetail/removeTask/{taskId}")
+    public @ResponseBody int removeProjectTask(@PathVariable Long taskId) {
+        int result = boardService.deleteProjectTask(taskId);
+        return result;
+    }
+
+    @GetMapping(value = "/projectdetail/tasklist")
+    public String getProjectTaskListPage(){
+        return "/projectdetail/tasklist";
     }
 }
