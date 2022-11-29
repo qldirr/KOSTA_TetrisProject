@@ -1,12 +1,16 @@
 package com.groupware.tetris.entity.user;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="department")
-
+@Getter
+@Setter
 public class Department{
     @Id
     @Column(name = "d_id")
