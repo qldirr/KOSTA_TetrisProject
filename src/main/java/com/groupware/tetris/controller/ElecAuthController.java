@@ -6,9 +6,7 @@ import com.groupware.tetris.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,17 +27,35 @@ public class ElecAuthController {
     }
 
     @PostMapping(value = "/elecauth/register")
-    public String registElecAuth(@RequestBody ElecAuthDto elecAuthDto) {
-        authService.saveElecAuth(elecAuthDto);
-        return "/elecauth/main";
-    }
+    @ResponseBody
+    public Long registElecAuth(@RequestBody ElecAuthDto elecAuthDto) {
+        Long authId =authService.saveElecAuth(elecAuthDto);
 
+        return authId;
+    }
 
     @GetMapping(value = "/elecauth/line")
     public void getListEmployees(Model model) {
-
         model.addAttribute("dept", employeeService.getListDepartment());
         model.addAttribute("employees", employeeService.getListEmployees());
+    }
+
+    @GetMapping(value = "/elecauth/{authId}")
+    public String getRecentDoc(@PathVariable Long authId, Model model){
+        ElecAuthDto authDto = authService.readElecAuth(authId);
+        model.addAttribute("auth", authDto);
+
+        int docType = authDto.getDoc_id().intValue();
+        String draft = "/elecauth/draftResult";
+        String vacation = "/elecauth/vacationResult";
+
+        switch (docType) {
+            case 1:
+                return draft;
+            case 2:
+                return vacation;
+        }
+        return null;
     }
 
 }

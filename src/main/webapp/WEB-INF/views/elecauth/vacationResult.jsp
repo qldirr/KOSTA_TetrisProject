@@ -77,7 +77,7 @@ $(function(){
 		status = (status == '승인')? '결재완료' : '반려';
 		
 		var e_id = '${userId}';
-		var l_num = '${auth.el_num }';
+		var l_num = '${auth.id }';
 		
 		
 		var line = {
@@ -99,7 +99,7 @@ $(function(){
 </head>
 <body>
 
-<jsp:include page="../includes/header.jsp"></jsp:include>
+<%--<jsp:include page="../includes/header.jsp"></jsp:include>--%>
 			<!-- 보조메뉴바 시작 -->
 			
 			<div class="s-menu">
@@ -150,7 +150,7 @@ $(function(){
 			</td>
 			<td style="width: 200px; height: 22px; vertical-align: middle; border: 1px solid black; text-align: left; padding: 3px !important;">
 				<span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="0" data-dsl="{{label:draftUser}}" data-wrapper="" style="" data-value="" data-autotype=""><span class="comp_item">
-					<div id="vacationWriter" class="docWriter">${auth.e_name}</div>
+					<div id="vacationWriter" class="docWriter">${auth.writer}</div>
 				</span><span contenteditable="false" class="comp_active" style="display:none;"> <span class="Active_dot1"></span><span class="Active_dot2"></span> <span class="Active_dot3"></span><span class="Active_dot4"></span> </span> <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="0"> <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a> </span> </span> 
 			</td>
 		</tr>
@@ -160,7 +160,7 @@ $(function(){
 			</td>
 			<td style="width:200px;padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid black; text-align: left;">
 				<span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="1" data-dsl="{{label:draftDept}}" data-wrapper="" style="" data-value="" data-autotype=""><span class="comp_item">
-					<div id="vacationWriterDept">개발부</div>
+					<div id="vacationWriterDept">${auth.writer_dept_name}</div>
 				</span><span contenteditable="false" class="comp_active" style="display:none;"> <span class="Active_dot1"></span><span class="Active_dot2"></span> <span class="Active_dot3"></span><span class="Active_dot4"></span> </span> <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="1"> <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a> </span> </span> 
 			</td>
 		</tr>
@@ -180,7 +180,7 @@ $(function(){
 			</td>
 			<td style="width:200px;padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid black; text-align: left;">
 				<span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="3" data-dsl="{{label:docNo}}" data-wrapper="" style="" data-value="" data-autotype=""><span class="comp_item">
-					<div id="draftNum">연차신청-${auth.el_num }</div>
+					<div id="draftNum">연차신청-${auth.id }</div>
 				</span><span contenteditable="false" class="comp_active" style="display:none;"> <span class="Active_dot1"></span><span class="Active_dot2"></span> <span class="Active_dot3"></span><span class="Active_dot4"></span> </span> <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="3"> <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a> </span> </span> 
 			</td>
 		</tr>
@@ -189,23 +189,34 @@ $(function(){
 
 </td>
 			<td style="width: 500px; text-align: center; padding: 0px!important; border: 0!important; vertical-align: top !important" class="dext_table_border_t dext_table_border_r dext_table_border_b dext_table_border_l">
-				<!-- 결재선 기본값으로 신청 1명, 승인 7명으로 설정--> 
+
     <span unselectable="on" contenteditable="false" class="comp_wrap" data-wrapper=""><span class="sign_type1_inline" data-group-seq="0" data-group-name="신청" data-group-max-count="1" data-group-type="type1" data-is-reception=""><span class="sign_tit_wrap"><span class="sign_tit">
      <div id="vacationElecline" style="float: right">
-					<table border="1px solid">
+				<table border="1px solid">
 						<tr class="linePosition">
-							<c:forEach items="${line}" var="position">
-							<td style="width: 60px;">${position.e_position}</td>
+							<c:forEach items="${auth.lines}" var="position">
+								<td style="width: 60px;">${position.approver_position}</td>
 							</c:forEach>
 						</tr>
 						<tr class="lineName" style="height:50px;">
-							<c:forEach items="${line}" var="id">
-							<td> ${id.e_name}</td>
+							<c:forEach items="${auth.lines}" var="id">
+								<td> ${id.approver}</td>
 							</c:forEach>
 						</tr>
 						<tr class="lineStatus">
-							<c:forEach items="${line}" var="status">
-							<td><strong>${status.l_status}</strong></td>
+							<c:forEach items="${auth.lines}" var="status">
+								<c:choose>
+									<c:when test="${status.status eq 'UNSIGNED'}">
+										<td><strong>결재전</strong></td>
+									</c:when>
+									<c:when test="${status.status eq 'DISAPPROVED'}">
+										<td><strong>반려</strong></td>
+									</c:when>
+									<c:otherwise>
+										<td><strong>결재완료</strong></td>
+									</c:otherwise>
+								</c:choose>
+
 							</c:forEach>
 						</tr>
 					</table>
@@ -236,9 +247,9 @@ $(function(){
 			</td>
 			<td style="padding: 3px; border: 1px solid black; width: 700px; height: 22px; text-align: left; color: rgb(0, 0, 0); font-size: 12px;  vertical-align: middle; background: rgb(255, 255, 255);">
 				<span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="4" data-dsl="{{calendar:startDate}}" data-wrapper="" style="" data-value="" data-autotype="">
-				${auth.el_startdate }
+				${auth.startDate }
 				<span contenteditable="false" class="comp_active" style="display:none;"> <span class="Active_dot1"></span><span class="Active_dot2"></span> <span class="Active_dot3"></span><span class="Active_dot4"></span> </span> <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="4"> <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a> </span> </span>&nbsp;~&nbsp; <span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="5" data-dsl="{{calendar:endDate}}" data-wrapper="" style="" data-value="" data-autotype="">
-				${auth.el_enddate }
+				${auth.endDate }
 				<span contenteditable="false" class="comp_active" style="display:none;"> <span class="Active_dot1"></span><span class="Active_dot2"></span> <span class="Active_dot3"></span><span class="Active_dot4"></span> </span> <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="5"> <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a> </span> </span> <span id="usingPointArea"></span> 
 			</td>
 		</tr>
@@ -248,7 +259,7 @@ $(function(){
 			</td>
 			<td style="padding: 3px; border: 1px solid black; width: 700px; height: 100px; text-align: left; color: rgb(0, 0, 0); font-size: 12px;  vertical-align: top; background: rgb(255, 255, 255);">
 				<span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="6" data-dsl="{{textarea:description}}" data-wrapper="" style="width: 100%;" data-value="" data-autotype="">
-				${auth.el_contents }<span contenteditable="false" class="comp_active" style="display:none;"> <span class="Active_dot1"></span><span class="Active_dot2"></span> <span class="Active_dot3"></span><span class="Active_dot4"></span> </span> <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="6"> <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a> </span> </span> 
+				${auth.contents }<span contenteditable="false" class="comp_active" style="display:none;"> <span class="Active_dot1"></span><span class="Active_dot2"></span> <span class="Active_dot3"></span><span class="Active_dot4"></span> </span> <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="6"> <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a> </span> </span>
 			</td>
 		</tr>
 		<tr>
