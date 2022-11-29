@@ -1,15 +1,15 @@
 package com.groupware.tetris.service;
 
+import com.groupware.tetris.constant.TaskStatus;
 import com.groupware.tetris.dto.project.BoardAttachDto;
 import com.groupware.tetris.dto.project.BoardFormDto;
 import com.groupware.tetris.dto.project.BoardReplyDto;
-import com.groupware.tetris.entity.project.BoardAttach;
-import com.groupware.tetris.entity.project.BoardReply;
-import com.groupware.tetris.entity.project.Project;
-import com.groupware.tetris.entity.project.ProjectBoard;
+import com.groupware.tetris.dto.project.TaskFormDto;
+import com.groupware.tetris.entity.project.*;
 import com.groupware.tetris.entity.user.Employee;
 import com.groupware.tetris.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +32,8 @@ public class ProjectBoardService {
     private final EmployeeRepository employeeRepository;
 
     private final BoardAttachRepository attachRepository;
+
+    private final ProjectTaskRepository taskRepository;
 
     public Long saveProjectBoard(BoardFormDto boardFormDto){
 
@@ -75,6 +77,13 @@ public class ProjectBoardService {
         return boardReply.getId();
     }
 
+    public Long saveProjectTask(Long projectId, TaskFormDto taskFormDto) {
+        Project project = projectRepository.findProjectById(projectId);
+        ProjectTask projectTask = ProjectTask.createTask(project, taskFormDto);
+        taskRepository.save(projectTask);
+
+        return projectTask.getId();
+    }
 
     @Transactional(readOnly = true)
     public List<BoardFormDto> getListProjectBoard(Long projectId){
@@ -103,6 +112,15 @@ public class ProjectBoardService {
         return boardReplyDtos;
     }
 
+    @Transactional(readOnly = true)
+    public List<TaskFormDto> getListProjectTasks(Long projectId) {
+        List<ProjectTask> tasks = taskRepository.findProjectTasksByProject_Id(projectId);
+        List<TaskFormDto> taskFormDtos = tasks.stream().map(task -> TaskFormDto.toDto(task))
+                .collect(Collectors.toList());
+
+        return taskFormDtos;
+    }
+
 
     @Transactional(readOnly = true)
     public List<BoardReplyDto> getTotalListBoardReplies(Long projectId) {
@@ -118,6 +136,11 @@ public class ProjectBoardService {
         BoardReply boardReply = replyRepository.findById(replyId)
                 .orElseThrow(EntityNotFoundException::new);
         replyRepository.delete(boardReply);
+    }
+
+    public void updateTaskStatus(Long taskId, TaskStatus status) {
+        ProjectTask task = taskRepository.getReferenceById(taskId);
+        task.updateTask(status);
     }
 
 }

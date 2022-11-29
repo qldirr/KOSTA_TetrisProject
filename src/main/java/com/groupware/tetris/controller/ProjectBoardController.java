@@ -1,13 +1,16 @@
 package com.groupware.tetris.controller;
 
+import com.groupware.tetris.constant.TaskStatus;
 import com.groupware.tetris.dto.project.BoardAttachDto;
 import com.groupware.tetris.dto.project.BoardFormDto;
 import com.groupware.tetris.dto.project.BoardReplyDto;
+import com.groupware.tetris.dto.project.TaskFormDto;
 import com.groupware.tetris.entity.project.BoardAttach;
 import com.groupware.tetris.service.BoardAttachService;
 import com.groupware.tetris.service.EmployeeService;
 import com.groupware.tetris.service.ProjectBoardService;
 import com.groupware.tetris.service.ProjectService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,7 +40,7 @@ public class ProjectBoardController {
 
 
     @GetMapping(value = "/projectdetail/{projectId}")
-    public String getListProjectBoard(@PathVariable("projectId") Long projectId, Model model){
+    public String getListProjectBoard(@PathVariable("projectId") Long projectId, Model model) {
 
         curProject = projectId;
         model.addAttribute("project", projectService.getProject(projectId));
@@ -48,12 +51,12 @@ public class ProjectBoardController {
     }
 
     @GetMapping(value = "projectdetail/register")
-    public String getBoardRegisterForm(){
+    public String getBoardRegisterForm() {
         return "/projectdetail/register";
     }
 
     @PostMapping(value = "projectdetail/register")
-    public String registProjectBoard(@Valid BoardFormDto boardFormDto, BindingResult bindingResult){
+    public String registProjectBoard(@Valid BoardFormDto boardFormDto, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "/projectdetail/register";
@@ -63,7 +66,7 @@ public class ProjectBoardController {
             boardService.saveProjectBoard(boardFormDto);
         } catch (Exception e) {
             e.printStackTrace();
-            return  "/projectdetail/register";
+            return "/projectdetail/register";
         }
 
         return "redirect:" + curProject;
@@ -105,7 +108,7 @@ public class ProjectBoardController {
     }
 
     @GetMapping(value = "/display")
-    public @ResponseBody ResponseEntity<byte[]> getFile(String fileName){
+    public @ResponseBody ResponseEntity<byte[]> getFile(String fileName) {
 
         ResponseEntity<byte[]> result = null;
         List<Object> thumbnailInfo = attachService.getThumbnailImg(fileName);
@@ -115,7 +118,7 @@ public class ProjectBoardController {
 
         try {
             result = new ResponseEntity<byte[]>(file, headers, HttpStatus.OK);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -123,4 +126,32 @@ public class ProjectBoardController {
 
     }
 
+    @GetMapping(value = "/projectdetail/taskboard")
+    public String getProjectTaskPage() {
+        return "projectdetail/taskboard";
+    }
+
+    @GetMapping(value = "/projectdetail/taskList")
+    public @ResponseBody ResponseEntity getListProjectTask() {
+        List<TaskFormDto> tasks = boardService.getListProjectTasks(curProject);
+        return new ResponseEntity<List<TaskFormDto>>(tasks, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/projectdetail/registerTask")
+    public String TaskRegisterForm(Model model) {
+        return "/projectdetail/registerTask";
+    }
+
+    @PostMapping(value = "/projectdetail/registerTask")
+    public String registProjectTask(TaskFormDto taskFormDto) {
+        boardService.saveProjectTask(curProject, taskFormDto);
+        return "/projectdetail/taskboard";
+    }
+
+    @PatchMapping(value = "/projectdetail/modifyTask/{taskId}")
+    public String modifyTaskStatus(@PathVariable Long taskId, @RequestParam("status") TaskStatus status) {
+        System.out.println(taskId + "!!!!" + status);
+        boardService.updateTaskStatus(taskId, status);
+        return "/projectdetail/taskboard";
+    }
 }

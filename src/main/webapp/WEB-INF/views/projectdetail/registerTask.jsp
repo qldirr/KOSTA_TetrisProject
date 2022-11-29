@@ -33,7 +33,7 @@
 </head>
 <body>
 <div class="wrap">
-		<jsp:include page="../includes/header.jsp"></jsp:include>
+		<%--<jsp:include page="../includes/header.jsp"></jsp:include>--%>
 			<!-- 보조메뉴바 시작 -->
 				<div class="s-menu">
 				<div class="s-menu-title">
@@ -69,50 +69,51 @@
 
 		<form action="/projectdetail/registerTask" method="post"
                      accept-charset="UTF-8">
-				<input type="hidden" name="pj_num" value="${pj_num }">
+				<input type="hidden" name="pj_num" value="1">
                      <div class="form-group">
                         <label for="ts_name">업무명</label> <input type="text"
-                           name="ts_name" class="form-control" id="ts_name">
+                           name="name" class="form-control" id="ts_name">
                      </div>
                      <div class="form-group">
                         <label for="ts_name">업무내용</label> <input type="text"
-                           name="ts_contents" class="form-control" id="ts_contents">
+                           name="contents" class="form-control" id="ts_contents">
                      </div>
                       <div class="form-group">
-                        <label for="ts_startdate">일정시작일</label><input
+                        <label for="datePickerstart">일정시작일</label><input
                            id="datePickerstart" type="text" class="form-control"
-                           name="ts_startdate">
+                           name="startDate">
                      </div>
                       <div class="form-group">
-                        <label for="ts_startdate">일정마감일</label><input
+                        <label for="datePickerend">일정마감일</label><input
                            id="datePickerend" type="text" class="form-control"
-                           name="ts_enddate">
+                           name="endDate">
                      </div>
                      <div class="form-group">
-                        <label for="ts_type">업무상태</label> <select class="form-control"
-                           name="ts_status" id="selectStatus">
-                            <option value="예정">예정</option>
-							<option value="진행">진행중</option>
-							<option value="완료">완료</option>
+                        <label for="selectStatus">업무상태</label> <select class="form-control"
+                           name="status" id="selectStatus">
+                            <option value="TODO">예정</option>
+							<option value="DOING">진행중</option>
+							<option value="DONE">완료</option>
                         </select>
                      </div>
+					<label for="inlineRadio1">업무중요도</label><br>
                      <div class="form-check form-check-inline">
-  						<input class="form-check-input" type="radio" name="ts_importance" id="inlineRadio1" value="상">
+  						<input class="form-check-input" type="radio" name="importance" id="inlineRadio1" value="HIGH">
   						<label class="form-check-label" for="inlineRadio1">상</label>
 					</div>
                      <div class="form-check form-check-inline">
-  						<input class="form-check-input" type="radio" name="ts_importance" id="inlineRadio2" value="중">
+  						<input class="form-check-input" type="radio" name="importance" id="inlineRadio2" value="MIDDLE">
   						<label class="form-check-label" for="inlineRadio2">중</label>
 					</div>
                      <div class="form-check form-check-inline">
-  						<input class="form-check-input" type="radio" name="ts_importance" id="inlineRadio3" value="하">
+  						<input class="form-check-input" type="radio" name="importance" id="inlineRadio3" value="LOW">
   						<label class="form-check-label" for="inlineRadio3">하</label>
 					</div>
                     <div class="form-group">
                         <label for="ts_manager">업무담당자</label> <select class="form-control"
-                           name="ts_manager">
+                           name="manager" id="ts_manager">
                             <c:forEach items="${member }" var="m">
-								<option value="${m.e_name}">[${m.d_name }] ${m.e_position } -  ${m.e_name }</option>			
+								<option value="${m.id}">[${m.department.name }] ${m.position } -  ${m.name }</option>
 							</c:forEach>
                         </select>
                      </div>
