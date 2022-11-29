@@ -59,7 +59,7 @@ class CalendarRepositoryTest {
             selectCalendar.setCl_name("여행");
             selectCalendar.setCl_contents("일본");
             calendarRepository.save(selectCalendar);
-        });
+                });
 
     }
 
