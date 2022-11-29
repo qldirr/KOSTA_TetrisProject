@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="wrap">
-			<jsp:include page="../includes/header.jsp"></jsp:include>
+			<%--<jsp:include page="../includes/header.jsp"></jsp:include>--%>
 			<!-- 보조메뉴바 시작 -->
 			
 			<div class="s-menu">
@@ -68,7 +68,7 @@
 			</tr>
 		</thead>
 		<tbody class="elecauthlist">
-			<c:forEach items="${authlist1}" var="auth1" begin="0" end="4" step="1" varStatus="status">
+			<%--<c:forEach items="${authlist1}" var="auth1" begin="0" end="4" step="1" varStatus="status">
 				<tr>
 					<td><c:if test="${auth1.dm_num == 1}">
 							<c:out value="일반기안-${auth1.el_num }" />
@@ -87,7 +87,7 @@
 							var="date" pattern="yyyy-MM-dd" /> <c:out value="${date}" /></td>
 					<td>${auth1.el_status}</td>
 				</tr>
-			</c:forEach>
+			</c:forEach>--%>
 		</tbody>
 	</table>
 			
@@ -106,7 +106,7 @@
 			</tr>
 		</thead>
 		<tbody class="elecauthlist">
-			<c:forEach items="${authlist2}" var="auth" begin="0" end="4" step="1" varStatus="status">
+		<%--	<c:forEach items="${authlist2}" var="auth" begin="0" end="4" step="1" varStatus="status">
 				<tr>
 					<td><c:if test="${auth.dm_num == 1}">
 							<c:out value="일반기안-${auth.el_num }" />
@@ -125,7 +125,7 @@
 							var="date" pattern="yyyy-MM-dd" /> <c:out value="${date}" /></td>
 					<td>${auth.el_status}</td>
 				</tr>
-			</c:forEach>
+			</c:forEach>--%>
 		</tbody>
 	</table>
 </div>
