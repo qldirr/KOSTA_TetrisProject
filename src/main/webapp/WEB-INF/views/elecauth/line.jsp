@@ -185,20 +185,20 @@ a {
 						<a href="?#">목록접기</a> | <a href="?#">목록펼치기</a>
 					</div>
 					<ul id="tree">
-					<c:forEach items="${dept}" var="dept">
+						<c:forEach items="${dept}" var="dept">
 							<li>
-							<input type="checkbox" name="dname" value="${dept.d_name}">
-							<strong>${dept.d_name}</strong>
-							<ul>
-								<c:forEach items="${employees}" var="employees">
-									<c:if test="${employees.d_num eq dept.d_num}">
-										<li><input type="checkbox" name="ename"
-												value="${employees.e_id}"><label>[${employees.e_position}]${employees.e_name}</label></li>
-									</c:if>
-								</c:forEach>
-							</ul>
+								<input type="checkbox" name="dname" value="${dept.name}">
+								<strong>${dept.name}</strong>
+								<ul>
+									<c:forEach items="${employees}" var="employees">
+										<c:if test="${employees.department.id eq dept.id}">
+											<li><input type="checkbox" name="ename"
+													   value="${employees.id}"><label>[${employees.position}]${employees.name}</label></li>
+										</c:if>
+									</c:forEach>
+								</ul>
 							</li>
-					</c:forEach>
+						</c:forEach>
 					</ul>
 				</div>
 

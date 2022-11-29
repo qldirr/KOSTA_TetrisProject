@@ -167,7 +167,7 @@ $(function() {
             <div class="contents_wrap">
             
 		<form role="form" action="/projectdetail/register" method="post" enctype="multipart/form-data">
-		<input type="hidden" id="pj_num" name="projectId" value="1">
+		<input type="hidden" id="pj_num" name="projectId" value="${projectId}">
 		<input type="hidden" id="pb_writer" name="writerId" value="3">
 		<div class="form-group">
     		<textarea class="form-control" name="contents" rows="10"></textarea>
