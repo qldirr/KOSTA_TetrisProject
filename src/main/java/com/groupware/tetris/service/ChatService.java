@@ -91,7 +91,9 @@ public class ChatService {
     }
 
     public List<ChatContents> getListChatContents(String roomId){
-        return null;
+        List<ChatContents> chatContentsList = chatContentsRepository.findAllByRoomId(roomId);
+
+        return chatContentsList;
     }
 
 //    private Map<String, ChatRoomDto> chatRooms;
