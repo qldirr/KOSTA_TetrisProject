@@ -49,13 +49,13 @@ $(document).ready(
 		<div class=" col-xs-6"></div>
 		<div class=" col-xs-6">
 			<div class="jumbotron" style="padding-top: 20px;">
-				<form method="post" action="/login" id="login">
+				<form method="post" action="/member/login" id="login">
 				
 					<img alt="tetrislogo" src="/resources/img/TETRIS.jpg" width="200" height="200" id="imgc">
 					
 					<!--  <h3 style="text-align: center;">로그인 화면</h3>-->
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="아이디" id="username" name="username" maxlength="20">
+						<input type="email" class="form-control" placeholder="이메일" id="email" name="username" maxlength="20">
 					</div>
 					<div class="form-group">
 						<input type="password" class="form-control" placeholder="비밀번호" id="password" name="password" maxlength="20">

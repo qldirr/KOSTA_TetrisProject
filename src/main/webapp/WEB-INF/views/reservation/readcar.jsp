@@ -7,11 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title>TetrisGroupware</title>
-<link href="/resources/css/res.css" rel="stylesheet">
+	<link href="/resources/vender/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/resources/css/res.css" rel="stylesheet">
+	<link href="/resources/css/main.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+	<script src="/resources/vender/jquery/jquery-3.6.1.min.js"></script>
+	<script src="/resources/vender/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 </head>
 <body>
 <div class="wrap">
-	<jsp:include page="../includes/header.jsp"></jsp:include>
+
 	<!-- 보조메뉴바 시작 -->
 	<div class="s-menu">
 		<div class="s-menu-title">
@@ -38,36 +44,35 @@
 		<h2 id="c-title">차량정보</h2>
 
 		<div class="contents">
-			<h3>NO.${readcar.ca_num}</h3>
+			<h3>NO.${carFormDto.carNum}</h3>
 
-			<form action="" id="readcar" method="get">
+			<form action="" id="carFormDto" method="get">
 				<input type="hidden" name="mode" id="mode" value="${param.mode}" />
-				<input type="hidden" name="ca_num" id="ca_num"
-					value="${readcar.ca_num}" /> <img
-					src="/resources/img/res/${readcar.ca_num}.jpg" class="rounded mx-auto d-block"
+				<input type="hidden" name="carId" id="carId" value="${carFormDto.carId}" />
+				<img src="${car.carImgDtoList[0].imgUrl}" class="rounded mx-auto d-block"
 					alt="..." height="300" width="500">
 
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="ca_num">차량번호</label> <input type="text" name="ca_num"
-							class="form-control" id="ca_num" value="${readcar.ca_num}"
+						<label for="carNum">차량번호</label> <input type="text" name="carNum"
+							class="form-control" id="carNum" value="${carFormDto.carNum}"
 							readonly=readonly>
 					</div>
 					<div class="form-group col-md-6">
-						<label for="ca_model">차량모델 명</label> <input type="text"
-							name="ca_model" class="form-control" id="ca_model"
-							value="${readcar.ca_model}" readonly=readonly>
+						<label for="modelNm">차량모델 명</label> <input type="text"
+							name="ca_model" class="form-control" id="modelNm"
+							value="${carFormDto.modelNm}" readonly=readonly>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="ca_type">차종</label> <input type="text" name="ca_type"
-							class="form-control" id="ca_num" value="${readcar.ca_type}"
+						<label for="carType">차종</label> <input type="text" name="carType"
+							class="form-control" id="carType" value="${carFormDto.carType}"
 							readonly=readonly>
 					</div>
 					<div class="form-group col-md-6">
-						<label for="ca_age">연식</label> <input type="text" name="ca_age"
-							class="form-control" id="ca_model" value="${readcar.ca_age}"
+						<label for="carAge">연식</label> <input type="text" name="carAge"
+							class="form-control" id="carAge" value="${carFormDto.carAge}"
 							readonly=readonly>
 					</div>
 				</div>

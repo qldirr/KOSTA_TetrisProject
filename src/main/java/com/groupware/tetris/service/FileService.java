@@ -9,7 +9,8 @@ import java.util.UUID;
 
 @Service
 @Log
-public class FileService {
+public class
+FileService {
 
     public  String uploadFile(String uploadPath, String originalFileName,
                               byte[] fileData) throws Exception{
@@ -28,7 +29,7 @@ public class FileService {
 
     }
 
-    public void deletFiles(String filePath) throws Exception{
+    public void deleteFiles(String filePath) throws Exception{
         File deleteFile = new File(filePath);
 
         if (deleteFile.exists()){
