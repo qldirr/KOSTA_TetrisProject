@@ -16,7 +16,7 @@ public class Department{
     private String head;
 
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL,
+    /*@OneToMany(mappedBy = "department", cascade = CascadeType.ALL,
             orphanRemoval = true,fetch = FetchType.LAZY)
-    List<Employee> employees = new ArrayList<>();
+    List<Employee> employees = new ArrayList<>();*/
 }

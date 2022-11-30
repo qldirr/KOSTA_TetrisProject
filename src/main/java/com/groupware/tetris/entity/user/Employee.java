@@ -23,8 +23,8 @@ public class Employee {
     private String position;
     private boolean Enabled;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "d_id")
-    private Department department;
+    private Department department;*/
 
 }
