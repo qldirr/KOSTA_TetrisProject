@@ -22,7 +22,7 @@ public class CarBookService {
 
     private  final CarRepository carRepository;
     private  final EmployeeRepository employeeRepository;
-    //private  final CarBookRepository carBookRepository;
+    private  final CarBookRepository carBookRepository;
 
     public Long CarBook(CarBookDto carBookDto, String email){
         Car car = carRepository.findById(carBookDto.getCarId())

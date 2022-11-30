@@ -30,15 +30,15 @@ public class Project {
     private LocalDate endTime;
     private String contents;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "e_id")
     private Employee manager;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "project_member",
-            joinColumns = @JoinColumn(name = "e_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id")
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "e_id")
     )
     private List<Employee> employees;
 

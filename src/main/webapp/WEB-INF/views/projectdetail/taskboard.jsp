@@ -66,22 +66,22 @@ td {
 				dataType : 'json',
 				contentType : "application/json"
 			}).done(function(data, textStatus, xhr) {
-				
+
 				$.each(data, function(index, value){
 					
-					enddate = new Date(value.ts_enddate);
+					enddate = new Date(value.endDate);
 					
 					remain = (today.getTime() - enddate.getTime())/(1000*60*60*24);
 
-					if(value.ts_status == "예정"){
+					if(value.status == "TODO"){
 						
 						$('.todo').empty();
 						
-						todo += '<div id='+ value.ts_num +' class="card text-white bg-dark mb-3" style="max-width: 18rem;">';
-						todo += '<div class="card-header">' + value.ts_name +'<label class=\"delete\" style="float: right;">'+ "x" +'</label></div>';
+						todo += '<div id='+ value.id +' class="card text-white bg-dark mb-3" style="max-width: 18rem;">';
+						todo += '<div class="card-header">' + value.name +'<label class=\"delete\" style="float: right;">'+ "x" +'</label></div>';
 						todo += '<div class="card-body">';
-						todo += '<h5 class="card-title">' + value.ts_contents + '</h5>';
-						todo += '<p class="card-text">' + value.ts_manager + '</p>';
+						todo += '<h5 class="card-title">' + value.contents + '</h5>';
+						//todo += '<p class="card-text">' + value.manager + '</p>';
 						
 						if(remain > -4 & remain <= 0){
 							todo += '<p class="deadline">마감 '+ Math.abs(Math.floor(remain)) + '일 전</p></div></div>';
@@ -91,16 +91,16 @@ td {
 						
 						$('.todo').append(todo);
 						
-					} else if(value.ts_status == "진행"){
+					} else if(value.status == "DOING"){
 						
 						$('.doing').empty();
 						
 						
-						doing += '<div id='+ value.ts_num +' class="card text-white bg-secondary mb-3" style="max-width: 18rem;">';
-						doing += '<div class="card-header">' + value.ts_name +'<label class=\"delete\" style="float: right;">'+ "x" +'</label></div>';
+						doing += '<div id='+ value.id +' class="card text-white bg-secondary mb-3" style="max-width: 18rem;">';
+						doing += '<div class="card-header">' + value.name +'<label class=\"delete\" style="float: right;">'+ "x" +'</label></div>';
 						doing += '<div class="card-body">';
-						doing += '<h5 class="card-title">' + value.ts_contents + '</h5>';
-						doing += '<p class="card-text">' + value.ts_manager + '</p>';
+						doing += '<h5 class="card-title">' + value.contents + '</h5>';
+						//doing += '<p class="card-text">' + value.ts_manager + '</p>';
 						
 						if(remain > -4 & remain <= 0){
 							doing += '<p class="deadline">마감 '+ Math.abs(Math.floor(remain)) + '일 전</p></div></div>';
@@ -115,11 +115,11 @@ td {
 						
 						$('.done').empty();
 						
-						done += '<div id='+ value.ts_num +' class="card text-white bg-info mb-3" style="max-width: 18rem;">';
-						done += '<div class="card-header">' + value.ts_name +'<label class=\"delete\" style="float: right;">'+ "x" +'</label></div>';
+						done += '<div id='+ value.id +' class="card text-white bg-info mb-3" style="max-width: 18rem;">';
+						done += '<div class="card-header">' + value.name +'<label class=\"delete\" style="float: right;">'+ "x" +'</label></div>';
 						done += '<div class="card-body">';
-						done += '<h5 class="card-title">' + value.ts_contents + '</h5>';
-						done += '<p class="card-text">' + value.ts_manager + '</p></div></div>';
+						done += '<h5 class="card-title">' + value.contents + '</h5></div></div>';
+						//done += '<p class="card-text">' + value.ts_manager + '</p></div></div>';
 						
 						$('.done').append(done);
 					}
@@ -133,16 +133,20 @@ td {
 		
 		
 		/* 업무보드 수정 */
-		function update(task){
-			
+		function updateStatus(task){
+
 			$.ajax({
    				url : '/projectdetail/modifyTask',
    				type : 'post',
    				data : JSON.stringify(task),
-   				contentType : "application/json"
-   				}).done(function() {
-   					
-   					console.log("수정 완료")
+				dataType : 'json',
+   				contentType : "application/json-patch+json;charset=UTF-8"
+   				}).done(function(data) {
+
+					if(data == 1){
+						console.log("수정 완료")
+						self.location = "taskboard";
+					}
    				
    			}); /* end ajax */
 		}/* end function update */
@@ -150,18 +154,29 @@ td {
 		
 		function del(del_ts_num){
 			$.ajax({
-				url : '/projectdetail/removeTask',
-   				type : 'post',
-   				data : {"ts_num" : del_ts_num}
-			}).done(function(){
-				
-				self.location = "/projectdetail/taskboard";
+				url : '/projectdetail/removeTask/' + del_ts_num,
+   				type : 'delete',
+				dataType : 'json',
+				contentType : "application/json"
+			}).done(function(data){
+
+				if(data == 1){
+					console.log("수정 완료")
+					self.location = "taskboard";
+				}
+
 			}); /* end ajax */
 		}/* end function del */
-		
+
+
+		/*function update(taskId) {
+
+		}*/
+
+
 		return {
 			getTask : getTask,
-			update : update,
+			updateStatus : updateStatus,
 			del : del
 		}
 		
@@ -202,11 +217,11 @@ td {
 	            	var status = $(this).attr('class');
 	            	
 	            	if(status.startsWith("todo")){
-	            		ts_status = "예정";
+	            		ts_status = "TODO";
 	            	} else if(status.startsWith("doing")){
-	            		ts_status = "진행";
+	            		ts_status = "DOING";
 	            	} else {
-	            		ts_status = "완료";
+	            		ts_status = "DONE";
 	            	}
 	            	
 	            	console.log(ts_status);
@@ -218,12 +233,12 @@ td {
 	               $(this).css('background-color', 'transparent');
 	               
 	               var task = {
-	            		   "ts_num" : ts_num,
-	            		   "ts_status" : ts_status
+					   "id" : ts_num,
+					   "status" : ts_status
 	               }
 	               
 	               /* 카드 이동이 멈춘 후 update 함수 호출 */
-	               taskService.update(task);
+	               taskService.updateStatus(task);
 	          	}
 	            
 		}).disableSelection();
@@ -231,6 +246,7 @@ td {
 		
 		/* 삭제버튼을 누르면 del 함수 호출 */
 		$(document).on('click', '.delete', function(){
+
 			var del_ts_num = $(this).parent().parent().attr('id');
 			
 			taskService.del(del_ts_num);
@@ -243,7 +259,7 @@ td {
 </head>
 <body>
 <div class="wrap">
-			<jsp:include page="../includes/header.jsp"></jsp:include>
+			<%--<jsp:include page="../includes/header.jsp"></jsp:include>--%>
 			<!-- 보조메뉴바 시작 -->
 			
 			<div class="s-menu">

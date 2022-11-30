@@ -2,10 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%--
 <%@ include file="../includes/header.jsp"%>
 --%>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <head>
 <script
@@ -21,14 +22,15 @@
 <script src="/resources/vender/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <script type="text/javascript">
-
+<%--	<script th:inline="javascript">--%>
 	$(document).ready(
 
 			function(){
+			<%--	if(errorMessage !=null) {--%>
+			<%--		alert(errorMessage);}--%>
 
 
-
-		$('#idChk').on('click', function(){
+		/*$('#idChk').on('click', function(){
 			var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
 			console.log($('#userId').val());
 
@@ -55,61 +57,71 @@
 					}
 				}
 			})
-		});
+		});*/
 
 		$("#submit").on("click", function(){
-			if($("#userId").val()==""){
-				alert("아이디를 입력해주세요.");
-				$("#userId").focus();
-				return false;
-			}
-			if($("#userPass").val()==""){
-				alert("비밀번호를 입력해주세요.");
-				$("#userPass").focus();
-				return false;
-			}
-			if($("#userPassck").val()==""){
-				alert("비밀번호 확인란을 입력해주세요.");
-				$("#userPassck").focus();
-				return false;
-			}
-			if($("#userName").val()==""){
-				alert("성명을 입력해주세요.");
-				$("#userName").focus();
-				return false;
-			}
-			var idChkVal = $("#idChk").val();
-			var userpass = $("#userPass").val();
-			var userpassck =  $("#userPassck").val()
-			if(idChkVal == "N"){
-				alert("중복확인 버튼을 눌러주세요.");
-				return false;
-			}
-			else if(userpass != userpassck){
-				alert("비밀번호를 확인해주세요");
-				return false;
-			}
+					<%--let errorMessage = [[${errorMessage}]];--%>
+					<%--if(errorMessage !=null) {--%>
+					<%--	alert(errorMessage);--%>
+					<%--	console.log(errorMessage);--%>
+					<%--	return false;--%>
 
-			else if(idChkVal == "Y" && $("#userPass").val() == $("#userPassck")){
-				$("#regForm").submit();
+					<%--}--%>
+		<%--	// if($("#userId").val()==""){--%>
+		<%--	// 	alert("아이디를 입력해주세요.");--%>
+		<%--	// 	$("#userId").focus();--%>
+		<%--	// 	return false;--%>
+		<%--	// }--%>
+		<%--	// if($("#userPass").val()==""){--%>
+		<%--	// 	alert("비밀번호를 입력해주세요.");--%>
+		<%--	// 	$("#userPass").focus();--%>
+		<%--	// 	return false;--%>
+		<%--	// }--%>
+		<%--	// if($("#userPassck").val()==""){--%>
+		<%--	// 	alert("비밀번호 확인란을 입력해주세요.");--%>
+		<%--	// 	$("#userPassck").focus();--%>
+		<%--	// 	return false;--%>
+		<%--	// }--%>
+		<%--	// if($("#userName").val()==""){--%>
+		<%--	// 	alert("성명을 입력해주세요.");--%>
+		<%--	// 	$("#userName").focus();--%>
+		<%--	// 	return false;--%>
+		<%--	// }--%>
+		<%--	// var idChkVal = $("#idChk").val();--%>
+		<%--	// var userpass = $("#userPass").val();--%>
+		<%--	// var userpassck =  $("#userPassck").val()--%>
+		<%--	// if(idChkVal == "N"){--%>
+		<%--	// 	alert("중복확인 버튼을 눌러주세요.");--%>
+		<%--	// 	return false;--%>
+		<%--	// }--%>
+		<%--	// else if(userpass != userpassck){--%>
+		<%--	// 	alert("비밀번호를 확인해주세요");--%>
+		<%--	// 	return false;--%>
+		<%--	// }--%>
+		<%--	//--%>
+		<%--	// else if(idChkVal == "Y" && $("#userPass").val() == $("#userPassck")){--%>
+		<%--	// 	$("#regForm").submit();--%>
+		<%--	// }--%>
+
+
+		<%--});--%>
+
+		// $('#userPass, #userPassck').on('keyup', function () {
+		//
+		// 	  if ($('#userPass').val() == $('#userPassck').val()) {
+		//
+		// 	    $('#confirmMsg').html('비밀번호가 일치합니다.').css('color', 'green');
+		//
+		// 	  } else
+		//
+		// 	    $('#confirmMsg').html('비밀번호가 일치하지않습니다.').css('color', 'red');
+		//
+		// 	});
+
+
 			}
-		});
-
-		$('#userPass, #userPassck').on('keyup', function () {
-
-			  if ($('#userPass').val() == $('#userPassck').val()) {
-
-			    $('#confirmMsg').html('비밀번호가 일치합니다.').css('color', 'green');
-
-			  } else
-
-			    $('#confirmMsg').html('비밀번호가 일치하지않습니다.').css('color', 'red');
-
+		)
 			});
-
-
-			}
-		);
 	</script>
 </head>
 <body>
@@ -144,28 +156,28 @@
 				<h2>사원등록:</h2>
 				</div>
 		<section id="content">
-			<form role="form" method="post" autocomplete="off"
+			<form action="/admin/new" role="form" method="post" autocomplete="off"
 				accept-charset="UTF-8" id="regForm" >
 
 
-				<input type="hidden" name="${_csrf.parameterName }"
-					value="${_csrf.token }" />
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
 				<div class="form-group">
 					<label for="name"> 이름:</label> <input type="text" id="name"
-						class="form-control" name="${employeeFormDto.name}" placeholder="example123"
-						required="required" />
+							class="form-control" name="name" value="${employeeFormDto.name}" placeholder="이름"
+						required="required"/>
 <%--					<button type="button" id="idChk" value="N">이름확인</button>--%>
 
 				</div>
 
 				<div class="form-group">
 					<label for="email"> 이메일:</label> <input type="text" id="email"
-						class="form-control" name="${employeeFormDto.email}" placeholder="이메일을 입력해주세요"
+						class="form-control" name="email" value="${employeeFormDto.email}" placeholder="이메일을 입력해주세요"
 						required="required" />
 				</div>
 				<div class="form-group">
 					<label for="password">패스워드:</label> <input type="password"
-						id="password" class="form-control" name="${employeeFormDto.password}" required="required"
+						id="password" class="form-control" name="password" required="required" value="${employeeFormDto.password}"
 						placeholder="비밀번호를 입력해주세요." />
 				</div>
 
@@ -183,15 +195,15 @@
 
 				<div class="form-group">
 					<label for="phoneNumber"> 연락처:</label> <input type="text"
-						id="phoneNumber" class="form-control" name="${employeeFormDto.phoneNumber}"
+						id="phoneNumber" class="form-control" name="phoneNumber" value="${employeeFormDto.phoneNumber}"
 						placeholder="연락처를 입력해주세요" required="required" />
 				</div>
-
+<%--
 				<div class="form-group">
 					<label for="hireddate">입사일:</label> <input type="text" id="hireddate"
-						class="form-control" name="${employeeFormDto.hireddate}"
+						class="form-control" name="hireddate" value="${employeeFormDto.hireddate}"
 						placeholder="입사일을 입력해주세요.." required="required" />
-				</div>
+				</div>--%>
 
 				<!--  <div class="input_area">
    <label for="userResign">퇴사일</label>
@@ -200,33 +212,40 @@
 
 				<div class="form-group">
 					<label for="totalVac">총연차일수:</label> <input type="text"
-						id="totalvac" class="form-control" name="${employeeFormDto.totalVac}"
+						id="totalvac" class="form-control" name="totalVac" value="${employeeFormDto.totalVac}"
 						placeholder="총연차일수를 입력해주세요." required="required" />
 				</div>
 
 				<div class="form-group">
 					<label for="useVac">사용연차수:</label> <input type="text"
-						id="useVac" class="form-control" name="${employeeFormDto.useVac}"
+						id="useVac" class="form-control" name="useVac" value="${employeeFormDto.useVac}"
 						placeholder="사용연차일수를 입력해주세요." required="required" />
 				</div>
 
 				<div class="form-group">
 					<label for="birth">생년월일:</label> <input type="text"
-						id="birth" class="form-control" name="${employeeFormDto.birth}"
+						id="birth" class="form-control" name="birth" value="${employeeFormDto.birth}"
 						placeholder="생년월일을 입력해주세요." required="required" />
 				</div>
 
 				<div class="form-group">
 					<label for="position">직급:</label> <input type="text"
-						id="position" class="form-control" name="${employeeFormDto.position}"
+						id="position" class="form-control" name="position" value="${employeeFormDto.position}"
 						placeholder="직급을 입력해주세요." required="required" />
 				</div>
-
-		<%--		<div class="form-group">
-					<label for="departmentNumber">부서번호:</label> <input type="text"
-						id="departmentNumber" class="form-control" name="${}"
+<%--
+				<div class="form-group">
+					<label for="departmentNum">부서번호:</label> <input type="text"
+						id="departmentNum" class="form-control" name="departmentNum" value="${employeeFormDto.departmentId}"
 						placeholder="부서번호를 입력해주세요..." />
 				</div>--%>
+				<div class="form-group">
+					<label for="departmentName">부서이름:</label> <input type="text"
+						id="departmentName" class="form-control" name="departmentName" value="${employeeFormDto.departmentName}"
+						placeholder="부서번호를 입력해주세요..." />
+
+				</div>
+				<p><c:out value="${errorMessage}"/></p>
 				<%--<div class="form-group">
 					<label for="authmapping">권한:</label> <input type="text" id="auth"
 						class="form-control" name="a_auth" placeholder="권한을 입력해주세요..." />

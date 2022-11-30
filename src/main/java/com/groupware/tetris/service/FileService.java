@@ -29,7 +29,7 @@ FileService {
 
     }
 
-    public void deletFiles(String filePath) throws Exception{
+    public void deleteFiles(String filePath) throws Exception{
         File deleteFile = new File(filePath);
 
         if (deleteFile.exists()){

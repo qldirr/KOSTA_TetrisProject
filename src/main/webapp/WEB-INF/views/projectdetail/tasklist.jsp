@@ -45,39 +45,39 @@ var taskService = (function(){
 				
 				$('.list').empty();
 				
-				list += "<tr><th scope=\"row\">"+ value.ts_name +"</th>";
-				list += "<td>" + value.ts_manager + "</td>";
+				list += "<tr><th scope=\"row\">"+ value.name +"</th>";
+				/*list += "<td>" + value.ts_manager + "</td>";*/
 				
-				if(value.ts_status == "예정"){
+				if(value.status == "TODO"){
 					
-					list += "<td><span class=\"badge badge-light\">" + value.ts_status + "</span></td>";
+					list += "<td><span class=\"badge badge-light\">" + "예정" + "</span></td>";
 					
-				} else if(value.ts_status == "진행"){
+				} else if(value.status == "DOING"){
 					
-					list += "<td><span class=\"badge badge-warning\">" + value.ts_status + "</span></td>";
+					list += "<td><span class=\"badge badge-warning\">" + "진행" + "</span></td>";
 					
 				} else {
 					
-					list += "<td><span class=\"badge badge-success\">" + value.ts_status + "</span></td>";
+					list += "<td><span class=\"badge badge-success\">" + "완료" + "</span></td>";
 				}
 				
 				
-				if(value.ts_importance == "상"){
+				if(value.importance == "HIGH"){
 					
-					list += "<td><span class=\"badge badge-danger\">" + value.ts_importance + "</span></td>";
+					list += "<td><span class=\"badge badge-danger\">" + "상" + "</span></td>";
 					
-				} else if(value.ts_importance == "중"){
+				} else if(value.importance == "MIDDLE"){
 					
-					list += "<td><span class=\"badge badge-secondary\">" + value.ts_importance + "</span></td>";
+					list += "<td><span class=\"badge badge-secondary\">" + "중" + "</span></td>";
 					
 				} else {
 					
-					list += "<td><span class=\"badge badge-light\">" + value.ts_importance + "</span></td>";
+					list += "<td><span class=\"badge badge-light\">" + "하" + "</span></td>";
 				}
 			
-				list += "<td>" + value.ts_startdate + "</td>";
-				list += "<td>" + value.ts_enddate + "</td>";
-				list += "<td>" + value.ts_contents + "</td></tr>";
+				list += "<td>" + value.startDate + "</td>";
+				list += "<td>" + value.endDate + "</td>";
+				list += "<td>" + value.contents + "</td></tr>";
 				
 				$('.list').append(list);
 			     
@@ -106,7 +106,7 @@ $(function(){
 <body>
 
 <div class="wrap">
-		<jsp:include page="../includes/header.jsp"></jsp:include>
+		<%--<jsp:include page="../includes/header.jsp"></jsp:include>--%>
 			<!-- 보조메뉴바 시작 -->
 			
 			<div class="s-menu">
@@ -138,7 +138,7 @@ $(function(){
 		<div class="wrap-box">			
 		<div class="s-container">
 			<br><br>
-			<h5>${project.pj_name }</h5>
+			<h5>${project.id }</h5>
 			<h2 id="c-title">업무 리스트</h2><br>
 			<div class="contents_wrap">
 
@@ -146,7 +146,7 @@ $(function(){
   <thead>
     <tr>
       <th scope="col" style="width: 20%">업무명</th>
-      <th scope="col" style="width: 10%">담당자</th>
+      <%--<th scope="col" style="width: 10%">담당자</th>--%>
       <th scope="col" style="width: 5%">상태</th>
       <th scope="col" style="width: 5%">순위</th>
       <th scope="col" style="width: 10%">시작일</th>

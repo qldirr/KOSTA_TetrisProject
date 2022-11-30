@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 public class ProjectRepositoryCustomImpl implements ProjectRepositoryCustom{
@@ -34,4 +35,5 @@ public class ProjectRepositoryCustomImpl implements ProjectRepositoryCustom{
 
         return projects;
     }
+
 }

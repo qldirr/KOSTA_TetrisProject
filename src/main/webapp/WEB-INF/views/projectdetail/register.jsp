@@ -27,24 +27,28 @@ function showUploadFile(uploadResultArr){
 	
 	$(uploadResultArr).each(function(i, obj){
 		
-		if(obj.image){
-			var fileCallPath = encodeURIComponent(obj.pf_path + "/s_" + obj.pf_uuid + "_" + obj.pf_name);
-			str += "<li data-path='"+obj.pf_path+"'";
-			str += " data-uuid='" + obj.pf_uuid+ "' data-filename ='" + obj.pf_name +"'";
+		if(obj.type == "image"){
+			var fileCallPath = encodeURIComponent("/s_" + obj.attachName);
+			str += "<li data-path='"+obj.attachPath+"'";
+			str += " data-filename ='" + obj.attachName +"'";
+			str += " data-oriname ='" + obj.oriAttachName +"'";
+			str += " data-type ='" + obj.type +"'";
 			str += "><div>";
-			str += "<span>" + obj.pf_name + "</span>";
+			str += "<span>" + obj.oriAttachName + "</span>";
 			str += "<input type='button' value='삭제'></button><br>";
 			str += "<a><img src = '/display?fileName="+fileCallPath+"'>";
 			str += "</div>";
 			str += "</li>";
 		} else {
-			var fileCallPath = encodeURIComponent(obj.pf_path + "/" + obj.pf_uuid + "_" + obj.pf_name);
+			var fileCallPath = encodeURIComponent(obj.attachPath + "/" + obj.attachName);
 			var fileLink = fileCallPath.replace(new RegExp(/\\/g), "/");
-			
-			str += "<li data-path='" + obj.pf_path +"'";
-			str += " data-uuid= '" + obj.pf_uuid+ "' data-filename ='" + obj.pf_name +"'";
+
+			str += "<li data-path='"+obj.attachPath+"'";
+			str += " data-filename ='" + obj.attachName +"'";
+			str += " data-oriname ='" + obj.oriAttachName +"'";
+			str += " data-type ='" + obj.type +"'";
 			str += "><div>";
-			str += "<span>" + obj.pf_name + "</span>";
+			str += "<span>" + obj.oriAttachName + "</span>";
 			str += "<input type='button' value='삭제'></button><br>";
 			str += "<img src = '/resources/img/attachfile.png'></a>";
 			str += "</div>";
@@ -82,6 +86,9 @@ $(function() {
 			type: 'POST',
 			dataType: 'json',
 			success: function(result){
+
+				console.log(result);
+
 				showUploadFile(result);
 				$(".upload").html(cloneObj.html());
 			}
@@ -106,9 +113,10 @@ $(function() {
 			
 			console.log(jobj);
 			
-			str += "<input type='hidden' name='attachList["+i+"].pf_name' value='"+jobj.data("filename")+"'>";
-			str += "<input type='hidden' name='attachList["+i+"].pf_uuid' value='"+jobj.data("uuid")+"'>";
-			str += "<input type='hidden' name='attachList["+i+"].pf_path' value='"+jobj.data("path")+"'>"; 
+			str += "<input type='hidden' name='boardAttachDtos["+i+"].attachName' value='"+jobj.data("filename")+"'>";
+			str += "<input type='hidden' name='boardAttachDtos["+i+"].attachPath' value='"+jobj.data("path")+"'>";
+			str += "<input type='hidden' name='boardAttachDtos["+i+"].oriAttachName' value='"+jobj.data("oriname")+"'>";
+			str += "<input type='hidden' name='boardAttachDtos["+i+"].type' value='"+jobj.data("type")+"'>";
 		});
 		
 	
@@ -158,7 +166,7 @@ $(function() {
 
             <div class="contents_wrap">
             
-		<form role="form" action="/projectdetail/register" method="post">
+		<form role="form" action="/projectdetail/register" method="post" enctype="multipart/form-data">
 		<input type="hidden" id="pj_num" name="projectId" value="1">
 		<input type="hidden" id="pb_writer" name="writerId" value="3">
 		<div class="form-group">

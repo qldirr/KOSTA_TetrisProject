@@ -40,10 +40,6 @@ public class ProjectController {
     @PostMapping(value = "/project/register")
     public String registerProject(@Valid ProjectFormDto projectFormDto, MemberFormDto memberFormDto, BindingResult bindingResult, Model model) throws Exception {
 
-        if (bindingResult.hasErrors()) {
-            return "/project/register";
-        }
-
         try {
            projectService.saveProject(projectFormDto, memberFormDto);
         } catch (Exception e) {

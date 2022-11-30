@@ -56,8 +56,7 @@ var docService = function(){
 				$('.second').val('');
 				$('.third').val('');
 				$('.fourth').val('');
-				
-				self.location = "/elecauth/document/0";
+
 			}); /* end ajax */
 		} /* end function add */
 		
@@ -143,13 +142,10 @@ $(function(){
 			
 			docType = "일반기안";
 			var document = {
-					"el_name" : el_name,
-					"el_contents" : el_contents,
-					"el_startdate" : "",
-					"el_enddate" : "",
-					"el_regdate" : el_regdate,
-					"e_id" : e_id,
-					"dm_num" : 1
+				"title" : el_name,
+				"contents" : el_contents,
+				"writerId" : e_id,
+				"doc_id" : 1
 			}
 			
 			sendForm(checkForm(docType), document);
@@ -162,17 +158,16 @@ $(function(){
 			el_regdate = $('#vacationRegDate').text();
 			el_startdate = $('#vacationStart').val();
 			el_enddate = $('#vacationEnd').val();
-			e_id = '${userId}';
+			e_id = '2';
 			
 			docType = "연차신청";
 			var document = {
-					"el_name" : el_name,
-					"el_contents" : el_contents,
-					"el_startdate" : el_startdate,
-					"el_enddate" : el_enddate,
-					"el_regdate" : el_regdate,
-					"e_id" : e_id,
-					"dm_num" : 2
+					"title" : el_name,
+					"contents" : el_contents,
+					"startDate" : el_startdate,
+					"endDate" : el_enddate,
+					"writerId" : e_id,
+					"doc_id" : 2
 			}
 			
 			sendForm(checkForm(docType), document);
@@ -188,7 +183,7 @@ $(function(){
 </script>
 </head>
 <body>
-	<jsp:include page="../includes/header.jsp"></jsp:include>
+	<%--<jsp:include page="../includes/header.jsp"></jsp:include>--%>
 			<!-- 보조메뉴바 시작 -->
 			
 			<div class="s-menu">

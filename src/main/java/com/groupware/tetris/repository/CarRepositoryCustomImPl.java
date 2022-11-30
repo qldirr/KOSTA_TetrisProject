@@ -18,8 +18,8 @@ public class CarRepositoryCustomImPl implements CarRepositoryCustom{
     private JPAQueryFactory queryFactory;
 
 
-    @Override
-    public Page<Car> getCarListPage(CarFormDto carFormDto, Pageable pageable) {
+//    @Override
+//    public Page<Car> getCarListPage(CarFormDto carFormDto, Pageable pageable) {
       /*  QCar car = QCar.car;
         QCarImg carImg = QCarImg.carImg;
 
@@ -44,6 +44,6 @@ public class CarRepositoryCustomImPl implements CarRepositoryCustom{
         List<CarDto> content = results.getResults();
         long total = results.getTotal();
 */
-        return null;
-    }
+//        return null;
+//    }
 }

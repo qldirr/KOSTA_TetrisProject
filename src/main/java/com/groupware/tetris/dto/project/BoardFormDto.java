@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 public class BoardFormDto {
@@ -18,7 +20,10 @@ public class BoardFormDto {
     private Long writerId;
     private String contents;
 
-    public static BoardFormDto toDto(ProjectBoard projectBoard){
+    private List<BoardAttachDto> boardAttachDtos = new ArrayList<>();
+    private List<Long> boardAttachIds = new ArrayList<>();
+
+    public static BoardFormDto toDto(ProjectBoard projectBoard, List<BoardAttachDto> boardAttachDtos){
 
         BoardFormDto boardFormDto = new BoardFormDto();
 
@@ -26,6 +31,7 @@ public class BoardFormDto {
         boardFormDto.setWriter(projectBoard.getWriter());
         boardFormDto.setContents(projectBoard.getContents());
         boardFormDto.setProject(projectBoard.getProject());
+        boardFormDto.setBoardAttachDtos(boardAttachDtos);
 
         return boardFormDto;
 
