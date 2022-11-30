@@ -1,11 +1,14 @@
 package com.groupware.tetris.controller.attendance;
 
+import com.groupware.tetris.service.attendance.HrService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 @RequiredArgsConstructor
@@ -13,43 +16,97 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HrController {
 
 
+    private HrService service;
+
+
     @GetMapping("/person")
-    public void get(Model model){
+    public void get(@RequestParam("e_id") Long e_id, Model model) {
+        //CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //String e_id = user.getUsername();
 
-        //model.addAttribute();
+        model.addAttribute("hrVO", service.getHr(e_id));
+        model.addAttribute("list", service.getHrList(e_id));
     }
 
-    //출근
-    @PostMapping("/insertAction.do")
-    public String insertAction(){
+//    @PostMapping("/insertAction.do")
+//    @ResponseBody
+//    public String insertAction(@RequestParam("e_id") String e_id, Model model, RedirectAttributes rttr) {
+//        Date date = new Date();
+//        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+////	      CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+////	      String e_id = user.getUsername();
+//        HrVO hr = new HrVO();
+//
+//        hr.setE_id(e_id);
+//        hr.setHr_Time(formatter.format(date));
+//        service.startDate(hr.getE_id());
+//        rttr.addFlashAttribute("e_id", hr.getE_id());
+//
+//        //rttr.addFlashAttribute("result", hr.getE_id());
+//        return "redirect:/attendance/person";
+//    }
 
-        return "";
-    }
+//    @PostMapping("/outAction.do")
+//    @ResponseBody
+//    public String outAction(Model model, RedirectAttributes rttr) {
+////        CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+////        String e_id = user.getUsername();
+//        HrVO hr = new HrVO();
+//        hr.setE_id(e_id);
+//
+//        service.outDate(hr.getE_id());
+//        rttr.addFlashAttribute("e_id", hr.getE_id());
+//
+//        return "redirect:/attendance/person";
+//    }
 
-    //외근
-    @PostMapping("/outAction.do")
-    public String outAction(){
+//    @PostMapping("/endAction.do")
+//    @ResponseBody
+//    public String endDate(Model model, RedirectAttributes rttr) {
+//        CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        String e_id = user.getUsername();
+//        HrVO hr = new HrVO();
+//        hr.setE_id(e_id);
+//
+//        service.endDate(hr.getE_id());
+//        rttr.addFlashAttribute("e_id", hr.getE_id());
+//
+//        return "redirect:/attendance/get";
+//    }
 
-        return "";
-    }
+//personal.jsp
 
-    //퇴근
-    @PostMapping("/endAction.do")
-    public String endAction(){
+//    @GetMapping("/personal")
+//    public void getPersonal(@RequestParam("e_id") Long e_id, @ModelAttribute("cri") Criteria cri, Model model) {
+//        model.addAttribute("hrVO", service.getHr(e_id));
+//        model.addAttribute("list", service.getPersonal(e_id));
+//        model.addAttribute("hrVO2", service.getAttendance(e_id));
+//        model.addAttribute("hrVA", service.getHrVA(e_id));
+//    }
 
-        return "";
-    }
 
-    //개인근태페이지
-    @GetMapping("/personal")
-    public void getPersonal(){
 
-    }
+//personAll.jsp �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝占�
 
-    @GetMapping("/personAll")
-    public void getAll(){
+//    @GetMapping("/personAll")
+//    public void getAll( Criteria cri, Model model) {
+//
+//        model.addAttribute("list", service.getHrWithPaging(cri));
+//        int total = service.getTotal(cri);
+//        model.addAttribute("pageMaker", new PageDTO(cri, total));
+//    }
 
-    }
+//	  @GetMapping("/searchAction.do")
+//	  public String searchAction() {
+//		  log.info("/searchAction.do");
+//		  service.
+//
+//		  return "redirect: /personAll";
+//	  }
 
+//    @GetMapping("/vacation")
+//    public void getVac(@RequestParam("e_id") String e_id, Model model) {
+//        model.addAttribute("list", service.getVac(e_id));
+//    }
 
 }

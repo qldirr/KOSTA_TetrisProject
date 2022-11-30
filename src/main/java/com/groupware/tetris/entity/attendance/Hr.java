@@ -4,13 +4,14 @@ import com.groupware.tetris.constant.Hr_status;
 import com.groupware.tetris.entity.user.Employee;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Hr")
-@Getter @Setter
+@Table(name = "hr")
+@Getter @Setter @ToString
 public class Hr {
 
     @Id
