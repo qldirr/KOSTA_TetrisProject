@@ -16,7 +16,7 @@ public class HrController {
     @GetMapping("/person")
     public void get(Model model){
 
-        model.addAttribute();
+        //model.addAttribute();
     }
 
     //출근
