@@ -1,12 +1,10 @@
 package com.groupware.tetris.entity.suggestions;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -14,6 +12,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Suggestions {
 
     @Id
@@ -23,6 +23,6 @@ public class Suggestions {
     private String e_id;
     private String s_title;
     private String s_contents;
-    private LocalDateTime regTime;
-    private LocalDateTime updateTime;
+    private LocalDateTime regDate;
+    private LocalDateTime modDate;
 }

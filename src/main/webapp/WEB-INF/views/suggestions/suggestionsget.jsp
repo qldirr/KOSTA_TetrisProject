@@ -14,7 +14,7 @@
 <body>
 
 	<!-- jsp 인클루드 사용-->
-	<jsp:include page="../includes/header.jsp"></jsp:include>
+	<%--<jsp:include page="../includes/header.jsp"></jsp:include>--%>
 
 	
 			<!-- 보조사이드바 -->

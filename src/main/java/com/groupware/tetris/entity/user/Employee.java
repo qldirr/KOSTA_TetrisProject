@@ -38,7 +38,7 @@ public class Employee {
     private String birth;
     private String position;
     private boolean Enabled;
-        /*private Long d_Id;*/
+    /*private Long d_Id;*/
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -55,7 +55,7 @@ public class Employee {
         employee.setPassword(password);
         employee.setPhoneNumber(employeeFormDto.getPhoneNumber());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-       // employee.setHireddate(LocalDateTime.parse(employeeFormDto.getHireddate(),formatter));
+        // employee.setHireddate(LocalDateTime.parse(employeeFormDto.getHireddate(),formatter));
         //employee.setResigndate(LocalDateTime.parse(employeeFormDto.getResigndate(),formatter));
         employee.setBirth(employeeFormDto.getBirth());
         //employee.setD_Id(departmentDto.getId());
