@@ -46,7 +46,7 @@ var taskService = (function(){
 				$('.list').empty();
 				
 				list += "<tr><th scope=\"row\">"+ value.name +"</th>";
-				/*list += "<td>" + value.ts_manager + "</td>";*/
+				list += "<td>" + value.manager.name + "</td>";
 				
 				if(value.status == "TODO"){
 					
@@ -146,7 +146,7 @@ $(function(){
   <thead>
     <tr>
       <th scope="col" style="width: 20%">업무명</th>
-      <%--<th scope="col" style="width: 10%">담당자</th>--%>
+      <th scope="col" style="width: 10%">담당자</th>
       <th scope="col" style="width: 5%">상태</th>
       <th scope="col" style="width: 5%">순위</th>
       <th scope="col" style="width: 10%">시작일</th>

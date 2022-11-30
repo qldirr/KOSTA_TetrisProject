@@ -44,7 +44,7 @@ public class ProjectController {
            projectService.saveProject(projectFormDto, memberFormDto);
         } catch (Exception e) {
             e.printStackTrace();
-            return  "/project/register";
+            return  "/project/main";
         }
 
         return "/project/main";

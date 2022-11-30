@@ -38,24 +38,26 @@ table{
 </style>
 <script type="text/javascript">
 
-var lineService = function(){
-	
-	function update(line){
-		
-		$.ajax({
-			url : '/elecauth/check',
-			type : 'post',
-			data : JSON.stringify(line),
-			contentType : "application/json"
-		}).done(function() {
-			console.log("전달 성공");
-			self.location = '/elecauth/uncheckedList';
-		}); /* end ajax */
-	} /* end function update */
-	
-	return { update : update }
-	
-}();
+	var lineService = function(){
+
+		function update(authId, line){
+
+			$.ajax({
+				url : '/elecauth/check/' + authId,
+				type : 'post',
+				data : JSON.stringify(line),
+				contentType : "application/json"
+			}).done(function(data) {
+				console.log("전달 성공");
+				if(data == 1){
+					self.location = '/elecauth/uncheckedList';
+				}
+			}); /* end ajax */
+		} /* end function update */
+
+		return { update : update }
+
+	}();
 
 
 $(function(){
@@ -73,32 +75,31 @@ $(function(){
 			} else if(referrer.endsWith('disapprovedList')){
 				$('#modifyDoc').show();
 			}
-			
-			
+
+
 			$('.signDoc').on('click', function(){
-				
+
 				var status = $(this).val();
-				status = (status == '승인')? '결재완료' : '반려';
-				
-				var e_id = '${userId}';
-				var l_num = '${auth.id }';
-				
+				status = (status == '승인')? 'DONE' : 'DISAPPROVED';
+
+				var e_id = '2';
+
+				var authId = '${auth.id }';
 				var line = {
-						"l_num" : l_num,
-						"e_id" : e_id, 
-						"l_status" : status
-					}
-				
-				lineService.update(line);
-				
+					"approverId" : e_id,
+					"status" : status
+				}
+
+				lineService.update(authId, line);
+
 			})
 			
 			
 			$('.modify').on('click', function(){
 				
-				var el_num = '${auth.id}';
+				var authId = '${auth.id}';
 					
-				self.location = '/elecauth/modify/' + el_num;
+				self.location = '/elecauth/modify/' + authId;
 			
 		
 			})

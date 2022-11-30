@@ -111,7 +111,7 @@
 					</div>
                     <div class="form-group">
                         <label for="ts_manager">업무담당자</label> <select class="form-control"
-                           name="manager" id="ts_manager">
+                           name="managerId" id="ts_manager">
                             <c:forEach items="${member }" var="m">
 								<option value="${m.id}">[${m.department.name }] ${m.position } -  ${m.name }</option>
 							</c:forEach>

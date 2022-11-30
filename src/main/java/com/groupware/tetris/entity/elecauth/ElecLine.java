@@ -44,5 +44,13 @@ public class ElecLine extends BaseTimeEntity {
         return line;
     }
 
+    public void updateElecLineStatus(LineStatus lineStatus) {
+        this.status = lineStatus;
+    }
+
+    public void resetElecLine() {
+        this.status = LineStatus.UNSIGNED;
+    }
+
 
 }

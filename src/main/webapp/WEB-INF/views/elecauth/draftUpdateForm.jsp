@@ -27,9 +27,13 @@ var rewriteService = function(){
 			type : 'post',
 			data : JSON.stringify(auth),
 			contentType : "application/json"
-		}).done(function() {
+		}).done(function(data) {
 			console.log("전달 성공");
-			self.location = '/elecauth/document/' + ${auth.el_num};
+
+			if(data == 1){
+				self.location = '/elecauth/' + ${auth.id};
+			}
+
 		}); /* end ajax */
 	} /* end function update */
 	
@@ -45,17 +49,15 @@ $(function(){
 	})
 	
 	$('#rewrite').on('click', function(){
-		
-		el_num = ${auth.el_num};
+
+		el_num = ${auth.id};
 		el_name = $('#draftTitle').val();
 		el_contents = $('#draftText').val();
-		el_regdate = $('#draftRegDate').text();
 		
 		var auth = {
-				"el_num" : el_num,
-				"el_name" : el_name,
-				"el_contents" : el_contents,
-				"el_regdate" : el_regdate
+				"id" : el_num,
+				"title" : el_name,
+				"contents" : el_contents
 		}
 		
 		rewriteService.rewrite(auth);
@@ -70,7 +72,7 @@ $(function(){
 <body>
 
 
-<jsp:include page="../includes/header.jsp"></jsp:include>
+<%--<jsp:include page="../includes/header.jsp"></jsp:include>--%>
 			<!-- 보조메뉴바 시작 -->
 			
 			<div class="s-menu">
@@ -128,7 +130,7 @@ $(function(){
 			</td>
 			<td style="width: 200px; height: 22px; vertical-align: middle; border: 1px solid black; text-align: left; padding: 3px !important;">
 				<span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="0" data-dsl="{{label:draftUser}}" data-wrapper="" style="" data-value="" data-autotype=""><span class="comp_item">
-					<div id="draftWriter" class="docWriter">${auth.e_name}</div>
+					<div id="draftWriter" class="docWriter">${auth.writer}</div>
 				</span><span contenteditable="false" class="comp_active" style="display:none;"> <span class="Active_dot1"></span><span class="Active_dot2"></span> <span class="Active_dot3"></span><span class="Active_dot4"></span> </span> <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="0"> <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a> </span> </span> 
 			</td>
 		</tr>
@@ -137,7 +139,7 @@ $(function(){
 				기안부서
 			</td>
 			<td style="width:200px;padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid black; text-align: left;">
-					<div id="draftWriterDept">개발부</div>
+					<div id="draftWriterDept">${auth.writer_dept_name}</div>
 			</td>
 		</tr>
 		<tr>
@@ -156,7 +158,7 @@ $(function(){
 			</td>
 			<td style="width:200px;padding: 3px !important; height: 22px; vertical-align: middle; border: 1px solid black; text-align: left;">
 				<span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="3" data-dsl="{{label:docNo}}" data-wrapper="" style="" data-value="" data-autotype=""><span class="comp_item">
-					<div id="draftNum">일반기안-${auth.el_num }</div>
+					<div id="draftNum">일반기안-${auth.id }</div>
 				</span><span contenteditable="false" class="comp_active" style="display:none;"> <span class="Active_dot1"></span><span class="Active_dot2"></span> <span class="Active_dot3"></span><span class="Active_dot4"></span> </span> <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="3"> <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a> </span> </span> 
 			</td>
 		</tr>
@@ -169,21 +171,32 @@ $(function(){
 <br>
 			</td>
 			<td style="background: white; padding: 0px !important; border: currentColor; text-align: center; color: black; font-size: 12px; font-weight: normal; vertical-align: top;">
-				 <div id="drafElecline" style="float: right">
+					<div id="drafElecline" style="float: right">
 					<table border="1px solid">
 						<tr class="linePosition">
-							<c:forEach items="${line}" var="position">
-							<td style="width: 60px;">${position.e_position}</td>
+							<c:forEach items="${auth.lines}" var="position">
+								<td style="width: 60px;">${position.approver_position}</td>
 							</c:forEach>
 						</tr>
 						<tr class="lineName" style="height:50px;">
-							<c:forEach items="${line}" var="id">
-							<td> ${id.e_name}</td>
+							<c:forEach items="${auth.lines}" var="id">
+								<td> ${id.approver}</td>
 							</c:forEach>
 						</tr>
 						<tr class="lineStatus">
-							<c:forEach items="${line}" var="status">
-							<td><strong>${status.l_status}</strong></td>
+							<c:forEach items="${auth.lines}" var="status">
+								<c:choose>
+									<c:when test="${status.status eq 'UNSIGNED'}">
+										<td><strong>결재전</strong></td>
+									</c:when>
+									<c:when test="${status.status eq 'DISAPPROVED'}">
+										<td><strong>반려</strong></td>
+									</c:when>
+									<c:otherwise>
+										<td><strong>결재완료</strong></td>
+									</c:otherwise>
+								</c:choose>
+
 							</c:forEach>
 						</tr>
 					</table>
@@ -208,7 +221,7 @@ $(function(){
 			<td style="background: rgb(255, 255, 255); padding: 5px;border:1px solid black; height: 18px; text-align: left; color: rgb(0, 0, 0); font-size: 12px; font-weight: normal; vertical-align: middle;">
 				<span unselectable="on" contenteditable="false" class="comp_wrap" data-cid="7" data-dsl="{{text:subject}}" data-wrapper="" style="width: 100%; font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;" data-value="" data-autotype="">
 		
-				<input type="text" id="draftTitle" value="${auth.el_name}">
+				<input type="text" id="draftTitle" value="${auth.title}">
 				<span contenteditable="false" class="comp_active" style="display: none; font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;"> <span class="Active_dot1" style="font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;"></span><span class="Active_dot2" style="font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;"></span> <span class="Active_dot3" style="font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;"></span><span class="Active_dot4" style="font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;"></span> </span> <span contenteditable="false" class="comp_hover" data-content-protect-cover="true" data-origin="7" style="font-family: &quot;malgun gothic&quot;, dotum, arial, tahoma; font-size: 9pt; line-height: normal; margin-top: 0px; margin-bottom: 0px;"> <a contenteditable="false" class="ic_prototype ic_prototype_trash" data-content-protect-cover="true" data-component-delete-button="true"></a> </span> </span><br>
 			</td>
 		</tr>
@@ -220,7 +233,7 @@ $(function(){
 		</tr>
 		<tr>
 			<td style="background: rgb(255, 255, 255); padding: 5px;border:1px solid black; height: 18px; text-align: left; color: rgb(0, 0, 0); font-size: 12px; font-weight: normal; vertical-align: middle;" colspan="2">
-				<textarea id="draftText" class="docText" style="width: 850px; height:500px; resize: none; border: none;">${auth.el_contents }</textarea>
+				<textarea id="draftText" class="docText" style="width: 850px; height:500px; resize: none; border: none;">${auth.contents }</textarea>
 			</td>
 		</tr>
 	</tbody>

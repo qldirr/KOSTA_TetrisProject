@@ -81,7 +81,7 @@ td {
 						todo += '<div class="card-header">' + value.name +'<label class=\"delete\" style="float: right;">'+ "x" +'</label></div>';
 						todo += '<div class="card-body">';
 						todo += '<h5 class="card-title">' + value.contents + '</h5>';
-						//todo += '<p class="card-text">' + value.manager + '</p>';
+						todo += '<p class="card-text">' + value.manager.name + '</p>';
 						
 						if(remain > -4 & remain <= 0){
 							todo += '<p class="deadline">마감 '+ Math.abs(Math.floor(remain)) + '일 전</p></div></div>';
@@ -100,7 +100,7 @@ td {
 						doing += '<div class="card-header">' + value.name +'<label class=\"delete\" style="float: right;">'+ "x" +'</label></div>';
 						doing += '<div class="card-body">';
 						doing += '<h5 class="card-title">' + value.contents + '</h5>';
-						//doing += '<p class="card-text">' + value.ts_manager + '</p>';
+						doing += '<p class="card-text">' + value.manager.name + '</p>';
 						
 						if(remain > -4 & remain <= 0){
 							doing += '<p class="deadline">마감 '+ Math.abs(Math.floor(remain)) + '일 전</p></div></div>';
@@ -118,8 +118,8 @@ td {
 						done += '<div id='+ value.id +' class="card text-white bg-info mb-3" style="max-width: 18rem;">';
 						done += '<div class="card-header">' + value.name +'<label class=\"delete\" style="float: right;">'+ "x" +'</label></div>';
 						done += '<div class="card-body">';
-						done += '<h5 class="card-title">' + value.contents + '</h5></div></div>';
-						//done += '<p class="card-text">' + value.ts_manager + '</p></div></div>';
+						done += '<h5 class="card-title">' + value.contents + '</h5>';
+						done += '<p class="card-text">' + value.manager.name + '</p></div></div>';
 						
 						$('.done').append(done);
 					}

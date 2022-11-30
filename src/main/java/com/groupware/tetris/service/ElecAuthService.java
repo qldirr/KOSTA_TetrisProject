@@ -1,5 +1,6 @@
 package com.groupware.tetris.service;
 
+import com.groupware.tetris.constant.ElecStatus;
 import com.groupware.tetris.constant.LineStatus;
 import com.groupware.tetris.dto.elecauth.ElecAuthDto;
 import com.groupware.tetris.dto.elecauth.ElecLineDto;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.security.auth.message.AuthStatus;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +77,97 @@ public class ElecAuthService {
         ElecAuthDto elecAuthDto = ElecAuthDto.toDto(auth, elecLineDtos);
 
         return elecAuthDto;
+    }
+
+    public List<ElecAuthDto> getListUncheckedElecAuths(Long employeeId) {
+
+        List<ElecAuth> auths = authRepository.findUncheckedElecAuthList(employeeId);
+        List<ElecAuthDto> authDtos = new ArrayList<>();
+
+        for (ElecAuth auth : auths) {
+
+            Long authId = auth.getId();
+            List<ElecLineDto> lineDtos
+                    = lineRepository.findElecLinesByAuth_Id(authId).stream().map(line -> ElecLineDto.toDto(line))
+                    .collect(Collectors.toList());
+
+            ElecAuthDto authDto = ElecAuthDto.toDto(auth, lineDtos);
+            authDtos.add(authDto);
+
+        }
+
+        return authDtos;
+    }
+
+
+    public List<ElecAuthDto> getListElecAuths(Long employeeId, ElecStatus status) {
+
+
+        List<ElecAuth> auths = (status.equals(ElecStatus.DONE))?
+                authRepository.findElecAuthsByWriter_IdAndStatusIsNot(employeeId, ElecStatus.DONE):
+                authRepository.findElecAuthsByWriter_IdAndStatusIs(employeeId, ElecStatus.DISAPPROVED);
+
+        List<ElecAuthDto> authDtos = new ArrayList<>();
+
+        for (ElecAuth auth : auths) {
+
+            Long authId = auth.getId();
+            List<ElecLineDto> lineDtos
+                    = lineRepository.findElecLinesByAuth_Id(authId).stream().map(line -> ElecLineDto.toDto(line))
+                    .collect(Collectors.toList());
+
+            ElecAuthDto authDto = ElecAuthDto.toDto(auth, lineDtos);
+            authDtos.add(authDto);
+
+        }
+
+        return authDtos;
+    }
+
+
+    public int updateElecLineStatus(Long authId, ElecLineDto elecLineDto) {
+
+        Long approverId = elecLineDto.getApproverId();
+        LineStatus lineStatus = elecLineDto.getStatus();
+        ElecLine line = lineRepository.findElecLineByAuth_IdAndApprover_Id(authId, approverId);
+        ElecAuth auth = authRepository.findById(authId).orElseThrow(EntityNotFoundException::new);
+
+        if (line != null) {
+            line.updateElecLineStatus(lineStatus);
+
+            if(lineStatus.equals(LineStatus.DISAPPROVED)){
+                auth.updateElecAuthStatus(ElecStatus.DISAPPROVED);
+            } else {
+                int count = lineRepository.countElecLinesByAuth_IdAndStatus(authId, LineStatus.UNSIGNED);
+
+                switch(count){
+                    case 0:
+                        auth.updateElecAuthStatus(ElecStatus.DONE);
+                        break;
+
+                    default:
+                        auth.updateElecAuthStatus(ElecStatus.ONGOING);
+                }
+            }
+
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public int updateElecAuth(ElecAuthDto elecAuthDto) {
+
+        Long authId = elecAuthDto.getId();
+        ElecAuth auth = authRepository.findById(authId).orElseThrow(EntityNotFoundException::new);
+        auth.updateElecAuth(elecAuthDto);
+
+        for (ElecLine line : auth.getElecLine()) {
+            line.resetElecLine();
+        }
+
+        return 1;
+
     }
 
 }

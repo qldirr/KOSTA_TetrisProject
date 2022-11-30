@@ -49,6 +49,7 @@ public class ProjectTask {
 
         projectTask.setName(taskFormDto.getName());
         projectTask.setContents(taskFormDto.getContents());
+        projectTask.setManager(taskFormDto.getManager());
         projectTask.setStatus(taskFormDto.getStatus());
         projectTask.setImportance(taskFormDto.getImportance());
         projectTask.setStartTime(taskFormDto.getStartDate());

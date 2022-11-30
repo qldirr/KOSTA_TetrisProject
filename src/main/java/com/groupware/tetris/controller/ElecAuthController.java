@@ -1,8 +1,11 @@
 package com.groupware.tetris.controller;
 
+import com.groupware.tetris.constant.ElecStatus;
 import com.groupware.tetris.dto.elecauth.ElecAuthDto;
+import com.groupware.tetris.dto.elecauth.ElecLineDto;
 import com.groupware.tetris.service.ElecAuthService;
 import com.groupware.tetris.service.EmployeeService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,5 +60,57 @@ public class ElecAuthController {
         }
         return null;
     }
+
+    @GetMapping(value = "/elecauth/uncheckedList")
+    public String getUncheckedAuths(Model model) {
+
+        Long employeeId = 2L;
+        model.addAttribute("authlist", authService.getListUncheckedElecAuths(employeeId));
+
+        return "/elecauth/uncheckedList";
+    }
+
+
+    @GetMapping(value = "/elecauth/writtenList")
+    public String getWrittenAuths(Model model) {
+
+        Long employeeId = 2L;
+        ElecStatus status = ElecStatus.DONE;
+        model.addAttribute("authlist", authService.getListElecAuths(employeeId, status));
+
+        return "/elecauth/writtenList";
+    }
+
+
+    @GetMapping(value = "/elecauth/disapprovedList")
+    public String getDisapprovedAuths(Model model) {
+
+        Long employeeId = 2L;
+        ElecStatus status = ElecStatus.DISAPPROVED;
+        model.addAttribute("authlist", authService.getListElecAuths(employeeId, status));
+
+        return "/elecauth/disapprovedList";
+    }
+
+
+    @PostMapping(value = "/elecauth/check/{authId}")
+    public  @ResponseBody int modifyElecLineStatus(@PathVariable Long authId, @RequestBody ElecLineDto elecLineDto) {
+        return authService.updateElecLineStatus(authId, elecLineDto);
+    }
+
+
+    @GetMapping(value = "/elecauth/modify/{authId}")
+    public String getElecAuthUpdateForm(@PathVariable Long authId, Model model) {
+        ElecAuthDto authDto = authService.readElecAuth(authId);
+        model.addAttribute("auth", authDto);
+        return "/elecauth/draftUpdateForm";
+    }
+
+
+    @PostMapping(value = "/elecauth/modify")
+    public @ResponseBody int modifyElecAuth(@RequestBody ElecAuthDto elecAuthDto) {
+        return authService.updateElecAuth(elecAuthDto);
+    }
+
 
 }

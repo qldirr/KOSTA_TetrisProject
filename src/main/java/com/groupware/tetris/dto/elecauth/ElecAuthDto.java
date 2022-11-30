@@ -34,6 +34,8 @@ public class ElecAuthDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
+    private LocalDate regDate;
+
     private List<ElecLineDto> lines = new ArrayList<>();
     private List<Long> lineIds = new ArrayList<>();
 
@@ -46,10 +48,12 @@ public class ElecAuthDto {
         elecAuthDto.setContents(auth.getContents());
         elecAuthDto.setStatus(auth.getStatus());
         elecAuthDto.setWriter(auth.getWriter().getName());
-        elecAuthDto.setStartDate(auth.getStartDate());
-        elecAuthDto.setEndDate(auth.getEndDate());
         elecAuthDto.setWriter_dept_name(auth.getWriter().getDepartment().getName());
         elecAuthDto.setWriter_position(auth.getWriter().getPosition());
+        elecAuthDto.setStartDate(auth.getStartDate());
+        elecAuthDto.setEndDate(auth.getEndDate());
+        elecAuthDto.setRegDate(auth.getRegTime().toLocalDate());
+
         elecAuthDto.setDoc_id(auth.getDocument().getId());
         elecAuthDto.setLines(elecLineDtos);
 

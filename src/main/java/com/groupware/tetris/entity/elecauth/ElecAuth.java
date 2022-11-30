@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.security.auth.message.AuthStatus;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,18 @@ public class ElecAuth extends BaseTimeEntity {
         auth.setStatus(ElecStatus.UNSIGNED);
 
         return auth;
+    }
+
+
+    public void updateElecAuthStatus(ElecStatus elecStatus) {
+        this.status = elecStatus;
+    }
+
+
+    public void updateElecAuth(ElecAuthDto elecAuthDto) {
+        this.title = elecAuthDto.getTitle();
+        this.contents = elecAuthDto.getContents();
+        this.status = ElecStatus.UNSIGNED;
     }
 
 

@@ -41,15 +41,18 @@ table{
 
 var lineService = function(){
 	
-	function update(line){
+	function update(authId, line){
 		
 		$.ajax({
-			url : '/elecauth/check',
+			url : '/elecauth/check/' + authId,
 			type : 'post',
 			data : JSON.stringify(line),
 			contentType : "application/json"
-		}).done(function() {
+		}).done(function(data) {
 			console.log("전달 성공");
+			if(data == 1){
+				self.location = '/elecauth/uncheckedList';
+			}
 		}); /* end ajax */
 	} /* end function update */
 	
@@ -74,19 +77,17 @@ $(function(){
 	$('.signDoc').on('click', function(){
 		
 		var status = $(this).val();
-		status = (status == '승인')? '결재완료' : '반려';
+		status = (status == '승인')? 'DONE' : 'DISAPPROVED';
 		
-		var e_id = '${userId}';
-		var l_num = '${auth.id }';
-		
-		
+		var e_id = '2';
+
+		var authId = '${auth.id }';
 		var line = {
-				"l_num" : l_num,
-				"e_id" : e_id, 
-				"l_status" : status
-			}
+			"approverId" : e_id,
+			"status" : status
+		}
 		
-		lineService.update(line);
+		lineService.update(authId, line);
 		
 	})
 

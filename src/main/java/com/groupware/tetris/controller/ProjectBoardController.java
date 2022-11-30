@@ -141,6 +141,7 @@ public class ProjectBoardController {
 
     @GetMapping(value = "/projectdetail/registerTask")
     public String TaskRegisterForm(Model model) {
+        model.addAttribute("member", boardService.getListProjectMember(curProject));
         return "/projectdetail/registerTask";
     }
 

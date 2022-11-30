@@ -17,9 +17,9 @@
 			
 			$('td a').on('click', function(e){
 				e.preventDefault();
-				var el_num = $(this).attr('href');
+				var authId = $(this).attr('href');
 				
-				self.location = '/elecauth/document/' + el_num;
+				self.location = authId;
 		
 			})
 		
@@ -28,7 +28,7 @@
 </script>
 </head>
 <body>
-<jsp:include page="../includes/header.jsp"></jsp:include>
+<%--<jsp:include page="../includes/header.jsp"></jsp:include>--%>
 			<!-- 보조메뉴바 시작 -->
 			
 			<div class="s-menu">
@@ -73,22 +73,34 @@
 		<tbody class="elecauthlist">
 			<c:forEach items="${authlist}" var="auth">
 				<tr>
-					<td><c:if test="${auth.dm_num == 1}">
-							<c:out value="일반기안-${auth.el_num }" />
-						</c:if> <c:if test="${auth.dm_num == 2}">
-							<c:out value="연차신청-${auth.el_num }" />
+					<td><c:if test="${auth.doc_id == 1}">
+							<c:out value="일반기안-${auth.id }" />
+						</c:if> <c:if test="${auth.doc_id == 2}">
+							<c:out value="연차신청-${auth.id }" />
 						</c:if></td>
-					<td><c:if test="${auth.dm_num == 1}">
+					<td><c:if test="${auth.doc_id == 1}">
 							<c:out value="일반기안" />
-						</c:if> <c:if test="${auth.dm_num == 2}">
+						</c:if> <c:if test="${auth.doc_id == 2}">
 							<c:out value="연차신청" />
 						</c:if></td>
-					<td><a href="${auth.el_num }">${auth.el_name}</a></td>
-					<td>${auth.e_name}</td>
-					<td><fmt:parseDate value="${auth.el_regdate}" var="regdate"
+					<td><a href="${auth.id}">${auth.title}</a></td>
+					<td>${auth.writer}</td>
+					<td><fmt:parseDate value="${auth.regDate}" var="regdate"
 							pattern="yyyy-MM-dd" /> <fmt:formatDate value="${regdate}"
 							var="date" pattern="yyyy-MM-dd" /> <c:out value="${date}" /></td>
-					<td>${auth.el_status}</td>
+					<td>
+						<c:choose>
+						<c:when test="${auth.status eq 'UNSIGNED'}">
+							결재전
+						</c:when>
+						<c:when test="${auth.status eq 'ONGOING'}">
+							결재진행중
+						</c:when>
+						<c:otherwise>
+							결재완료
+						</c:otherwise>
+						</c:choose>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
