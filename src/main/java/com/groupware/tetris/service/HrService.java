@@ -20,14 +20,14 @@ public class HrService {
 
     private HrRepository hrRepository;
 
-    public HrDto getHr(Long e_id)throws Exception{
+    public Hr getHr(Long e_id)throws Exception{
 
-        return null;
+        Hr hr = hrRepository.findHrByEid(e_id);
+        return hr;
     }
 
     //출석
     public void startDate(HrDto hrDto)throws Exception{
-
 
     }
 
@@ -42,10 +42,10 @@ public class HrService {
     }
 
     //팀근태정보 불러오기
-    public List<HrDto> getHrList(Long e_id){
+    public List<Hr> getHrList(Long e_id){
+        List<Hr> hrList = hrRepository.findHrsByEid(e_id);
 
-        //HrDto hrDto =
-        return null;
+        return hrList;
     }
 
     //
