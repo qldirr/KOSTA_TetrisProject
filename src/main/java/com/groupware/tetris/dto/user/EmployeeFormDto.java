@@ -18,5 +18,6 @@ public class EmployeeFormDto {
     private Integer useVac;
     private String birth;
     private String position;
-    //private Long d_id;
+    /*private long departmentId;*/
+    private String departmentName;
 }
