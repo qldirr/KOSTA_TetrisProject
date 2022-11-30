@@ -23,7 +23,7 @@ class SuggestionsRepositoryTest {
     @DisplayName("저장 테스트")
     public void registerTest(){
         Suggestions suggestions = new Suggestions();
-        suggestions.setS_num(3);
+        suggestions.setS_num(2);
         suggestions.setE_id("gdong123");
         suggestions.setS_title("건의사항 입니다.");
         suggestions.setS_contents("건의사항 입니다.");
@@ -49,27 +49,19 @@ class SuggestionsRepositoryTest {
         Optional<Suggestions> suggestions = suggestionsRepository.findById(1L);
 
         suggestions.ifPresent(selectedSuggestions ->{
-            selectedSuggestions.setS_title("건의사항 제목수정");
-            selectedSuggestions.setS_contents("건의사항 내용수정");
+            selectedSuggestions.setS_title("건의사항 제목qqqqq수정");
+            selectedSuggestions.setS_contents("건의사항 내용qqqqq수정");
             suggestionsRepository.save(selectedSuggestions);
         });
         System.out.println(suggestions);
     }*/
 
-    /*@Test
-    @DisplayName("삭제 테스트")
-    public void delete(){
-        Optional<Suggestions>suggestions = suggestionsRepository.findById(1L);
-                suggestions.ifPresent(selectedSuggestions ->{
-                    suggestionsRepository.delete(selectedSuggestions);
-                });
-    }*/
 
-    /*@Test
+    @Test
     @DisplayName("삭제 테스트")
     public void delete(){
             suggestionsRepository.deleteById(1L);
-        }*/
+        }
     }
 
 

@@ -1,4 +1,4 @@
-package com.groupware.tetris.dto;
+package com.groupware.tetris.dto.suggestion;
 
 import com.groupware.tetris.entity.suggestions.Suggestions;
 import lombok.Data;
