@@ -9,5 +9,7 @@ public interface HrRepository extends JpaRepository<Hr, Long> {
 
     //
     Hr findHrByEid(Long e_id);
+
+    Hr getHrByEid(Long e_id);
     List<Hr> findHrsByEid(Long e_id);
 }

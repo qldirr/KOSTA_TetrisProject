@@ -55,7 +55,7 @@ public class HrController {
         HrDto hr = new HrDto();
         hr.setE_id(e_id);
 
-        service.outDate(hr.getE_id());
+        service.outDate(hr);
         rttr.addFlashAttribute("e_id", hr.getE_id());
 
         return "redirect:/attendance/person";
@@ -67,7 +67,7 @@ public class HrController {
         HrDto hr = new HrDto();
         hr.setE_id(e_id);
 
-        service.endDate(hr.getE_id());
+        service.endDate(hr);
         rttr.addFlashAttribute("e_id", hr.getE_id());
 
         return "redirect:/attendance/get";

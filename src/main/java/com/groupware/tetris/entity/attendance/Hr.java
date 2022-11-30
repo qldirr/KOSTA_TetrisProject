@@ -1,7 +1,7 @@
 package com.groupware.tetris.entity.attendance;
 
 import com.groupware.tetris.constant.Hr_status;
-import com.groupware.tetris.dto.attendance.HrFormDto;
+import com.groupware.tetris.dto.attendance.HrDto;
 import com.groupware.tetris.entity.user.Employee;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,13 +41,13 @@ public class Hr {
     )
     private List<Hr> hrList;
 
-    public static Hr createHr(HrFormDto hrFormDto){
+    public static Hr createHr(HrDto hrFormDto){
         Hr hr = new Hr();
 
         hr.setHr_num(hrFormDto.getHr_num());
         hr.setHr_date(hrFormDto.getHr_date());
         hr.setHr_leave(hrFormDto.getHr_leave());
-        hr.setHr_status(hrFormDto.getHr_status());
+        hr.setHr_status(Hr_status.valueOf((String)hrFormDto.getHr_status()));
 
         return hr;
     }
