@@ -47,7 +47,7 @@ public class Employee {
     @JoinColumn(name = "d_id" , referencedColumnName = "d_id")
     private Department department;
 
-    public static Employee createEmployee(EmployeeFormDto employeeFormDto, DepartmentDto departmentDto, PasswordEncoder passwordEncoder){
+    public static Employee createEmployee(EmployeeFormDto employeeFormDto, PasswordEncoder passwordEncoder){
         Employee employee = new Employee();
         employee.setName(employeeFormDto.getName());
         employee.setEmail(employeeFormDto.getEmail());

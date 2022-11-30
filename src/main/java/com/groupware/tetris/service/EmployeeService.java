@@ -3,6 +3,7 @@ package com.groupware.tetris.service;
 import com.groupware.tetris.dto.user.EmployeeFormDto;
 import com.groupware.tetris.entity.user.Department;
 import com.groupware.tetris.entity.user.Employee;
+import com.groupware.tetris.repository.DepartmentRepository;
 import com.groupware.tetris.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
