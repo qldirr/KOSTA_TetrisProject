@@ -48,7 +48,6 @@ public class ChatController {
 
     @PostMapping("/createchatroom")
     public String createChatRoom(HttpServletRequest request, Principal principal, Model model){
-        System.out.println(request.getParameter("e_id"));
         Long empId = Long.valueOf(request.getParameter("e_id"));
         ChatRoom chatRoom = chatService.createChatRoom(empId, principal.getName());
         model.addAttribute("cr_id", chatRoom.getId());
