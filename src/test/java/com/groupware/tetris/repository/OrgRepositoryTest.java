@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.properties")
-class EmployeeRepositoryTest {
+class EmployeeRepositoryTest2 {
 
     @Autowired
     EmployeeRepository employeeRepository;
