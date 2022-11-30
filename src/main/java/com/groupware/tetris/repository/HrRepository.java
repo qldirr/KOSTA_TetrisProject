@@ -8,6 +8,6 @@ import java.util.List;
 public interface HrRepository extends JpaRepository<Hr, Long> {
 
     //
-    Hr findHrById(Long e_id);
-    List<Hr> findHrsByIdOrderByIdDesc(Long e_id);
+    Hr findHrByEid(Long e_id);
+    List<Hr> findHrsByEid(Long e_id);
 }

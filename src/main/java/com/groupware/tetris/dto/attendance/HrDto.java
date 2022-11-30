@@ -22,6 +22,13 @@ public class HrDto {
 
     private String hr_status;
     private String hr_note;
-    private String id;
+    private Long e_id;
+
+    private String e_name;
+    private String d_name;
+    private String e_position;
+    private DateTimeFormat e_hiredate;
+    private String e_num;
+    private String hr_Time;
 
 }
