@@ -1,14 +1,10 @@
-package com.groupware.tetris.controller.attendance;
+package com.groupware.tetris.controller;
 
-import com.groupware.tetris.service.attendance.HrService;
+import com.groupware.tetris.service.HrService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Controller
 @RequiredArgsConstructor

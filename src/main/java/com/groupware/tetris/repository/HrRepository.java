@@ -1,4 +1,4 @@
-package com.groupware.tetris.repository.attendance;
+package com.groupware.tetris.repository;
 
 import com.groupware.tetris.entity.attendance.Hr;
 import org.springframework.data.jpa.repository.JpaRepository;

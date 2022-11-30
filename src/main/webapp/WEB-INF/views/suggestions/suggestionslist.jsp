@@ -5,7 +5,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en" >
 <head>
 <meta charset="UTF-8">
 	<script src="/resources/vender/jquery/jquery-3.6.1.min.js"></script>
@@ -16,11 +16,11 @@
 </head>
 <body>
 
-	<!-- jsp 인클루드 사용-->
-	<jsp:include page="../includes/header.jsp"></jsp:include>
+<%--	<!-- jsp 인클루드 사용-->
+	<jsp:include page="../includes/header.jsp"></jsp:include>--%>
 
-	
-			<!-- 보조사이드바 -->
+
+		<!-- 보조사이드바 -->
 			<div class="s-menu">
 				<div class="s-menu-title">
 					<p>게시판
@@ -198,9 +198,41 @@
 
 			<!-- 내용 끝 -->
 
-		<!-- 전체 wrapper 끝 -->
-		<jsp:include page="../includes/footer.jsp"></jsp:include>
-	
+<%--		<!-- 전체 wrapper 끝 -->
+		<jsp:include page="../includes/footer.jsp"></jsp:include>--%>
+
+<%--
+<style>
+	.layout{
+		width: 500px;
+		margin: 0 auto;
+		margin-top: 40px;
+	}
+</style>
+
+	<div class="layout">
+		<table>
+			<thead>
+				<tr>
+					<th>글번호</th>
+					<th>제목</th>
+				</tr>
+			</thead>
+
+			<tbody>
+			<tr th:each=""suggestions : ${suggestionslist}>
+				<td th:text=""${suggsetions.s_num}>1</td>
+				<td th:text="${suggestions.s_title}">제목입니다.</td>
+			</tr>
+			</tbody>
+
+		</table>
+	</div>--%>
+
+
+
+
+
 </body>
 
 </html>

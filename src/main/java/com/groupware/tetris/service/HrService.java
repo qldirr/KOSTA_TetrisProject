@@ -1,8 +1,7 @@
-package com.groupware.tetris.service.attendance;
+package com.groupware.tetris.service;
 
 import com.groupware.tetris.dto.attendance.HrDto;
-import com.groupware.tetris.entity.attendance.Hr;
-import com.groupware.tetris.repository.attendance.HrRepository;
+import com.groupware.tetris.repository.HrRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
