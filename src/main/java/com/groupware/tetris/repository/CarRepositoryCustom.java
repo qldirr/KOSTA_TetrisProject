@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface CarRepositoryCustom {
 
-    Page<Car> getCarListPage(CarFormDto carFormDto,Pageable pageable);
+//    Page<Car> getCarListPage(CarFormDto carFormDto,Pageable pageable);
 }
