@@ -36,6 +36,7 @@
 		$("#empname li").on('dblclick', function(){
 			var empId = $(this).attr('class');
 			var actionForm = $("#actionForm")
+            alert(empId);
 
 			var str = "";
 			str += '<input type="hidden" name="e_id" value=';
@@ -43,9 +44,9 @@
 			str += '>';
 			actionForm.html(str);
 			
-			actionForm.attr("action", "/messanger/createchatroom").attr("method", "post")
-					.attr("target", "Tetris Chatting")
-					.attr("onsubmit", "window.open('', 'Tetris Chatting', 'width=450, height=600, left=2000, top=500, location=no, status=no, scrollbars=yes');");
+			actionForm.attr("action", "/messanger/createchatroom").attr("method", "post");
+					/*.attr("target", "Tetris Chatting")
+					.attr("onsubmit", "window.open('', 'Tetris Chatting', 'width=450, height=600, left=2000, top=500, location=no, status=no, scrollbars=yes');");*/
 			actionForm.submit();
 			location.reload(true);
 		});

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ChatRoomRepositoryCustom {
 
-    List<ChatRoom> findCRoomListByEmployeeId(String empId);
+    List<ChatRoom> findCRoomListByEmployeeId(Long empId);
 
 }

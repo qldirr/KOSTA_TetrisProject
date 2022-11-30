@@ -20,14 +20,14 @@ public class ChatRoomRepositoryCustomImpl implements ChatRoomRepositoryCustom{
     }
 
     @Override
-    public List<ChatRoom> findCRoomListByEmployeeId(String empId) {
+    public List<ChatRoom> findCRoomListByEmployeeId(Long empId) {
         QChatRoom qChatRoom = QChatRoom.chatRoom;
         QChatParticipant qChatParticipant = QChatParticipant.chatParticipant;
 
         QueryResults<ChatRoom> results = queryFactory.selectFrom(qChatRoom)
                 .join(qChatParticipant.chatRoom, qChatRoom)
                 .fetchJoin()
-                .where(qChatParticipant.employee.email.eq(empId))
+                .where(qChatParticipant.employee.id.eq(empId))
                 .fetchResults();
         List<ChatRoom> chatRoomList = results.getResults();
 

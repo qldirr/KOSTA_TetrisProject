@@ -6,11 +6,14 @@ import com.groupware.tetris.dto.chat.ChatParticipantDto;
 import com.groupware.tetris.entity.chat.ChatContents;
 import com.groupware.tetris.entity.chat.ChatParticipant;
 import com.groupware.tetris.entity.chat.ChatRoom;
+import com.groupware.tetris.entity.user.Employee;
 import com.groupware.tetris.repository.ChatParticipantRepository;
 import com.groupware.tetris.repository.ChatRoomRepository;
+import com.groupware.tetris.repository.EmployeeRepository;
 import com.groupware.tetris.service.ChatService;
 import com.groupware.tetris.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import nonapi.io.github.classgraph.utils.LogNode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +35,8 @@ public class ChatController {
 
     private final ChatParticipantRepository chatParticipantRepository;
 
+    private final EmployeeRepository employeeRepository;
+
     @GetMapping(value = {"/main", "/main/emplist"})
     public String main(Model model){
         model.addAttribute("empList", chatService.getListEmp());
@@ -42,11 +47,14 @@ public class ChatController {
     @GetMapping("/main/chatroomlist")
     public void chatRoomList(Principal principal, Model model){
         String empId = principal.getName();
-        List<ChatRoom> chatRoomList = chatService.getListChatRoom(empId);
+        System.out.println("empId: " + empId);
+        Employee loginUser = employeeRepository.findByEmail(principal.getName());
+        List<ChatRoom> chatRoomList = chatService.getListChatRoom(loginUser.getId());
         model.addAttribute("listChatRoom", chatRoomList);
     }
 
     @PostMapping("/createchatroom")
+    @ResponseBody
     public String createChatRoom(HttpServletRequest request, Principal principal, Model model){
         Long empId = Long.valueOf(request.getParameter("e_id"));
         ChatRoom chatRoom = chatService.createChatRoom(empId, principal.getName());
