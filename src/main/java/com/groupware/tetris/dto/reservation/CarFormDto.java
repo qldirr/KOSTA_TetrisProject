@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,16 +15,16 @@ public class CarFormDto {
 
     private  Long id;
 
-    @NotNull(message = "차량번호는 필수 입력 값입니다.")
+    @NotBlank(message = "차량번호는 필수 입력 값입니다.")
     private  String carNum;
 
-    @NotNull(message = "차량 모델명은 필수 입력 값입니다.")
+    @NotBlank(message = "차량 모델명은 필수 입력 값입니다.")
     private  String modelNm;
 
-    @NotNull(message = "차종은 필수 입력 값입니다.")
+    @NotBlank(message = "차종은 필수 입력 값입니다.")
     private String carType;//차종
 
-    @NotNull(message = "연식은 필수 입력 값입니다.")
+    @NotBlank(message = "연식은 필수 입력 값입니다.")
     private String carAge; //연식
 
     //차량 저장 후 수정할 때 차량 이미지 정보를 저장하는 리스트입니다.
@@ -39,8 +39,8 @@ public class CarFormDto {
         return modelMapper.map(this, Car.class);
     }
 
-    public static CarImgDto of(Car car){
-        return modelMapper.map(car, CarImgDto.class);
+    public static CarFormDto of(Car car){
+        return modelMapper.map(car, CarFormDto.class);
 
     }
 

@@ -23,7 +23,7 @@
 </head>
 <body>
 	<div class="wrap">
-		<!--<jsp:include page="../includes/header.jsp"></jsp:include>-->
+
 		<!-- 보조메뉴바 시작 -->
 		<div class="s-menu">
 			<div class="s-menu-title">
@@ -69,7 +69,7 @@
 								<tr>
 									<td>${carlist.Id}</td>
 									<td><a
-										href="/reservation/readcar?ca_num=${carlist.Id}">${carlist.ModelNm}</a></td>
+										href="/reservation/readcar?ca_num=${carlist.carId}">${carlist.ModelNm}</a></td>
 									<td>${carlist.CarType}</td>
 									<td>${carlist.CarAge}</td>
 

@@ -34,7 +34,7 @@ class CarRepositoryTest {
         System.out.println(savedCar.toString());
     }*/
 
-    public  void createCarList(){
+   /* public  void createCarList(){
         for (int i = 1; i<10; i++){
             Car car = new Car();
             car.setModelNm("테스트 차량" + i);
@@ -47,15 +47,16 @@ class CarRepositoryTest {
 
 
         }
-    }
+    }*/
 
     @Test
     @DisplayName("차량조회 테스트")
     public void findByModelNmTest(){
-        this.createCarList();
-        List<Car> carList = carRepository.findByModelNm("테스트 차량1");
+        //this.createCarList();
+        List<Car> carList = carRepository.findByModelNm("볼보60");
         for (Car car: carList){
             System.out.println(car.toString());
+
         }
     }
 

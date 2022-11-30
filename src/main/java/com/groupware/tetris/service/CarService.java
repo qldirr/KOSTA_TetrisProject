@@ -1,16 +1,22 @@
 package com.groupware.tetris.service;
 
 
+import com.groupware.tetris.dto.reservation.CarDto;
 import com.groupware.tetris.dto.reservation.CarFormDto;
+import com.groupware.tetris.dto.reservation.CarImgDto;
 import com.groupware.tetris.entity.reservation.Car;
 import com.groupware.tetris.entity.reservation.CarImg;
 import com.groupware.tetris.repository.CarImgRepository;
 import com.groupware.tetris.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityExistsException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,6 +48,29 @@ public class CarService {
         return car.getId();
 
     }
+
+    @Transactional(readOnly = true)
+    public CarFormDto getCarDtl(Long carId){
+
+        List<CarImg> carImgList = carImgRepository.findByCarIdOrderByIdAsc(carId);
+        List<CarImgDto> carImgDtoList = new ArrayList<>();
+        for (CarImg carImg : carImgList){
+            CarImgDto carImgDto = CarImgDto.of(carImg);
+            carImgDtoList.add(carImgDto);
+        }
+
+        Car car = carRepository.findById(carId)
+                .orElseThrow(EntityExistsException::new);
+        CarFormDto carFormDto = CarFormDto.of(car);
+        carFormDto.setCarImgDtoList(carImgDtoList);
+        return carFormDto;
+
+    }
+
+   /* @Transactional(readOnly = true)
+    public Page<CarDto> getCarListPage(CarFormDto carFormDto, Pageable){
+        return carRepository.save(car);
+    }*/
 
 
 
