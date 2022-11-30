@@ -1,5 +1,6 @@
 package com.groupware.tetris.service.attendance;
 
+import com.groupware.tetris.repository.attendance.HrRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,4 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class HrService {
+
+    private final HrRepository hrRepository;
+
+
+
+
 }
