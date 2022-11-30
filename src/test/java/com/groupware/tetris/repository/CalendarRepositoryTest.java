@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @SpringBootTest
 
-class CalendarRepositoryTest2 {
+class CalendarRepositoryTest {
     @Autowired
     CalendarRepository calendarRepository;
 
