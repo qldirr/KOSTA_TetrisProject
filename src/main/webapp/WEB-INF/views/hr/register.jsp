@@ -3,9 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%--
+
 <%@ include file="../includes/header.jsp"%>
---%>
+
 <html xmlns:th="http://www.thymeleaf.org">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <head>
@@ -242,7 +242,7 @@
 				<div class="form-group">
 					<label for="departmentName">부서이름:</label> <input type="text"
 						id="departmentName" class="form-control" name="departmentName" value="${employeeFormDto.departmentName}"
-						placeholder="부서번호를 입력해주세요..." />
+						placeholder="부서이름를 입력해주세요..." />
 
 				</div>
 				<p><c:out value="${errorMessage}"/></p>

@@ -2,7 +2,7 @@ package com.groupware.tetris.entity.user;
 
 import com.groupware.tetris.constant.Role;
 import com.groupware.tetris.dto.user.EmployeeFormDto;
-import com.groupware.tetris.repository.DepartmentRepository;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,11 +16,9 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @ToString
 @Entity
-
+@Data
 @Table(name = "employee")
-
 public class Employee {
-
     @Id
     @Column(name = "e_id")
     @GeneratedValue(strategy =GenerationType.AUTO)
