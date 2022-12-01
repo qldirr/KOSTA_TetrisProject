@@ -27,7 +27,7 @@ public class HrDto {
     private String e_name;
     private String d_name;
     private String e_position;
-    private DateTimeFormat e_hiredate;
+    private LocalDateTime e_hiredate;
     private String e_num;
     private String hr_Time;
 
