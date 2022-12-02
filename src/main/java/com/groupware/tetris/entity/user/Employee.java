@@ -1,5 +1,6 @@
 package com.groupware.tetris.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.groupware.tetris.constant.Role;
 import com.groupware.tetris.dto.user.EmployeeFormDto;
 import com.groupware.tetris.repository.DepartmentRepository;
