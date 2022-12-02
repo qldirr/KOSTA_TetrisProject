@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -17,5 +18,14 @@ public class ChatRoom {
 
     @Column(name = "cr_title")
     private String title;
+
+    public static ChatRoom createChatRoom(ChatRoomDto chatRoomDto){
+        ChatRoom chatRoom = new ChatRoom();
+        String cr_id = UUID.randomUUID().toString();
+        chatRoom.setId(cr_id);
+        chatRoom.setTitle(chatRoomDto.getRoomTitle());
+
+        return chatRoom;
+    }
 
 }

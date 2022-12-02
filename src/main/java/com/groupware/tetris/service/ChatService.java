@@ -34,7 +34,7 @@ public class ChatService {
         return departmentRepository.findAll();
     }
 
-    public List<ChatRoom> getListChatRoom(String empId){
+    public List<ChatRoom> getListChatRoom(Long empId){
         return chatRoomRepository.findCRoomListByEmployeeId(empId);
     }
 

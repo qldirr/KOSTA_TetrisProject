@@ -105,6 +105,7 @@
 <div class='uploadDiv'>
     <input type='file' id="file" name='uploadFile' style="display:none;" multiple/>
 </div>
+
 <script>
     $(document).ready(function(){
       var websocket = new SockJS("http://localhost:8081/chatting/" + roomId);
@@ -130,7 +131,7 @@
         $('#message').val('');
         var str = '<div class="me-chat">' + '<div class="me-chat-col">' + '<span class="balloon">'
                 + message + '</span>' + '</div>'
-                + '<time>' + /*chatContents.cc_regdate.slice(14, -3)*/ + '</time>' + '</div>';
+                + '<time>' + /!*chatContents.cc_regdate.slice(14, -3)*!/ + '</time>' + '</div>';
 
         $(".main-chat").append(str)
       });
