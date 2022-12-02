@@ -29,12 +29,15 @@ class EmployeeRepositoryTest2 {
     @Autowired
     DepartmentRepository departmentRepository;
 
+    @Autowired
+    OrgRepository orgRepository;
+
     @PersistenceContext
     EntityManager em;
 
     public Department addDeptAndEmployees() {
 
-        List<Employee> employees = new ArrayList<>();
+        /*List<Employee> employees = new ArrayList<>();
 
         Employee employee = new Employee();
         employee.setId(1L);
@@ -47,9 +50,38 @@ class EmployeeRepositoryTest2 {
 
 
         Department department = new Department();
+        department.setId(1L);
         department.setName("개발부");
         department.setHead("김길동");
         department.setEmployees(employees);
+
+        return department;*/
+
+        List<Employee> employees = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            Employee employee = new Employee();
+            employee.setName("테스트 멤버" + i);
+            employee.setPosition("부장");
+            employees.add(employee);
+        }
+
+        Department department = new Department();
+        department.setName("개발부");
+        department.setHead("김길동");
+        department.setEmployees(employees);
+
+        for (int i = 3; i < 6; i++) {
+            Employee employee = new Employee();
+            employee.setName("테스트 멤버" + i);
+            employee.setPosition("사원");
+            employees.add(employee);
+        }
+
+        Department department2 = new Department();
+        department2.setName("기획부");
+        department2.setHead("김희동");
+        department2.setEmployees(employees);
 
         return department;
     }
@@ -78,5 +110,49 @@ class EmployeeRepositoryTest2 {
         }
     }
 
+    @Test
+    @DisplayName("Querydsl 사원 정보 조회 테스트")
+    public void findbydid(){
+        Department department = this.addDeptAndEmployees();
+        departmentRepository.save(department);
 
+        List<Employee> employees = orgRepository.findBydid();
+        for (Employee employee:employees){
+            System.out.println(employee.toString());
+        }
+    }
+
+    @Test
+    @DisplayName("Querydsl 사원 검색 테스트")
+    public void searchemployeetest(){
+        Department department = this.addDeptAndEmployees();
+        departmentRepository.save(department);
+        System.out.println(department.toString());
+
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        QEmployee qEmployee = QEmployee.employee;
+        QDepartment qDepartment = QDepartment.department;
+
+        JPAQuery<Employee> query = queryFactory.selectFrom(qEmployee)
+                .join(qDepartment).on(qEmployee.department.id.eq(qDepartment.id))
+                .where(qEmployee.position.like("%"+"부"+"%")).orderBy(qEmployee.id.desc());
+
+        List<Employee> employees = query.fetch();
+
+        for (Employee employee : employees) {
+            System.out.println(employee.toString());
+        }
+    }
+
+    @Test
+    @DisplayName("Querydsl 사원 검색 테스트")
+    public void searchbyposition(){
+        Department department = this.addDeptAndEmployees();
+        departmentRepository.save(department);
+
+        List<Employee> employees = orgRepository.searchByPosition("부");
+        for (Employee employee:employees){
+            System.out.println(employee.toString());
+        }
+    }
 }
