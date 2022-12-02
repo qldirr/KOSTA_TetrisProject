@@ -9,6 +9,7 @@ import com.groupware.tetris.entity.project.*;
 import com.groupware.tetris.entity.user.Employee;
 import com.groupware.tetris.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,6 +80,9 @@ public class ProjectBoardService {
 
     public Long saveProjectTask(Long projectId, TaskFormDto taskFormDto) {
         Project project = projectRepository.findProjectById(projectId);
+        Employee employee = employeeRepository.findById(taskFormDto.getManagerId())
+                .orElseThrow(EntityNotFoundException::new);
+        taskFormDto.setManager(employee);
         ProjectTask projectTask = ProjectTask.createTask(project, taskFormDto);
         taskRepository.save(projectTask);
 
@@ -160,6 +164,11 @@ public class ProjectBoardService {
         }
 
         return 0;
+    }
+
+
+    public List<Employee> getListProjectMember(Long projectId){
+        return employeeRepository.findProjectMembersByProjectId(projectId);
     }
 
 }

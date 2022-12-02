@@ -71,33 +71,34 @@ a {
 	var memberList = [];
 	var tmp = "";
 
-	/* 프로젝트 멤버 등록 페이지 버튼 이벤트 함수 */
+	/* 결재자 등록 버튼 이벤트 함수 */
 	var button = (function(){
 		
-		function deptCheck(){
-			$(this).nextAll().find('input[type=checkbox]').prop('checked', true);
-		}
-		
-		function add(){
-			
-			/* 결재자 배열 비우기 */
-			memberListId.splice(0);
-			memberList.splice(0);
-			
-			var checkedMember = $('input:checkbox[name=ename]:checked').length;
-			
-			$('input:checkbox[name=ename]:checked').each(function() {
-				memberListId.push(this.value);
-				memberList.push($(this).next('label').text());
-			});
+		function add(employeeId, info){
+			memberListId.push(employeeId);
+			memberList.push(info);
 
-			for (var i = 0; i <= checkedMember; i++) {
-				$('#member' + (i + 1)).text(memberList[i]);
-			}
+			var sequence = memberListId.length;
+			$('#member' + sequence).text(info);
 			
 		}
+
+		function del(employeeId, info) {
+
+			var delId = memberListId.indexOf(employeeId);
+			var delInfo = memberList.indexOf(info);
+			memberListId.splice(delId, 1);
+			memberList.splice(delInfo,1);
+
+			var sequence = memberListId.length;
+			for(let memberInfo of memberList){
+				$('#member' + sequence).text(memberInfo);
+				$('#member' + (sequence + 1)).empty();
+			}
+
+		}
 		
-		function del(){
+		function reset(){
 			
 			/* 결재자 배열 비우기 */
 			memberListId.splice(0);
@@ -111,34 +112,23 @@ a {
 		}
 		
 		function insertMember(){
-			
 
-			/* 추가된 사원의 아이디와 임시 결재라인 값을 전달 */
-			$.ajax({
-				url: '/elecauth/line',
-				type: 'post',
-				data: JSON.stringify({"l_num": tmp, "lines" : memberListId}),
-		        contentType: "application/json",
-				success: function(){
-					
-					$(".first", opener.document).val(memberList[0]);
-					$(".second", opener.document).val(memberList[1]);
-					$(".third", opener.document).val(memberList[2]);
-					$(".fourth", opener.document).val(memberList[3]);
-					
-					window.close();
-				}, error: function(er){
-					alert("참여자 등록 실패");
-				}
-			}); /* end ajax */
+			$(".first", opener.document).val(memberList[0]);
+			$(".second", opener.document).val(memberList[1]);
+			$(".third", opener.document).val(memberList[2]);
+			$(".fourth", opener.document).val(memberList[3]);
+			$("#lineIds", opener.document).val(memberListId);
+			$("#lines", opener.document).val(memberList);
+
+			window.close();
 			
 		}
 		
 		
 		return {
-			deptCheck : deptCheck,
 			add : add,
 			del : del,
+			reset : reset,
 			insertMember : insertMember
 		}
 		
@@ -147,8 +137,6 @@ a {
 
 	$(function() {
 		
-		tmp = '${userId}';
-		
 		$("#tree").treeview({
 			collapsed : false,
 			animated : "medium",
@@ -156,13 +144,22 @@ a {
 			persist : "location"
 		});
 
-		$('input:checkbox[name=dname]').on('click', button.deptCheck);
-
 		$("#memberRegBtn").on('click', button.add);
 
-		$("#cancelBtn").on('click', button.del);
+		$("#cancelBtn").on('click', button.reset);
 		
 		$("#lineInsertBtn").on('click', button.insertMember);
+
+		$('input:checkbox[name=ename]').on('click', function(){
+
+			var employeeId = $(this).val();
+			var info = $(this).next('label').text();
+
+			var checkFunc = $(this).is(":checked")? button.add : button.del;
+			checkFunc(employeeId, info);
+
+		})
+
 
 	})
 	
@@ -185,20 +182,19 @@ a {
 						<a href="?#">목록접기</a> | <a href="?#">목록펼치기</a>
 					</div>
 					<ul id="tree">
-					<c:forEach items="${dept}" var="dept">
+						<c:forEach items="${dept}" var="dept">
 							<li>
-							<input type="checkbox" name="dname" value="${dept.d_name}">
-							<strong>${dept.d_name}</strong>
-							<ul>
-								<c:forEach items="${employees}" var="employees">
-									<c:if test="${employees.d_num eq dept.d_num}">
-										<li><input type="checkbox" name="ename"
-												value="${employees.e_id}"><label>[${employees.e_position}]${employees.e_name}</label></li>
-									</c:if>
-								</c:forEach>
-							</ul>
+								<strong>${dept.name}</strong>
+								<ul>
+									<c:forEach items="${employees}" var="employees">
+										<c:if test="${employees.department.id eq dept.id}">
+											<li><input type="checkbox" name="ename"
+													   value="${employees.id}"><label>[${employees.position}]${employees.name}</label></li>
+										</c:if>
+									</c:forEach>
+								</ul>
 							</li>
-					</c:forEach>
+						</c:forEach>
 					</ul>
 				</div>
 

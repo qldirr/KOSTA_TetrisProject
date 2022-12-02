@@ -12,6 +12,7 @@ import com.groupware.tetris.service.ProjectBoardService;
 import com.groupware.tetris.service.ProjectService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +52,8 @@ public class ProjectBoardController {
     }
 
     @GetMapping(value = "projectdetail/register")
-    public String getBoardRegisterForm() {
+    public String getBoardRegisterForm(Model model) {
+        model.addAttribute("projectId", curProject);
         return "/projectdetail/register";
     }
 
@@ -139,6 +141,7 @@ public class ProjectBoardController {
 
     @GetMapping(value = "/projectdetail/registerTask")
     public String TaskRegisterForm(Model model) {
+        model.addAttribute("member", boardService.getListProjectMember(curProject));
         return "/projectdetail/registerTask";
     }
 

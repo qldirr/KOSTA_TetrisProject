@@ -41,6 +41,13 @@ function sendForm(docType, document){
 	sendDocMap[docType](document);
 }
 
+function makeList(Ids){
+
+	var lineIds = Ids.split(",");
+	return lineIds;
+}
+
+
 var docService = function(){
 	
 		function add(document){
@@ -50,12 +57,17 @@ var docService = function(){
 				type : 'post',
 				data : JSON.stringify(document),
 				contentType : "application/json"
-			}).done(function() {
+			}).done(function(data) {
 				console.log("전달 성공")
 				$('.first').val('');
 				$('.second').val('');
 				$('.third').val('');
 				$('.fourth').val('');
+
+				var authId = data;
+				console.log(authId);
+
+				self.location = authId;
 
 			}); /* end ajax */
 		} /* end function add */
@@ -138,14 +150,16 @@ $(function(){
 			el_name = $('#draftTitle').val();
 			el_contents = $('#draftText').val();
 			el_regdate = $('#draftRegDate').text();
-			e_id = '${userId}';
-			
+			e_id = 2;
+			var draftIds = $('#lineIds').val();
+
 			docType = "일반기안";
 			var document = {
 				"title" : el_name,
 				"contents" : el_contents,
 				"writerId" : e_id,
-				"doc_id" : 1
+				"doc_id" : 1,
+				"lineIds" : makeList(draftIds)
 			}
 			
 			sendForm(checkForm(docType), document);
@@ -158,7 +172,8 @@ $(function(){
 			el_regdate = $('#vacationRegDate').text();
 			el_startdate = $('#vacationStart').val();
 			el_enddate = $('#vacationEnd').val();
-			e_id = '2';
+			e_id = 2;
+			var vacIds = $('#lineIds').val();
 			
 			docType = "연차신청";
 			var document = {
@@ -167,7 +182,8 @@ $(function(){
 					"startDate" : el_startdate,
 					"endDate" : el_enddate,
 					"writerId" : e_id,
-					"doc_id" : 2
+					"doc_id" : 2,
+					"lineIds" : makeList(vacIds)
 			}
 			
 			sendForm(checkForm(docType), document);
@@ -176,6 +192,7 @@ $(function(){
 		
 		
 	});
+
 	
 })
 
@@ -245,10 +262,12 @@ $(function(){
 
 <div class="elecLine" style="color: #161E67;">
 <input type="button" class="regLineBtn" value="결재선 지정" style="background-color: #F5F5F5; color: #161E67; border-radius: 5px; border-style: none; padding: 5px;">
-	&nbsp;❶&nbsp;<input type="text" class="first" readonly="readonly" style="width:150px"> 
+	&nbsp;❶&nbsp;<input type="text" class="first" readonly="readonly" style="width:150px">
 	&nbsp;❷&nbsp;<input type="text" class="second" readonly="readonly" style="width:150px"> 
 	&nbsp;❸&nbsp;<input type="text" class="third" readonly="readonly" style="width:150px"> 
-	&nbsp;❹&nbsp;<input type="text" class="fourth" readonly="readonly" style="width:150px"> 
+	&nbsp;❹&nbsp;<input type="text" class="fourth" readonly="readonly" style="width:150px">
+		<input type="hidden" name="lineIds" id="lineIds">
+		<input type="hidden" name="lines" id="lineMembers">
 <br><br>
 	<input type="button" class="sendBtn" value="상신" style="background-color: #161E67; color: #FFF2CA; border-radius: 5px; border-style: none; padding: 5px; float: right; margin-right:50px;">
 </div>

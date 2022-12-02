@@ -1,6 +1,9 @@
 package com.groupware.tetris.entity.elecauth;
 
+import com.groupware.tetris.constant.ElecStatus;
 import com.groupware.tetris.constant.LineStatus;
+import com.groupware.tetris.dto.elecauth.ElecAuthDto;
+import com.groupware.tetris.dto.elecauth.ElecLineDto;
 import com.groupware.tetris.entity.BaseTimeEntity;
 import com.groupware.tetris.entity.user.Employee;
 import lombok.Getter;
@@ -32,5 +35,22 @@ public class ElecLine extends BaseTimeEntity {
     private Employee approver;
 
     private Long sequence;
+
+    public static ElecLine createElecLine(ElecLineDto elecLineDto) {
+
+        ElecLine line = new ElecLine();
+        line.setStatus(elecLineDto.getStatus());
+
+        return line;
+    }
+
+    public void updateElecLineStatus(LineStatus lineStatus) {
+        this.status = lineStatus;
+    }
+
+    public void resetElecLine() {
+        this.status = LineStatus.UNSIGNED;
+    }
+
 
 }
