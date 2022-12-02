@@ -308,16 +308,16 @@ $(document).ready(
 
 					</button>
 					<button id="btn-info">
-						<img src="../resources/img/res/<sec:authentication property="principal.username" />.png" alt="사진"> 
-						<span class="user"><sec:authentication property="principal.user.e_name" /></span>						
+						<img src="../resources/img/res/<sec:authentication property="principal.username" />.png" alt="사진">
+						<span class="user"><sec:authentication property="principal.employee.name" /></span>
 					</button>
 	
-					<a id="out_Btn" href="/member/customLogout">로그아웃</a>
+					<a id="out_Btn" href="/member/logout">로그아웃</a>
 		
 						</sec:authorize>							
 					<sec:authorize access="isAnonymous()">
 					
-				      <a id="log_Btn" href="/member/customLogin">로그인</a>
+				      <a id="log_Btn" href="/member/login">로그인</a>
 				
 			</sec:authorize>
 				</div>

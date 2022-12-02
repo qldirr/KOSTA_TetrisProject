@@ -1,8 +1,5 @@
 package com.groupware.tetris.config;
 
-import com.groupware.tetris.repository.JpaPersistentTokenRepository;
-import com.groupware.tetris.repository.PersistentLoginRepository;
-import com.groupware.tetris.service.EmployeeService;
 import com.groupware.tetris.service.UserDetailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +15,15 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
+    @Autowired
+    DataSource dataSource;
 
     private PersistentTokenRepository tokenRepository;
 
@@ -31,33 +31,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/member/login")
+        http.formLogin().loginPage("/member/login").loginProcessingUrl("/member/login")
                 .defaultSuccessUrl("/")
                 .usernameParameter("username")
-                .failureUrl("/member/login/error")
+                .failureUrl("/member/login/Error")
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                .logoutSuccessUrl("/")
-                .and().rememberMe().key("remember-me")
-                .userDetailsService(userDetailService).tokenRepository(tokenRepository);
+                .logoutSuccessUrl("/");
 
+        http.rememberMe()//.key("key")
+                .userDetailsService(userDetailService).tokenRepository(tokenRepository)
+        ;
 
+        http.authorizeRequests().mvcMatchers("/member/login").permitAll().mvcMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().authenticated();
+        ;
 
 
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico", "/error");
+//        web.ignoring().antMatchers("/resources/css/**", "/resources/js/**", "/resources/img/**", "/resources/favicon.ico", "/resources/error");
+        web.ignoring().antMatchers("/resources/**");
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    //    @Bean
+//    public PersistentTokenRepository persistentTokenRepository(final PersistentLoginRepository repository){
+//        return new JpaPersistentTokenRepository(repository);
+//    }
     @Bean
-    public PersistentTokenRepository persistentTokenRepository(final PersistentLoginRepository repository){
-        return new JpaPersistentTokenRepository(repository);
+    public PersistentTokenRepository tokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        return jdbcTokenRepository;
     }
 }

@@ -1,17 +1,14 @@
 package com.groupware.tetris.entity.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.groupware.tetris.constant.Role;
-import com.groupware.tetris.dto.user.DepartmentDto;
 import com.groupware.tetris.dto.user.EmployeeFormDto;
+import com.groupware.tetris.repository.DepartmentRepository;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,9 +16,11 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @ToString
 @Entity
+
 @Table(name = "employee")
 
 public class Employee {
+
     @Id
     @Column(name = "e_id")
     @GeneratedValue(strategy =GenerationType.AUTO)
@@ -38,7 +37,7 @@ public class Employee {
     private String birth;
     private String position;
     private boolean Enabled;
-    /*private Long d_Id;*/
+    //private Long d_id;
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -55,10 +54,9 @@ public class Employee {
         employee.setPassword(password);
         employee.setPhoneNumber(employeeFormDto.getPhoneNumber());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        // employee.setHireddate(LocalDateTime.parse(employeeFormDto.getHireddate(),formatter));
+       // employee.setHireddate(LocalDateTime.parse(employeeFormDto.getHireddate(),formatter));
         //employee.setResigndate(LocalDateTime.parse(employeeFormDto.getResigndate(),formatter));
         employee.setBirth(employeeFormDto.getBirth());
-        //employee.setD_Id(departmentDto.getId());
         employee.setRole(Role.USER);
         employee.setEnabled(true);
 

@@ -55,18 +55,19 @@ $(document).ready(
 					
 					<!--  <h3 style="text-align: center;">로그인 화면</h3>-->
 					<div class="form-group">
-						<input type="email" class="form-control" placeholder="이메일" id="email" name="username" maxlength="20">
+						<input type="text" class="form-control" placeholder="이메일" id="username" name="username" maxlength="20">
 					</div>
 					<div class="form-group">
 						<input type="password" class="form-control" placeholder="비밀번호" id="password" name="password" maxlength="20">
 					</div>
 			
 					<div class="check">
-					<input type="checkbox" name="remember-me">로그인 유지
+					<input type="checkbox" name="remember-me" checked>로그인 유지
 					</div>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					<input type="submit" id="submit" class="btn btn-primary form-control" value="로그인">
 					<p style="color: red; font-size: 5px;"><c:out value="${error}"/></p>
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
 				</form>
 			</div>
 		</div>

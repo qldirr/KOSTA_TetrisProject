@@ -1,5 +1,6 @@
 package com.groupware.tetris.service;
 
+import com.groupware.tetris.entity.user.CustomUser;
 import com.groupware.tetris.entity.user.Employee;
 import com.groupware.tetris.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +18,20 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     private final EmployeeRepository employeeRepository;
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Employee employee = employeeRepository.findByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Employee employee = employeeRepository.findByEmail(username);
 
         if(employee == null){
-            throw new UsernameNotFoundException(email);
+           employee = employeeRepository.findByEmail(username);
         }
-
-        return User.builder().username(employee.getEmail()).password(employee.getPassword()).roles(employee.getRole().toString()).build();
+        if(employee == null){
+            throw new UsernameNotFoundException(username);
+        }
+//       return User.builder().username(employee.getEmail())
+//                .password(employee.getPassword())
+//                .roles(employee.getRole().toString())
+//                .build();
+        return new CustomUser(employee);
     }
+
 }
