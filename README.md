@@ -1,15 +1,17 @@
 # 🧩 테트리스 그룹웨어(TETRIS GROUPWARE)
 
 > KOSTA 파이널 프로젝트(221024 ~ 221110 : Mybatis 프로젝트/ 221123 ~ 221130 : JPA 프로젝트)
+
 📃 [테트리스 최종 PDF](https://github.com/user-attachments/files/17410146/TETRIS._compressed.pdf)
 
-
+1. [프로젝트 소개](#프로젝트-소개)
+2. [팀원 구성](#팀원-구성)
 3. [개발 환경](#개발-환경)
 4. [브랜치 전략](#브랜치-전략)
 5. [프로젝트 구조](#프로젝트-구조)
 6. [프로젝트 설계](#프로젝트-설계)
 7. [구현 기능](#구현-기능)
-8. [소감](#소감)
+
 
 <br/>
 
@@ -21,7 +23,7 @@
 
 <br/>
 
-
+## 팀원 구성
 <table style="width: 100%; text-align: center; border-collapse: collapse; table-layout: fixed;">
   <tr>
     <th></th>
@@ -65,6 +67,7 @@
 </table>
 
 
+## 개발 환경
 
 #### Languages
 
@@ -178,8 +181,13 @@ TetrisProject(JPA version)
 
 ## 구현 기능
 
-#### 판매자
-
+#### 포르젝트 관리
+#### 전자결재
+#### 근태관리
+#### 일정관리
+#### 예약
+#### 채팅
+#### 로그인/회원가입
 
 
 <br/>
