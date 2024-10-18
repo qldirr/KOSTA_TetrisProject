@@ -175,7 +175,7 @@ TetrisProject(JPA version)
 ## 프로젝트 설계
 
 - [요구분석 정의서/명세서]()
-- [테이블 명세서](https://docs.google.com/spreadsheets/d/1VMtYS3HrujAtt__OVit6fSPfIk4Pw9Lvj6jqx1ZV5yk/edit?usp=sharing)
+- [테이블 명세서](https://github.com/qldirr/KOSTA_TetrisProject/wiki/%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%AA%85%EC%84%B8%EC%84%9C)
 - [DB 설계]()
 - [화면 설계]()
 - [명명법](https://docs.google.com/spreadsheets/d/1HNc-ZaqQZ-kFiQgIQz0s7T5Vf1FtDzkHbhCxXr8LJMw/edit?usp=sharing)
