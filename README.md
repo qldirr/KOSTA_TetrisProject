@@ -113,6 +113,7 @@
 
 ## 프로젝트 구조
 
+<!--
 ```
 TetrisProject_previous(Mybatis version)
 ├── pom.xml                # Maven 프로젝트 파일
@@ -168,17 +169,21 @@ TetrisProject(JPA version)
 │
 └── pom.xml                                         # Maven 의존성 관리 파일
 ```
-
+-->
 
 <br/>
 
 ## 프로젝트 설계
 
+<!--
 - [요구분석 정의서/명세서]()
-- [테이블 명세서](https://github.com/qldirr/KOSTA_TetrisProject/wiki/%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%AA%85%EC%84%B8%EC%84%9C)
-- [DB 설계]()
+- [테이블 명세서](https://github.com/qldirr/KOSTA_TetrisProject/wiki/%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%AA%85%EC%84%B8%EC%84%9C) -->
+
+![TETRIS DB 설계](https://github.com/user-attachments/assets/a8a0d8f8-5c94-4b07-b9c4-d4a8fe4c3114)
+
+<!--
 - [화면 설계](https://github.com/qldirr/KOSTA_TetrisProject/wiki/%ED%99%94%EB%A9%B4-%EC%84%A4%EA%B3%84)
-- [명명법](https://docs.google.com/spreadsheets/d/1HNc-ZaqQZ-kFiQgIQz0s7T5Vf1FtDzkHbhCxXr8LJMw/edit?usp=sharing)
+- [명명법](https://docs.google.com/spreadsheets/d/1HNc-ZaqQZ-kFiQgIQz0s7T5Vf1FtDzkHbhCxXr8LJMw/edit?usp=sharing) -->
 
 <br/>
 
