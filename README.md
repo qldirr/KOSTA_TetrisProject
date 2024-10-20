@@ -3,6 +3,7 @@
 > KOSTA 파이널 프로젝트(221024 ~ 221110 : Mybatis 프로젝트/ 221123 ~ 221130 : JPA 프로젝트)
 
 📃 [테트리스 최종 PDF](https://github.com/user-attachments/files/17410146/TETRIS._compressed.pdf)
+📁 [Mybatis ver repository](https://github.com/qldirr/KOSTA_TetrisProject_fisrt)
 
 ## 🔹 목차
 
